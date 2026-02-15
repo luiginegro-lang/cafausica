@@ -1,9 +1,9 @@
-const CACHE='cafausica-v4';
+const CACHE='cafausica-v5';
 
 self.addEventListener('install',e=>{
   self.skipWaiting();
   e.waitUntil(
-    caches.open(CACHE).then(c=>c.addAll(['/','/index.html','/afa-manifesto.pdf','/icon-192.png','/icon-512.png','/apple-touch-icon.png']))
+    caches.open(CACHE).then(c=>c.addAll(['./','./index.html','./afa-manifesto.pdf','./icon-192.png','./icon-512.png','./apple-touch-icon.png']))
   );
 });
 
@@ -22,7 +22,7 @@ self.addEventListener('fetch',e=>{
         const clone=res.clone();
         caches.open(CACHE).then(c=>{c.put(e.request,clone);});
         return res;
-      }).catch(()=>caches.match('/')||caches.match('/index.html'))
+      }).catch(()=>caches.match('./')||caches.match('./index.html'))
     );
   }else{
     e.respondWith(
