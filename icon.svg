@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1E1814"/>
+      <stop offset="100%" stop-color="#161210"/>
+    </linearGradient>
+    <linearGradient id="stone" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#D4C4A8"/>
+      <stop offset="100%" stop-color="#B8A888"/>
+    </linearGradient>
+    <linearGradient id="roof" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#8B7355"/>
+      <stop offset="100%" stop-color="#6B5740"/>
+    </linearGradient>
+    <linearGradient id="arch" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#2A2218"/>
+      <stop offset="100%" stop-color="#1A1410"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="512" height="512" rx="96" fill="url(#bg)"/>
+  
+  <!-- Base platform -->
+  <rect x="126" y="408" width="260" height="12" rx="3" fill="#B8A888" opacity="0.6"/>
+  
+  <!-- Main octagonal body -->
+  <path d="M176 408 L176 220 L190 208 L322 208 L336 220 L336 408 Z" fill="url(#stone)" opacity="0.9"/>
+  
+  <!-- Left facet -->
+  <path d="M148 408 L148 235 L176 220 L176 408 Z" fill="#C4B498" opacity="0.7"/>
+  
+  <!-- Right facet -->
+  <path d="M364 408 L364 235 L336 220 L336 408 Z" fill="#A89878" opacity="0.7"/>
+  
+  <!-- Outer left facet hint -->
+  <path d="M148 235 L136 248 L136 408 L148 408 Z" fill="#B8A888" opacity="0.4"/>
+  
+  <!-- Outer right facet hint -->
+  <path d="M364 235 L376 248 L376 408 L364 408 Z" fill="#9A8A70" opacity="0.4"/>
+  
+  <!-- Pointed arch opening -->
+  <path d="M200 408 L200 290 Q200 260 220 240 L256 210 L292 240 Q312 260 312 290 L312 408 Z" fill="url(#arch)"/>
+  
+  <!-- Arch border/molding -->
+  <path d="M200 408 L200 290 Q200 260 220 240 L256 210 L292 240 Q312 260 312 290 L312 408" 
+        fill="none" stroke="#C4B498" stroke-width="4" opacity="0.8"/>
+  
+  <!-- Inner arch shadow depth -->
+  <path d="M208 408 L208 292 Q208 265 225 247 L256 220 L287 247 Q304 265 304 292 L304 408 Z" 
+        fill="#0E0C0A" opacity="0.5"/>
+  
+  <!-- Cornice band -->
+  <rect x="132" y="205" width="248" height="10" rx="2" fill="#C4B498" opacity="0.8"/>
+  <rect x="136" y="200" width="240" height="8" rx="2" fill="#D4C4A8" opacity="0.6"/>
+  
+  <!-- Pyramid roof -->
+  <path d="M128 205 L256 115 L384 205 Z" fill="url(#roof)"/>
+  
+  <!-- Roof ridge lines -->
+  <line x1="256" y1="115" x2="128" y2="205" stroke="#9A8468" stroke-width="2" opacity="0.5"/>
+  <line x1="256" y1="115" x2="384" y2="205" stroke="#7A6A50" stroke-width="2" opacity="0.5"/>
+  <line x1="256" y1="115" x2="256" y2="205" stroke="#8B7B60" stroke-width="1.5" opacity="0.4"/>
+  
+  <!-- Roof finial/knob -->
+  <circle cx="256" cy="108" r="10" fill="#C4B498"/>
+  <circle cx="256" cy="108" r="6" fill="#8B7355"/>
+  
+  <!-- Subtle light from inside the arch -->
+  <ellipse cx="256" cy="380" rx="35" ry="15" fill="#C28B5A" opacity="0.08"/>
+  
+  <!-- "Lu Cafausu" text at bottom -->
+  <text x="256" y="460" text-anchor="middle" font-family="Georgia, serif" 
+        font-size="28" font-style="italic" fill="#C28B5A" opacity="0.7" 
+        letter-spacing="4">Lu Cafausu</text>
+</svg>
