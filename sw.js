@@ -1,4 +1,4 @@
-const CACHE='cafausica-v14';
+const CACHE='cafausica-v20';
 
 self.addEventListener('install',e=>{
   self.skipWaiting();

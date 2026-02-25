@@ -20,17 +20,9 @@ button:active{transform:scale(0.97);opacity:0.85}
 textarea{font-family:inherit}
 ::-webkit-scrollbar{display:none}
 
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
-@keyframes p1{0%{transform:translate(0,0);opacity:0.7}100%{transform:translate(6px,-50px);opacity:0}}
-@keyframes p2{0%{transform:translate(0,0);opacity:0.6}100%{transform:translate(-8px,-55px);opacity:0}}
-@keyframes p3{0%{transform:translate(0,0);opacity:0.65}100%{transform:translate(3px,-48px);opacity:0}}
-@keyframes p4{0%{transform:translate(0,0);opacity:0.6}100%{transform:translate(-4px,-52px);opacity:0}}
-@keyframes p5{0%{transform:translate(0,0);opacity:0.7}100%{transform:translate(9px,-46px);opacity:0}}
-@keyframes p6{0%{transform:translate(0,0);opacity:0.55}100%{transform:translate(-6px,-58px);opacity:0}}
-@keyframes p7{0%{transform:translate(0,0);opacity:0.65}100%{transform:translate(2px,-44px);opacity:0}}
-@keyframes p8{0%{transform:translate(0,0);opacity:0.6}100%{transform:translate(-10px,-50px);opacity:0}}
-@keyframes wink{0%,85%,100%{transform:scaleY(1)}90%,95%{transform:scaleY(0)}}
-@keyframes cheekPulse{0%,100%{opacity:0.3}50%{opacity:0.5}}}}
+@keyframes drift{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+@keyframes eyes{0%,38%,42%,100%{transform:scaleY(1)}40%{transform:scaleY(0.08)}}
+@keyframes rise{0%{opacity:0;transform:translateY(0)}10%{opacity:1}80%{opacity:0.6}100%{opacity:0;transform:translateY(-50px)}}
 @keyframes cupAppear{0%{transform:translateY(20px);opacity:0}100%{transform:translateY(0);opacity:1}}
 @keyframes smileDraw{0%{stroke-dashoffset:20}100%{stroke-dashoffset:0}}
 @keyframes eyeBlink{0%,90%,100%{transform:scaleY(1)}95%{transform:scaleY(0.1)}}
@@ -293,35 +285,41 @@ const LS={get:k=>{try{return JSON.parse(localStorage.getItem(k));}catch(e){retur
 function cl(min,vw,max){const w=Math.min(window.innerWidth,720);const v=w*vw/100;return Math.max(min,Math.min(max,v))+"px";}
 const TF={xl:()=>cl(24,6,34),lg:()=>cl(20,5,28),md:()=>cl(18,4.5,24),sm:()=>cl(15,3.8,20),bLg:()=>cl(16,3.6,19),bMd:()=>cl(14,3.2,17),bSm:()=>cl(12,2.8,15)};
 const CupDone=()=>{
-  const c=T.text,d=T.textDim,a=T.accent;
-  const pxs=[];
-  const spots=[40,46,50,54,58,62,66,70,74,78,82,86];
-  let ki=0;
-  for(const x of spots){
-    for(let j=0;j<3;j++){
-      const sz=1.5+Math.random()*2;
-      const dur=1.4+Math.random()*1.2;
-      const del=Math.random()*2.5;
-      const an="p"+((ki%8)+1);
-      pxs.push(e("rect",{key:"px"+ki,x:x-sz/2,y:51-sz/2,width:sz,height:sz,fill:d,
-        style:{animation:an+" "+dur.toFixed(1)+"s linear "+del.toFixed(1)+"s infinite"}}));
-      ki++;
-    }
-  }
-  return e("div",{style:{animation:"cupAppear 0.6s ease-out"}},
-    e("svg",{width:140,height:140,viewBox:"0 0 140 140",fill:"none",style:{display:"block",margin:"0 auto"}},
-      e("g",{style:{animation:"float 3s ease-in-out infinite"}},
-        e("g",null,...pxs),
-        e("path",{d:"M24 52 Q22 54 22 58 L28 92 Q32 104 50 106 L78 106 Q96 104 100 92 L106 58 Q106 54 104 52",
-          stroke:c,strokeWidth:2.5,strokeLinejoin:"round",strokeLinecap:"round",fill:"none"}),
-        e("line",{x1:20,y1:52,x2:108,y2:52,stroke:c,strokeWidth:3,strokeLinecap:"round"}),
-        e("path",{d:"M106 62 C114 62 120 68 120 78 C120 88 114 94 106 94",stroke:c,strokeWidth:2.5,strokeLinecap:"round",fill:"none"}),
-        e("ellipse",{cx:64,cy:118,rx:38,ry:5,stroke:d,strokeWidth:2,fill:"none"}),
-        e("circle",{cx:50,cy:74,r:3,fill:c,style:{transformOrigin:"50px 74px",animation:"wink 4s ease-in-out infinite"}}),
-        e("circle",{cx:78,cy:74,r:3,fill:c,style:{transformOrigin:"78px 74px",animation:"wink 4s ease-in-out 0.2s infinite"}}),
-        e("circle",{cx:42,cy:82,r:4,fill:a,opacity:0.3,style:{animation:"cheekPulse 3s ease-in-out infinite"}}),
-        e("circle",{cx:86,cy:82,r:4,fill:a,opacity:0.3,style:{animation:"cheekPulse 3s ease-in-out 0.4s infinite"}}),
-        e("path",{d:"M52 88 Q64 97 76 88",stroke:c,strokeWidth:2.5,strokeLinecap:"round",fill:"none"}),
+  const c=T.text,d=T.textDim;
+  return e("div",{style:{animation:"cupAppear 0.6s ease-out",marginBottom:4}},
+    e("svg",{width:140,height:150,viewBox:"0 0 140 150",fill:"none",style:{display:"block",margin:"0 auto"}},
+      e("g",{style:{animation:"drift 4s ease-in-out infinite"}},
+
+        e("path",{d:"M45 10 C48 0, 52 -4, 55 10",stroke:d,strokeWidth:2,strokeLinecap:"round",
+          style:{animation:"rise 2.4s ease-out 0s infinite"}}),
+        e("path",{d:"M62 8 C65 -6, 70 -8, 72 8",stroke:d,strokeWidth:2,strokeLinecap:"round",
+          style:{animation:"rise 2.8s ease-out 0.8s infinite"}}),
+        e("path",{d:"M82 10 C85 -2, 89 -6, 91 10",stroke:d,strokeWidth:2,strokeLinecap:"round",
+          style:{animation:"rise 2.2s ease-out 1.6s infinite"}}),
+
+        e("path",{d:"M50 12 C52 2, 56 -2, 58 12",stroke:d,strokeWidth:1.5,strokeLinecap:"round",opacity:0.6,
+          style:{animation:"rise 3.0s ease-out 0.4s infinite"}}),
+        e("path",{d:"M72 11 C74 -1, 78 -4, 80 11",stroke:d,strokeWidth:1.5,strokeLinecap:"round",opacity:0.6,
+          style:{animation:"rise 2.6s ease-out 1.2s infinite"}}),
+
+        e("g",{transform:"translate(0,30)"},
+          e("path",{d:"M28 20 Q24 22 25 28 L35 75 Q40 92 70 92 L70 92 Q100 92 105 75 L115 28 Q116 22 112 20",
+            stroke:c,strokeWidth:2,strokeLinecap:"round",strokeLinejoin:"round"}),
+
+          e("line",{x1:24,y1:20,x2:116,y2:20,stroke:c,strokeWidth:2.5,strokeLinecap:"round"}),
+
+          e("path",{d:"M115 30 C124 32 128 42 127 52 C126 62 122 68 114 66",
+            stroke:c,strokeWidth:2,strokeLinecap:"round"}),
+
+          e("ellipse",{cx:56,cy:46,rx:3.5,ry:3,fill:c,
+            style:{transformOrigin:"56px 46px",animation:"eyes 4s ease-in-out infinite"}}),
+          e("ellipse",{cx:84,cy:46,rx:3.5,ry:3,fill:c,
+            style:{transformOrigin:"84px 46px",animation:"eyes 4s ease-in-out 0.1s infinite"}}),
+
+          e("path",{d:"M60 60 Q70 70 80 60",stroke:c,strokeWidth:2,strokeLinecap:"round"}),
+
+          e("ellipse",{cx:70,cy:102,rx:32,ry:4,stroke:d,strokeWidth:1.5,opacity:0.4}),
+        ),
       ),
     ));
 };
