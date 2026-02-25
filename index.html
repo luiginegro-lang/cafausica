@@ -19,6 +19,13 @@ button{cursor:pointer;font-family:inherit;border:none;background:none;transition
 button:active{transform:scale(0.97);opacity:0.85}
 textarea{font-family:inherit}
 ::-webkit-scrollbar{display:none}
+
+@keyframes stm{0%{transform:translateY(0);opacity:0.7}50%{opacity:0.5}100%{transform:translateY(-40px);opacity:0}}
+@keyframes wiggle{0%,100%{transform:translateX(0)}25%{transform:translateX(3px)}75%{transform:translateX(-3px)}}
+@keyframes smileWiggle{0%,100%{transform:rotate(0deg)}30%{transform:rotate(2deg)}70%{transform:rotate(-2deg)}}
+@keyframes cupAppear{0%{transform:translateY(20px);opacity:0}100%{transform:translateY(0);opacity:1}}
+@keyframes smileDraw{0%{stroke-dashoffset:20}100%{stroke-dashoffset:0}}
+@keyframes eyeBlink{0%,90%,100%{transform:scaleY(1)}95%{transform:scaleY(0.1)}}
 </style>
 </head>
 <body>
@@ -220,11 +227,11 @@ const METHODS=[
 ];
 
 const RECIPES=[
-  {id:"hoffmann-v60",method:"v60",name:"Hoffmann Ultimate V60",author:"James Hoffmann",description:"Bloom con swirl, versate in due fasi, swirl finale. Ratio 1:16.7. Acqua più calda possibile.",baseCoffee:30,baseWater:500,temperature:100,clicks:24,microns:720,grindDesc:"Medium-fine (22-26 click C40)",beans:["Etiopia Yirgacheffe lavato (floreale, agrumi)","Colombia Huila lavato (caramello, mela)","Kenya AA Nyeri (ribes, pomodoro)"],steps:[{text:"Bloom: versa 60g (2× dose).",waterAdd:60,duration:10},{text:"Swirl 3 giri per bagnare tutto.",waterAdd:0,duration:5},{text:"Attendi bloom.",waterAdd:0,duration:30},{text:"Spirale decisa fino a 300g (60%).",waterAdd:240,duration:30},{text:"Spirale lenta fino a 500g.",waterAdd:200,duration:30},{text:"Stir 1× orario + 1× antiorario. Swirl.",waterAdd:0,duration:10},{text:"Drawdown. Letto piatto.",waterAdd:0,duration:95}]},
+  {id:"hoffmann-v60",method:"v60",name:"Hoffmann Ultimate V60",author:"James Hoffmann",description:"Bloom con swirl, versate in due fasi, swirl finale. Ratio 1:16.7. Acqua più calda possibile.",baseCoffee:30,baseWater:500,temperature:100,clicks:24,microns:720,grindDesc:"Medium-fine (22-26 click C40)",beans:["Etiopia Yirgacheffe lavato (floreale, agrumi)","Colombia Huila lavato (caramello, mela)","Kenya AA Nyeri (ribes, pomodoro)"],steps:[{text:"Bloom: versa 60g (2× dose).",waterAdd:60,duration:10},{text:"Swirl 3 giri per bagnare tutto.",waterAdd:0,duration:5},{text:"Attendi bloom.",waterAdd:0,duration:30},{text:"Spirale decisa fino a 300g (60%).",waterAdd:240,duration:35},{text:"Spirale lenta fino a 500g.",waterAdd:200,duration:35},{text:"Stir 1× orario + 1× antiorario. Swirl.",waterAdd:0,duration:10},{text:"Drawdown. Letto piatto.",waterAdd:0,duration:85}]},
   {id:"hoffmann-1cup",method:"v60",name:"Hoffmann Better 1 Cup V60",author:"James Hoffmann",description:"5 versate da 50g ogni ~10s. Più consistente per tazza singola.",baseCoffee:15,baseWater:250,temperature:100,clicks:21,microns:600,grindDesc:"Fine-medium (18-23 click C40)",beans:["Etiopia Sidamo natural (frutti di bosco)","Guatemala Antigua lavato (cioccolato, nocciola)","Costa Rica Tarrazú honey (miele, pesca)"],steps:[{text:"Versa 50g lentamente.",waterAdd:50,duration:15},{text:"Mescola/swirl per bagnare tutto.",waterAdd:0,duration:5},{text:"Attendi bloom.",waterAdd:0,duration:25},{text:"Seconda: 50g.",waterAdd:50,duration:15},{text:"Terza: 50g.",waterAdd:50,duration:15},{text:"Quarta: 50g.",waterAdd:50,duration:15},{text:"Quinta: 50g. Swirl delicato.",waterAdd:50,duration:10},{text:"Drawdown.",waterAdd:0,duration:80}]},
   {id:"kasuya-46",method:"v60",name:"Tetsu Kasuya 4:6 Method",author:"Tetsu Kasuya (WBrC 2016)",description:"Macinatura grossa (sale). 40% gusto (acidità/dolcezza), 60% intensità. 1:15.",baseCoffee:20,baseWater:300,temperature:92,clicks:30,microns:900,grindDesc:"Coarse (27-32 click C40)",beans:["Colombia Nariño lavato (panela, arancia)","El Salvador Pacamara honey (tropicale)","Brasile Cerrado natural (nocciola, cioccolato)"],steps:[{text:"60g in spirale, centro→bordo→centro.",waterAdd:60,duration:10},{text:"Attendi.",waterAdd:0,duration:35},{text:"Versa 60g (tot 120g).",waterAdd:60,duration:10},{text:"Attendi.",waterAdd:0,duration:30},{text:"Versa 60g (tot 180g).",waterAdd:60,duration:10},{text:"Attendi.",waterAdd:0,duration:30},{text:"Versa 60g (tot 240g).",waterAdd:60,duration:10},{text:"Attendi.",waterAdd:0,duration:20},{text:"Versa 60g (tot 300g).",waterAdd:60,duration:10},{text:"Drawdown.",waterAdd:0,duration:45}]},
   {id:"winton-5pour",method:"v60",name:"Matt Winton 5-Pour",author:"Matt Winton (WBrC 2021)",description:"5 versate da 60g, medio-grossa, nessuna agitazione. Chiarezza e brillantezza.",baseCoffee:20,baseWater:300,temperature:93,clicks:30,microns:900,grindDesc:"Medium-coarse",beans:["Etiopia Guji lavato (gelsomino, bergamotto)","Kenya Kirinyaga AA (pompelmo, ribes)","Panama Geisha lavato (gelsomino, tropicale)"],steps:[{text:"60g dal centro verso esterno.",waterAdd:60,duration:10},{text:"Attendi bloom.",waterAdd:0,duration:35},{text:"Versa 60g (tot 120g).",waterAdd:60,duration:10},{text:"Attendi drawdown.",waterAdd:0,duration:30},{text:"Versa 60g (tot 180g).",waterAdd:60,duration:10},{text:"Attendi drawdown.",waterAdd:0,duration:30},{text:"Versa 60g (tot 240g).",waterAdd:60,duration:10},{text:"Attendi drawdown.",waterAdd:0,duration:30},{text:"Versa 60g (tot 300g).",waterAdd:60,duration:10},{text:"Drawdown finale.",waterAdd:0,duration:35}]},
-  {id:"hedrick-121",method:"v60",name:"Lance Hedrick 121",author:"Lance Hedrick",description:"1 Pour, 2 min bloom, 1 Pour. Semplicissimo. 1:17.",baseCoffee:18,baseWater:306,temperature:100,clicks:22,microns:660,grindDesc:"Medium-fine",beans:["Panama Geisha lavato (gelsomino, pesca)","Etiopia Yirgacheffe Kochere (limone, tè)","Rwanda Nyamasheke lavato (arancia, floreale)"],steps:[{text:"Versa 90g rapido.",waterAdd:90,duration:8},{text:"Spin deciso: 1 giro.",waterAdd:0,duration:2},{text:"Bloom lungo. Non toccare.",waterAdd:0,duration:110},{text:"Versa 216g in spirale lenta.",waterAdd:216,duration:22},{text:"Spin delicato: 1 giro.",waterAdd:0,duration:3},{text:"Drawdown.",waterAdd:0,duration:75}]},
+  {id:"hedrick-121",method:"v60",name:"Lance Hedrick 121",author:"Lance Hedrick",description:"1 Pour, 2 min bloom, 1 Pour. Semplicissimo. 1:17.",baseCoffee:18,baseWater:306,temperature:100,clicks:22,microns:660,grindDesc:"Medium-fine",beans:["Panama Geisha lavato (gelsomino, pesca)","Etiopia Yirgacheffe Kochere (limone, tè)","Rwanda Nyamasheke lavato (arancia, floreale)"],steps:[{text:"Versa 90g rapido.",waterAdd:90,duration:8},{text:"Spin deciso: 1 giro.",waterAdd:0,duration:2},{text:"Bloom lungo. Non toccare.",waterAdd:0,duration:110},{text:"Versa 216g in spirale lenta.",waterAdd:216,duration:28},{text:"Spin delicato: 1 giro.",waterAdd:0,duration:3},{text:"Drawdown.",waterAdd:0,duration:69}]},
   {id:"rao-v60",method:"v60",name:"Scott Rao V60",author:"Scott Rao",description:"Bloom con scavo, versata continua, Rao Spin finale.",baseCoffee:22,baseWater:360,temperature:96,clicks:24,microns:720,grindDesc:"Medium-fine",beans:["Colombia Huila lavato (caramello, ciliegia)","Guatemala Huehuetenango (cioccolato, spezie)","Etiopia Sidamo lavato (limone, floreale)"],steps:[{text:"Versa 66g (3× dose).",waterAdd:66,duration:10},{text:"Scava con cucchiaino.",waterAdd:0,duration:5},{text:"Attendi bloom.",waterAdd:0,duration:30},{text:"Spirale continua fino a 360g.",waterAdd:294,duration:75},{text:"Rao Spin: 1 giro deciso.",waterAdd:0,duration:5},{text:"Drawdown.",waterAdd:0,duration:85}]},
   {id:"lucafausu-v60",method:"v60",name:"Lu Cafausu V60",author:"Lu Cafausu",description:"Precisione e definizione. Due versate controllate. 2:30-3:00.",baseCoffee:15,baseWater:250,temperature:93,clicks:23,microns:690,grindDesc:"Medium-fine (22-24 click)",beans:["Etiopia Guji natural (fragola, cioccolato)","Colombia Huila lavato (panela, mela verde)","Costa Rica honey (pesca, miele)"],steps:[{text:"Bloom: 40g lentamente.",waterAdd:40,duration:10},{text:"Attendi bloom.",waterAdd:0,duration:20},{text:"Prima versata in cerchi fino a ~150g.",waterAdd:110,duration:30},{text:"Seconda versata fino a 250g. Max 3 min.",waterAdd:100,duration:60},{text:"Drawdown ~2:30-3:00.",waterAdd:0,duration:30}]},
   {id:"peng-wbrc2025",method:"v60",name:"George J. Peng WBrC 2025",author:"George Jinyang Peng (WBrC 2025)",description:"Solo Dripper + Melodrip. Temp. decrescenti (96→80°C). Chiarezza estrema, <2 min. 40ppm TDS.",baseCoffee:15,baseWater:210,temperature:96,clicks:27,microns:810,grindDesc:"Medium (26-28 click C40)",beans:["Panama Geisha lavato (gelsomino, bergamotto)","Etiopia Yirgacheffe Kochere (tè, lime)","Colombia Geisha honey (miele, floreale)"],steps:[{text:"Pre-heat: 80ml a 96°C nel dripper (Solo/V60).",waterAdd:0,duration:15},{text:"Versa 30ml a 96°C.",waterAdd:30,duration:6},{text:"3 cerchi antiorari.",waterAdd:0,duration:6},{text:"Attendi bloom.",waterAdd:0,duration:12},{text:"A 0:30 — 90ml a 96°C in 10s.",waterAdd:90,duration:40},{text:"A 1:10 — 90ml a 80°C con Melodrip.",waterAdd:90,duration:40},{text:"Drawdown ~1:45. Servi a 50°C.",waterAdd:0,duration:15}]},
@@ -235,8 +242,8 @@ const RECIPES=[
   {id:"lucafausu-ap-std",method:"aeropress",name:"Lu Cafausu AP Standard",author:"Lu Cafausu",description:"NON invertita. Pulita e brillante. 85-88°C.",baseCoffee:15,baseWater:220,temperature:87,clicks:19,microns:570,grindDesc:"Fine-medium (18-20 click)",beans:["Etiopia Sidamo lavato (limone, gelsomino)","Colombia Huila lavato (caramello, arancia)","Brasile Cerrado natural (nocciola, cioccolato)"],steps:[{text:"Versa 220ml a 87°C.",waterAdd:220,duration:10},{text:"Mescola 5-6 volte avanti-indietro (10s).",waterAdd:0,duration:10},{text:"Pistone per sigillare. Attendi.",waterAdd:0,duration:95},{text:"Pressa 30 secondi.",waterAdd:0,duration:30}]},
   {id:"lucafausu-ap-inv",method:"aeropress",name:"Lu Cafausu AP Invertita",author:"Lu Cafausu",description:"Invertita, più corpo. 85°C, fine.",baseCoffee:17,baseWater:230,temperature:85,clicks:15,microns:450,grindDesc:"Fine (14-16 click)",beans:["Etiopia Guji natural (frutti di bosco, vino)","Rwanda lavato (arancia, floreale)","Colombia Nariño (panela, ciliegia)"],steps:[{text:"Invertita. 230ml a 85°C.",waterAdd:230,duration:10},{text:"Mescola 5 volte (10s).",waterAdd:0,duration:10},{text:"Attendi 1:40 senza toccare.",waterAdd:0,duration:100},{text:"Capovolgi. Pressa 30s.",waterAdd:0,duration:30}]},
   {id:"chemex-classic",method:"chemex",name:"Chemex Classica 6 Tazze",author:"Tradizionale",description:"Filtro spesso, tazza cristallina. 1:16.7.",baseCoffee:42,baseWater:700,temperature:96,clicks:30,microns:900,grindDesc:"Medium",beans:["Etiopia Yirgacheffe lavato (gelsomino, agrumi)","Colombia Huila lavato (panela, mela)","Guatemala Antigua (cioccolato, noce)"],steps:[{text:"Versa 2× dose.",waterAdd:84,duration:10},{text:"Mescola delicato.",waterAdd:0,duration:5},{text:"Attendi bloom.",waterAdd:0,duration:30},{text:"Cerchi lenti fino a 350g.",waterAdd:266,duration:60},{text:"Lascia scendere il livello.",waterAdd:0,duration:30},{text:"Cerchi lenti fino a 700g.",waterAdd:350,duration:60},{text:"Drawdown.",waterAdd:0,duration:105}]},
-  {id:"hoffmann-chemex",method:"chemex",name:"Hoffmann Chemex",author:"James Hoffmann",description:"Adattamento V60 per Chemex. Bloom con stir, versate in 3-4 fasi. 1:16.7. Acqua bollente.",baseCoffee:30,baseWater:500,temperature:100,clicks:28,microns:840,grindDesc:"Medium-coarse (27-30 click C40)",beans:["Etiopia Yirgacheffe lavato (gelsomino, limone)","Kenya AA (ribes, pompelmo)","Colombia Huila lavato (caramello, ciliegia)"],steps:[{text:"0:00 — versa 75g in 10s. Stir delicato per bagnare tutto (5s).",waterAdd:75,duration:10},{text:"Attendi bloom fino a 0:45.",waterAdd:0,duration:35},{text:"0:45 — versa in cerchi fino a 300g (~30s, ~7.5g/s).",waterAdd:225,duration:30},{text:"Attendi discesa 1cm.",waterAdd:0,duration:15},{text:"Versa fino a 500g.",waterAdd:200,duration:15},{text:"Swirl 1 giro (3s). Drawdown. Filtro Chemex: ~4:30-5:30.",waterAdd:0,duration:160}]},
-  {id:"rao-chemex",method:"chemex",name:"Scott Rao Chemex",author:"Scott Rao",description:"Brew piccolo, versata rapida, stir bordi, Rao Spin. Rao consiglia max 475ml. 1:17.",baseCoffee:25,baseWater:425,temperature:97,clicks:28,microns:840,grindDesc:"Medium (27-29 click C40)",beans:["Colombia Huila lavato (caramello, ciliegia)","Guatemala Huehuetenango (cioccolato, spezie)","Etiopia Sidamo lavato (limone, floreale)"],steps:[{text:"Pre-wet: 38g. Scava con cucchiaino.",waterAdd:38,duration:10},{text:"Bloom 30s.",waterAdd:0,duration:25},{text:"Versa tutto (425g) rapido in cerchi.",waterAdd:387,duration:30},{text:"Stir bordi 5s. Rao Spin (1 giro deciso).",waterAdd:0,duration:10},{text:"Drawdown. Totale: ~3:00.",waterAdd:0,duration:95}]},
+  {id:"hoffmann-chemex",method:"chemex",name:"Hoffmann Chemex",author:"James Hoffmann",description:"Adattamento V60 per Chemex. Bloom con stir, versate in 3-4 fasi. 1:16.7. Acqua bollente.",baseCoffee:30,baseWater:500,temperature:100,clicks:28,microns:840,grindDesc:"Medium-coarse (27-30 click C40)",beans:["Etiopia Yirgacheffe lavato (gelsomino, limone)","Kenya AA (ribes, pompelmo)","Colombia Huila lavato (caramello, ciliegia)"],steps:[{text:"0:00 — versa 75g in 10s. Stir delicato per bagnare tutto (5s).",waterAdd:75,duration:10},{text:"Attendi bloom fino a 0:45.",waterAdd:0,duration:35},{text:"0:45 — versa in cerchi fino a 300g (~30s, ~7.5g/s).",waterAdd:225,duration:30},{text:"Attendi discesa 1cm.",waterAdd:0,duration:15},{text:"Versa fino a 500g.",waterAdd:200,duration:25},{text:"Swirl 1 giro (3s). Drawdown. Filtro Chemex: ~4:30-5:30.",waterAdd:0,duration:150}]},
+  {id:"rao-chemex",method:"chemex",name:"Scott Rao Chemex",author:"Scott Rao",description:"Brew piccolo, versata rapida, stir bordi, Rao Spin. Rao consiglia max 475ml. 1:17.",baseCoffee:25,baseWater:425,temperature:97,clicks:28,microns:840,grindDesc:"Medium (27-29 click C40)",beans:["Colombia Huila lavato (caramello, ciliegia)","Guatemala Huehuetenango (cioccolato, spezie)","Etiopia Sidamo lavato (limone, floreale)"],steps:[{text:"Pre-wet: 38g. Scava con cucchiaino.",waterAdd:38,duration:10},{text:"Bloom 30s.",waterAdd:0,duration:25},{text:"Versa tutto (425g) in cerchi.",waterAdd:387,duration:45},{text:"Stir bordi 5s. Rao Spin (1 giro deciso).",waterAdd:0,duration:10},{text:"Drawdown. Totale: ~3:00.",waterAdd:0,duration:80}]},
   {id:"chemex-bypass",method:"chemex",name:"Chemex Bypass",author:"Specialty Contemporaneo",description:"Brew concentrato 1:12 + bypass acqua calda. Estrazione alta senza overextraction.",baseCoffee:30,baseWater:360,temperature:98,clicks:24,microns:720,grindDesc:"Medium-fine (23-25 click C40)",beans:["Etiopia Guji natural (fragola, cacao)","Panama Geisha lavato (gelsomino, bergamotto)","Kenya Nyeri AA (pompelmo, ribes)"],steps:[{text:"Versa 60g bloom.",waterAdd:60,duration:10},{text:"Attendi bloom.",waterAdd:0,duration:35},{text:"Versa rapido fino a 360g.",waterAdd:300,duration:30},{text:"Swirl (1 giro). Drawdown ~2:30.",waterAdd:0,duration:90},{text:"Bypass: aggiungi 140ml acqua calda al server.",waterAdd:140,duration:15},{text:"Mescola. Totale in tazza: 500ml, ratio 1:16.7.",waterAdd:0,duration:10}]},
   {id:"chemex-1cup",method:"chemex",name:"Chemex 1 Tazza",author:"Specialty Singola",description:"Singola tazza Chemex. Macinatura più fine per compensare. 1:16.",baseCoffee:15,baseWater:250,temperature:98,clicks:24,microns:720,grindDesc:"Medium-fine (23-25 click C40)",beans:["Etiopia Yirgacheffe Kochere (limone, tè)","Colombia Pink Bourbon (tropicale, floreale)","Rwanda Nyamasheke lavato (arancia, miele)"],steps:[{text:"Versa 30g bloom.",waterAdd:30,duration:10},{text:"Swirl.",waterAdd:0,duration:5},{text:"Attendi bloom.",waterAdd:0,duration:25},{text:"Versa lento fino a 150g.",waterAdd:120,duration:30},{text:"Fino a 250g.",waterAdd:100,duration:30},{text:"Drawdown 3:00-3:30.",waterAdd:0,duration:80}]},
   {id:"lucafausu-chemex-3inf",method:"chemex",name:"Lu Cafausu Chemex 3 Infusioni",author:"Lu Cafausu",description:"3 infusioni distinte. Filtro 3 lati sul beccuccio. Buca centrale.",baseCoffee:30,baseWater:500,temperature:96,clicks:28,microns:840,grindDesc:"Medium / medium-grosso",beans:["Etiopia Guji natural (fragola, cacao)","Kenya AA (pompelmo, ribes nero)","Panama Geisha (gelsomino, bergamotto)"],steps:[{text:"Filtro: 3 lati sul beccuccio. Buca centrale.",waterAdd:0,duration:15},{text:"PRIMA: 60-90g a cerchio.",waterAdd:75,duration:15},{text:"Aspetta 30s. Bloom.",waterAdd:0,duration:30},{text:"SECONDA: lenta, circolare fino a 350g.",waterAdd:275,duration:30},{text:"Stop 1:15. Pausa 30s.",waterAdd:0,duration:30},{text:"TERZA a 1:45: fino a 500g.",waterAdd:150,duration:30},{text:"Drawdown. Totale: 4-5 min.",waterAdd:0,duration:120}]},
@@ -276,7 +283,28 @@ const LS={get:k=>{try{return JSON.parse(localStorage.getItem(k));}catch(e){retur
 
 // ===== APP =====
 function cl(min,vw,max){const w=Math.min(window.innerWidth,720);const v=w*vw/100;return Math.max(min,Math.min(max,v))+"px";}
-const TF={xl:()=>cl(22,5.5,32),lg:()=>cl(18,4.5,26),md:()=>cl(16,4,22),sm:()=>cl(14,3.5,18),bLg:()=>cl(14,3.2,17),bMd:()=>cl(13,3,16),bSm:()=>cl(11,2.5,14)};
+const TF={xl:()=>cl(24,6,34),lg:()=>cl(20,5,28),md:()=>cl(18,4.5,24),sm:()=>cl(15,3.8,20),bLg:()=>cl(16,3.6,19),bMd:()=>cl(14,3.2,17),bSm:()=>cl(12,2.8,15)};
+const CupDone=()=>{
+  const sc=T.textDim,sw=2;
+  const stm=(x,d,del)=>e("path",{key:"s"+x+d,d:"M"+x+" 52 Q"+(x+4)+" "+(52-d*0.6)+" "+(x-2)+" "+(52-d)+" Q"+(x+3)+" "+(52-d*1.4)+" "+(x-1)+" "+(52-d*1.7),stroke:sc,strokeWidth:sw,strokeLinecap:"round",fill:"none",style:{animation:"stm "+d/15+"s ease-out "+del+"s infinite",transformOrigin:x+"px 52px"}});
+  return e("div",{style:{animation:"cupAppear 0.8s ease-out",marginBottom:8}},
+  e("svg",{width:140,height:160,viewBox:"0 0 140 160",fill:"none",style:{display:"block",margin:"0 auto"}},
+    e("g",null,
+      stm(42,30,0),stm(50,35,0.3),stm(58,28,0.7),stm(66,33,0.2),stm(74,30,0.5),stm(82,26,0.9),
+      stm(46,32,1.2),stm(54,27,0.8),stm(62,34,0.4),stm(70,29,1.0),stm(78,31,0.6),
+    ),
+    e("g",{style:{animation:"cupAppear 0.6s ease-out"}},
+      e("path",{d:"M30 60 L30 115 Q30 132 52 132 L88 132 Q110 132 110 115 L110 60",stroke:T.text,strokeWidth:2.5,strokeLinecap:"round",strokeLinejoin:"round",fill:"none"}),
+      e("line",{x1:24,y1:60,x2:116,y2:60,stroke:T.text,strokeWidth:2.5,strokeLinecap:"round"}),
+      e("path",{d:"M110 72 Q128 72 128 90 Q128 108 110 108",stroke:T.text,strokeWidth:2.5,strokeLinecap:"round",strokeLinejoin:"round",fill:"none"}),
+      e("line",{x1:40,y1:148,x2:100,y2:148,stroke:T.textDim,strokeWidth:2,strokeLinecap:"round"}),
+    ),
+    e("g",{style:{animation:"wiggle 2s ease-in-out infinite"}},
+      e("circle",{cx:55,cy:85,r:3,fill:T.text,style:{transformOrigin:"55px 85px",animation:"eyeBlink 3.5s ease-in-out infinite"}}),
+      e("circle",{cx:85,cy:85,r:3,fill:T.text,style:{transformOrigin:"85px 85px",animation:"eyeBlink 3.5s ease-in-out 0.2s infinite"}}),
+      e("path",{d:"M52 100 Q60 106 70 108 Q80 106 88 100",stroke:T.text,strokeWidth:2.5,strokeLinecap:"round",fill:"none",style:{transformOrigin:"70px 104px",animation:"smileWiggle 2s ease-in-out infinite"}}),
+    ),
+  ));};
 function App(){
   const[view,setView]=useState("home");
   const[selM,setSelM]=useState(null);
@@ -417,7 +445,7 @@ function App(){
       e("div",{style:{...S.cd,display:"flex",alignItems:"center",justifyContent:"center",gap:6,padding:"14px 8px",cursor:"default"}},
         e("button",{onClick:()=>setCc(Math.max(0.5,Math.round(((cc??selR.baseCoffee)-1)*10)/10)),style:{...S.ibSm,width:44,height:44,fontSize:22,fontWeight:300,letterSpacing:-3}},"‹‹"),
         e("button",{onClick:()=>setCc(Math.max(0.5,Math.round(((cc??selR.baseCoffee)-0.1)*10)/10)),style:{...S.ibSm,width:44,height:44,fontSize:26,fontWeight:300}},"‹"),
-        e("div",{style:{minWidth:85,textAlign:"center"}},e("div",{style:{fontSize:34,fontWeight:800,lineHeight:1}},sc.coffee%1===0?sc.coffee+"g":sc.coffee.toFixed(1)+"g"),e("div",{style:{fontSize:11,color:T.textSec,fontWeight:600,marginTop:4}},"DOSE")),
+        e("div",{style:{minWidth:85,textAlign:"center"}},e("div",{style:{fontSize:38,fontWeight:800,lineHeight:1}},sc.coffee%1===0?sc.coffee+"g":sc.coffee.toFixed(1)+"g"),e("div",{style:{fontSize:11,color:T.textSec,fontWeight:600,marginTop:4}},"DOSE")),
         e("button",{onClick:()=>setCc(Math.round(((cc??selR.baseCoffee)+0.1)*10)/10),style:{...S.ibSm,width:44,height:44,fontSize:26,fontWeight:300}},"›"),
         e("button",{onClick:()=>setCc(Math.round(((cc??selR.baseCoffee)+1)*10)/10),style:{...S.ibSm,width:44,height:44,fontSize:22,fontWeight:300,letterSpacing:-3}},"››"),
       ),
@@ -428,8 +456,8 @@ function App(){
           e("div",{style:{flex:1}},
             e("div",{style:{fontSize:TF.bLg(),lineHeight:1.5,marginBottom:3}},st.text),
             e("div",{style:{display:"flex",gap:10,flexWrap:"wrap"}},
-              st.waterAdd>0&&e("span",{style:{fontSize:14,color:T.accent}},"+"+(st.waterAdd%1===0?st.waterAdd:st.waterAdd.toFixed(1))+"ml (tot:"+(cW%1===0?cW:cW.toFixed(1))+"ml)"),
-              st.duration>0&&e("span",{style:{fontSize:15,color:T.textDim}},fmt(st.duration)),
+              st.waterAdd>0&&e("span",{style:{fontSize:16,fontWeight:700,color:T.accent}},"+"+(st.waterAdd%1===0?st.waterAdd:st.waterAdd.toFixed(1))+"ml → "+(cW%1===0?cW:cW.toFixed(1))+"ml"),
+              st.duration>0&&e("span",{style:{fontSize:16,color:T.textDim,fontWeight:600}},fmt(st.duration)),
             ),
           ),
         );})
@@ -446,8 +474,8 @@ function App(){
 
     if(done)return e("div",{style:S.pg},
       e("div",{style:{padding:"32px 20px",textAlign:"center"}},
-        Ic(mObj(sc.method)?.icon,72),
-        e("h2",{style:{fontSize:TF.lg(),fontWeight:800,fontFamily:"'Playfair Display',Georgia,serif",margin:"8px 0 4px",letterSpacing:"-0.02em"}},"Brew Completo!"),
+        e(CupDone),
+        e("h2",{style:{fontSize:TF.lg(),fontWeight:800,fontFamily:"'Playfair Display',Georgia,serif",margin:"4px 0 4px",letterSpacing:"-0.02em"}},"Brew Completo!"),
         e("p",{style:{color:T.textSec,fontSize:17}},sc.name),
         e("p",{style:{color:T.accent,fontSize:28,fontWeight:700,marginTop:6}},fmt(te)),
       ),
@@ -467,30 +495,30 @@ function App(){
     return e("div",{style:{...S.pg,display:"flex",flexDirection:"column",height:"100dvh"}},
       e("div",{style:{...S.hd,justifyContent:"space-between"}},
         e("button",{onClick:()=>{setRun(false);setView("recipe");},style:{...S.ibBack,background:T.red+"18"}},ICO.x(24,T.red)),
-        e("span",{style:{fontSize:15,fontWeight:600,color:T.textSec,flex:1,textAlign:"center",overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}},sc.name),
-        e("div",{style:{fontSize:22,fontWeight:800,color:T.accent,fontVariantNumeric:"tabular-nums"}},fmt(te)),
+        e("span",{style:{fontSize:17,fontWeight:600,color:T.textSec,flex:1,textAlign:"center",overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}},sc.name),
+        e("div",{style:{fontSize:26,fontWeight:800,color:T.accent,fontVariantNumeric:"tabular-nums"}},fmt(te)),
       ),
       e("div",{style:{flex:1,display:"flex",flexDirection:"column",padding:18,overflow:"auto"}},
         e("div",{style:{background:T.surfaceHi,borderRadius:18,padding:"16px 16px 20px",marginBottom:10,border:"2px solid "+T.accent,textAlign:"center"}},
           e("div",{style:{display:"flex",justifyContent:"center",gap:8,marginBottom:6}},
-            e("span",{style:{fontSize:12,fontWeight:700,color:T.textDim,letterSpacing:1}},isDesc?"":("STEP "+(cs+1)+" / "+sc.steps.length)),
-            cW>0&&e("span",{style:{fontSize:12,fontWeight:700,color:T.accent,letterSpacing:1}},cW+(cW%1?"":" ")+"ml totali"),
+            e("span",{style:{fontSize:14,fontWeight:700,color:T.textDim,letterSpacing:1}},isDesc?"":("STEP "+(cs+1)+" / "+sc.steps.length)),
+            cW>0&&e("span",{style:{fontSize:15,fontWeight:800,color:T.accent,letterSpacing:0.5}},cW+"ml totali"),
           ),
-          (()=>{const act=st?.waterAdd>0?"VERSA":/swirl|mescol|stir|spin|rompi|scav|schiuma|capovolg|premi|press/i.test(st?.text||"")?"AGITA":"ATTENDI";const acCol=act==="VERSA"?T.accent:act==="AGITA"?"#D4A03C":T.textDim;return e("div",{style:{display:"inline-block",padding:"3px 14px",borderRadius:8,background:acCol+"20",color:acCol,fontSize:13,fontWeight:800,letterSpacing:1.5,marginBottom:8}},act)})(),
-          e("div",{style:{fontSize:56,fontWeight:800,fontVariantNumeric:"tabular-nums",color:isDesc?"#8B6914":pr>0.85?T.accentLight:T.text,lineHeight:1,marginBottom:6}},isDesc?"—":fmt(Math.max(0,dur-se))),
+          (()=>{const act=st?.waterAdd>0?"VERSA":/swirl|mescol|stir|spin|rompi|scav|schiuma|capovolg|premi|press/i.test(st?.text||"")?"AGITA":"ATTENDI";const acCol=act==="VERSA"?T.accent:act==="AGITA"?"#D4A03C":T.textDim;return e("div",{style:{display:"inline-block",padding:"3px 14px",borderRadius:8,background:acCol+"20",color:acCol,fontSize:15,fontWeight:800,letterSpacing:1.5,marginBottom:8}},act)})(),
+          e("div",{style:{fontSize:64,fontWeight:800,fontVariantNumeric:"tabular-nums",color:isDesc?"#8B6914":pr>0.85?T.accentLight:T.text,lineHeight:1,marginBottom:6}},isDesc?"—":fmt(Math.max(0,dur-se))),
           !isDesc&&e("div",{style:{height:6,borderRadius:3,background:T.border,marginBottom:12,overflow:"hidden"}},
             e("div",{style:{height:"100%",borderRadius:3,background:pr>0.85?T.accentLight:T.accent,width:(pr*100)+"%",transition:"width 0.3s linear"}}),
           ),
           e("p",{style:{fontSize:TF.bLg(),lineHeight:1.5,fontWeight:500,marginBottom:st?.waterAdd>0?10:0,maxWidth:340,margin:"0 auto"}},st?.text),
           st?.waterAdd>0&&e("div",{style:{display:"inline-flex",alignItems:"baseline",gap:6,marginTop:10,padding:"6px 18px",borderRadius:12,background:T.accent+"15"}},
-            e("span",{style:{fontSize:28,fontWeight:800,color:T.accent}},"+"+(st.waterAdd%1===0?st.waterAdd:st.waterAdd.toFixed(1))),
-            e("span",{style:{fontSize:16,fontWeight:600,color:T.accent}},"ml"),
+            e("span",{style:{fontSize:36,fontWeight:800,color:T.accent}},"+"+(st.waterAdd%1===0?st.waterAdd:st.waterAdd.toFixed(1))),
+            e("span",{style:{fontSize:20,fontWeight:600,color:T.accent}},"ml"),
           ),
         ),
         e("div",{style:{flex:1}},sc.steps.map((s,i)=>{const d=i<cs,a=i===cs;return e("div",{key:i,style:{display:"flex",gap:8,marginBottom:5,opacity:d?0.35:a?1:0.45}},
           e("div",{style:{width:24,height:24,borderRadius:12,background:d?T.green:a?T.accent:T.surfaceHi,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}},
             d?ICO.check(11):e("span",{style:{fontSize:11,fontWeight:700,color:a?"#1A1410":T.textDim}},i+1)),
-          e("div",{style:{fontSize:16,color:a?T.text:T.textSec,lineHeight:1.4,paddingTop:1}},s.text.length>60?s.text.substring(0,57)+"...":s.text),
+          e("div",{style:{fontSize:18,color:a?T.text:T.textSec,lineHeight:1.4,paddingTop:1}},s.text.length>65?s.text.substring(0,62)+"...":s.text),
         );})),
       ),
       e("div",{style:{padding:"10px 18px 24px",display:"flex",gap:8,background:T.bg,borderTop:"1px solid "+T.border}},
