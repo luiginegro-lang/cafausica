@@ -20,9 +20,17 @@ button:active{transform:scale(0.97);opacity:0.85}
 textarea{font-family:inherit}
 ::-webkit-scrollbar{display:none}
 
-@keyframes stm{0%{transform:translateY(0);opacity:0.7}50%{opacity:0.5}100%{transform:translateY(-40px);opacity:0}}
-@keyframes wiggle{0%,100%{transform:translateX(0)}25%{transform:translateX(3px)}75%{transform:translateX(-3px)}}
-@keyframes smileWiggle{0%,100%{transform:rotate(0deg)}30%{transform:rotate(2deg)}70%{transform:rotate(-2deg)}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+@keyframes p1{0%{transform:translate(0,0);opacity:0.7}100%{transform:translate(6px,-50px);opacity:0}}
+@keyframes p2{0%{transform:translate(0,0);opacity:0.6}100%{transform:translate(-8px,-55px);opacity:0}}
+@keyframes p3{0%{transform:translate(0,0);opacity:0.65}100%{transform:translate(3px,-48px);opacity:0}}
+@keyframes p4{0%{transform:translate(0,0);opacity:0.6}100%{transform:translate(-4px,-52px);opacity:0}}
+@keyframes p5{0%{transform:translate(0,0);opacity:0.7}100%{transform:translate(9px,-46px);opacity:0}}
+@keyframes p6{0%{transform:translate(0,0);opacity:0.55}100%{transform:translate(-6px,-58px);opacity:0}}
+@keyframes p7{0%{transform:translate(0,0);opacity:0.65}100%{transform:translate(2px,-44px);opacity:0}}
+@keyframes p8{0%{transform:translate(0,0);opacity:0.6}100%{transform:translate(-10px,-50px);opacity:0}}
+@keyframes wink{0%,85%,100%{transform:scaleY(1)}90%,95%{transform:scaleY(0)}}
+@keyframes cheekPulse{0%,100%{opacity:0.3}50%{opacity:0.5}}}}
 @keyframes cupAppear{0%{transform:translateY(20px);opacity:0}100%{transform:translateY(0);opacity:1}}
 @keyframes smileDraw{0%{stroke-dashoffset:20}100%{stroke-dashoffset:0}}
 @keyframes eyeBlink{0%,90%,100%{transform:scaleY(1)}95%{transform:scaleY(0.1)}}
@@ -285,26 +293,38 @@ const LS={get:k=>{try{return JSON.parse(localStorage.getItem(k));}catch(e){retur
 function cl(min,vw,max){const w=Math.min(window.innerWidth,720);const v=w*vw/100;return Math.max(min,Math.min(max,v))+"px";}
 const TF={xl:()=>cl(24,6,34),lg:()=>cl(20,5,28),md:()=>cl(18,4.5,24),sm:()=>cl(15,3.8,20),bLg:()=>cl(16,3.6,19),bMd:()=>cl(14,3.2,17),bSm:()=>cl(12,2.8,15)};
 const CupDone=()=>{
-  const sc=T.textDim,sw=2;
-  const stm=(x,d,del)=>e("path",{key:"s"+x+d,d:"M"+x+" 52 Q"+(x+4)+" "+(52-d*0.6)+" "+(x-2)+" "+(52-d)+" Q"+(x+3)+" "+(52-d*1.4)+" "+(x-1)+" "+(52-d*1.7),stroke:sc,strokeWidth:sw,strokeLinecap:"round",fill:"none",style:{animation:"stm "+d/15+"s ease-out "+del+"s infinite",transformOrigin:x+"px 52px"}});
-  return e("div",{style:{animation:"cupAppear 0.8s ease-out",marginBottom:8}},
-  e("svg",{width:140,height:160,viewBox:"0 0 140 160",fill:"none",style:{display:"block",margin:"0 auto"}},
-    e("g",null,
-      stm(42,30,0),stm(50,35,0.3),stm(58,28,0.7),stm(66,33,0.2),stm(74,30,0.5),stm(82,26,0.9),
-      stm(46,32,1.2),stm(54,27,0.8),stm(62,34,0.4),stm(70,29,1.0),stm(78,31,0.6),
-    ),
-    e("g",{style:{animation:"cupAppear 0.6s ease-out"}},
-      e("path",{d:"M30 60 L30 115 Q30 132 52 132 L88 132 Q110 132 110 115 L110 60",stroke:T.text,strokeWidth:2.5,strokeLinecap:"round",strokeLinejoin:"round",fill:"none"}),
-      e("line",{x1:24,y1:60,x2:116,y2:60,stroke:T.text,strokeWidth:2.5,strokeLinecap:"round"}),
-      e("path",{d:"M110 72 Q128 72 128 90 Q128 108 110 108",stroke:T.text,strokeWidth:2.5,strokeLinecap:"round",strokeLinejoin:"round",fill:"none"}),
-      e("line",{x1:40,y1:148,x2:100,y2:148,stroke:T.textDim,strokeWidth:2,strokeLinecap:"round"}),
-    ),
-    e("g",{style:{animation:"wiggle 2s ease-in-out infinite"}},
-      e("circle",{cx:55,cy:85,r:3,fill:T.text,style:{transformOrigin:"55px 85px",animation:"eyeBlink 3.5s ease-in-out infinite"}}),
-      e("circle",{cx:85,cy:85,r:3,fill:T.text,style:{transformOrigin:"85px 85px",animation:"eyeBlink 3.5s ease-in-out 0.2s infinite"}}),
-      e("path",{d:"M52 100 Q60 106 70 108 Q80 106 88 100",stroke:T.text,strokeWidth:2.5,strokeLinecap:"round",fill:"none",style:{transformOrigin:"70px 104px",animation:"smileWiggle 2s ease-in-out infinite"}}),
-    ),
-  ));};
+  const c=T.text,d=T.textDim,a=T.accent;
+  const pxs=[];
+  const spots=[40,46,50,54,58,62,66,70,74,78,82,86];
+  let ki=0;
+  for(const x of spots){
+    for(let j=0;j<3;j++){
+      const sz=1.5+Math.random()*2;
+      const dur=1.4+Math.random()*1.2;
+      const del=Math.random()*2.5;
+      const an="p"+((ki%8)+1);
+      pxs.push(e("rect",{key:"px"+ki,x:x-sz/2,y:51-sz/2,width:sz,height:sz,fill:d,
+        style:{animation:an+" "+dur.toFixed(1)+"s linear "+del.toFixed(1)+"s infinite"}}));
+      ki++;
+    }
+  }
+  return e("div",{style:{animation:"cupAppear 0.6s ease-out"}},
+    e("svg",{width:140,height:140,viewBox:"0 0 140 140",fill:"none",style:{display:"block",margin:"0 auto"}},
+      e("g",{style:{animation:"float 3s ease-in-out infinite"}},
+        e("g",null,...pxs),
+        e("path",{d:"M24 52 Q22 54 22 58 L28 92 Q32 104 50 106 L78 106 Q96 104 100 92 L106 58 Q106 54 104 52",
+          stroke:c,strokeWidth:2.5,strokeLinejoin:"round",strokeLinecap:"round",fill:"none"}),
+        e("line",{x1:20,y1:52,x2:108,y2:52,stroke:c,strokeWidth:3,strokeLinecap:"round"}),
+        e("path",{d:"M106 62 C114 62 120 68 120 78 C120 88 114 94 106 94",stroke:c,strokeWidth:2.5,strokeLinecap:"round",fill:"none"}),
+        e("ellipse",{cx:64,cy:118,rx:38,ry:5,stroke:d,strokeWidth:2,fill:"none"}),
+        e("circle",{cx:50,cy:74,r:3,fill:c,style:{transformOrigin:"50px 74px",animation:"wink 4s ease-in-out infinite"}}),
+        e("circle",{cx:78,cy:74,r:3,fill:c,style:{transformOrigin:"78px 74px",animation:"wink 4s ease-in-out 0.2s infinite"}}),
+        e("circle",{cx:42,cy:82,r:4,fill:a,opacity:0.3,style:{animation:"cheekPulse 3s ease-in-out infinite"}}),
+        e("circle",{cx:86,cy:82,r:4,fill:a,opacity:0.3,style:{animation:"cheekPulse 3s ease-in-out 0.4s infinite"}}),
+        e("path",{d:"M52 88 Q64 97 76 88",stroke:c,strokeWidth:2.5,strokeLinecap:"round",fill:"none"}),
+      ),
+    ));
+};
 function App(){
   const[view,setView]=useState("home");
   const[selM,setSelM]=useState(null);
