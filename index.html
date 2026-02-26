@@ -1,6 +1,20 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
+<script>
+(function(){
+  var V="22";
+  var p=new URLSearchParams(window.location.search);
+  if(p.get("v")!==V){
+    p.set("v",V);
+    window.location.replace(window.location.pathname+"?"+p.toString());
+  }
+  if("serviceWorker" in navigator){
+    navigator.serviceWorker.getRegistrations().then(function(r){r.forEach(function(s){s.unregister()})});
+    if(window.caches)caches.keys().then(function(k){k.forEach(function(n){caches.delete(n)})});
+  }
+})();
+</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -677,9 +691,10 @@ ReactDOM.createRoot(document.getElementById("root")).render(e(App));
 </script>
 <script>
 if('serviceWorker' in navigator){
-  window.addEventListener('load',()=>{
-    navigator.serviceWorker.register('sw.js').catch(()=>{});
+  navigator.serviceWorker.getRegistrations().then(regs=>{
+    regs.forEach(r=>r.unregister());
   });
+  caches.keys().then(ks=>ks.forEach(k=>caches.delete(k)));
 }
 </script>
 </body>
