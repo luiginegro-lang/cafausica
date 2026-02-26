@@ -424,6 +424,27 @@ function App(){
     return ALL_R.filter(r=>scores[r.id]>=4).sort((a,b)=>scores[b.id]-scores[a.id]).slice(0,5);
   };
 
+
+  const grindFeel=(microns)=>{
+    if(microns<=150) return "Farina, polvere impalpabile";
+    if(microns<=300) return "Zucchero a velo";
+    if(microns<=450) return "Zucchero semolato fine";
+    if(microns<=600) return "Sale fino da tavola";
+    if(microns<=750) return "Sabbia fine di spiaggia";
+    if(microns<=900) return "Sale medio, sabbia";
+    if(microns<=1100) return "Sale grosso, sabbia grossa";
+    return "Sale grossissimo, pepe in grani";
+  };
+  const grinderClicks=(microns)=>{
+    return [
+      ["C40",Math.round(microns/30)+" cl"],
+      ["JX-Pro",Math.round(microns/12.5)+" cl"],
+      ["K-Plus",Math.round(microns/22)+" cl"],
+      ["Timemore",Math.round(microns/25)+" cl"],
+      [microns+"µm",""],
+    ];
+  };
+
   const home=()=>{setView("home");setSelM(null);setSelR(null);setRun(false);setDone(false);setCc(null);};
   const initForm=(r)=>{setFn(r?r.name:"");setFa(r?r.author:"");setFd(r?r.description:"");setFm(r?r.method:"v60");setFc2(r?String(r.baseCoffee):"15");setFw2(r?String(r.baseWater):"250");setFt2(r?String(r.temperature):"93");setFk2(r?String(r.clicks):"24");setFmu2(r?String(r.microns):"720");setFgd2(r?r.grindDesc:"Medium-fine");setFst(r?[...r.steps]:[{text:"",waterAdd:0,duration:30}]);};
   const save=()=>{const r=gS();if(!r)return;sH([{id:Date.now(),recipeName:r.name,method:r.method,coffee:r.coffee,water:r.water,clicks:r.clicks,temperature:r.temperature,rating:rat,notes,date:new Date().toLocaleDateString("it-IT"),time:new Date().toLocaleTimeString("it-IT",{hour:"2-digit",minute:"2-digit"})},...hist].slice(0,50));home();};
@@ -566,9 +587,9 @@ function App(){
       e("div",{style:{...S.cd,background:T.surfaceHi,cursor:"default"}},
         e("div",{style:{fontSize:10,color:T.textDim,fontWeight:700,letterSpacing:2,textTransform:"uppercase",marginBottom:12,textAlign:"center"}},"PARAMETRI"),
         e("div",{style:{display:"grid",gridTemplateColumns:"1fr 1fr",gap:12}},
-          [["Caffè",(sc.coffee%1===0?sc.coffee:sc.coffee.toFixed(1))+"g"],["Acqua",(sc.water%1===0?sc.water:sc.water.toFixed(1))+"ml"],["Temperatura",sc.temperature>0?sc.temperature+"°":"Fredda"],["Click Comandante",sc.clicks]].map(([l,v],i)=>e("div",{key:i,style:{textAlign:"center"}},e("div",{style:{fontSize:TF.lg(),fontWeight:800,color:T.accentLight,fontVariantNumeric:"tabular-nums"}},v),e("div",{style:{fontSize:14,color:T.textSec}},l)))
+          [["Caffè",(sc.coffee%1===0?sc.coffee:sc.coffee.toFixed(1))+"g"],["Acqua",(sc.water%1===0?sc.water:sc.water.toFixed(1))+"ml"],["Temperatura",sc.temperature>0?sc.temperature+"°":"Fredda"],["Macinatura",sc.microns+"µm"]].map(([l,v],i)=>e("div",{key:i,style:{textAlign:"center"}},e("div",{style:{fontSize:TF.lg(),fontWeight:800,color:T.accentLight,fontVariantNumeric:"tabular-nums"}},v),e("div",{style:{fontSize:14,color:T.textSec}},l)))
         ),
-        e("div",{style:{marginTop:12,textAlign:"center",padding:"8px 0",borderTop:"1px solid "+T.border}},e("span",{style:{fontSize:13,color:T.textSec}},sc.grindDesc+" · ~"+sc.microns+"µm · 1:"+(sc.water/sc.coffee).toFixed(1))),
+        e("div",{style:{marginTop:12,padding:"10px 0 4px",borderTop:"1px solid "+T.border}},e("div",{style:{fontSize:15,color:T.text,textAlign:"center",marginBottom:4,fontWeight:600}},grindFeel(sc.microns)),e("div",{style:{fontSize:13,color:T.textSec,textAlign:"center",marginBottom:8}},"Ratio 1:"+(sc.water/sc.coffee).toFixed(1)),e("div",{style:{display:"flex",flexWrap:"wrap",justifyContent:"center",gap:5}},grinderClicks(sc.microns).map(([g,v])=>e("span",{key:g,style:{fontSize:11,padding:"3px 7px",borderRadius:8,background:T.surface,border:"1px solid "+T.border,color:T.textDim}},v?e("b",{style:{color:T.textSec}},v+" "):null,g)))),
       ),
       sc.beans&&sc.beans.length>0&&e("div",{style:{...S.cd,cursor:"default",padding:16}},
         e("div",{style:{fontSize:12,color:T.accent,fontWeight:700,letterSpacing:1,textTransform:"uppercase",marginBottom:10}},"Caffè suggeriti"),
