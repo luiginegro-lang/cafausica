@@ -441,7 +441,6 @@ function App(){
       ["JX-Pro",Math.round(microns/12.5)+" cl"],
       ["K-Plus",Math.round(microns/22)+" cl"],
       ["Timemore",Math.round(microns/25)+" cl"],
-      [microns+"µm",""],
     ];
   };
 
@@ -589,7 +588,7 @@ function App(){
         e("div",{style:{display:"grid",gridTemplateColumns:"1fr 1fr",gap:12}},
           [["Caffè",(sc.coffee%1===0?sc.coffee:sc.coffee.toFixed(1))+"g"],["Acqua",(sc.water%1===0?sc.water:sc.water.toFixed(1))+"ml"],["Temperatura",sc.temperature>0?sc.temperature+"°":"Fredda"],["Macinatura",sc.microns+"µm"]].map(([l,v],i)=>e("div",{key:i,style:{textAlign:"center"}},e("div",{style:{fontSize:TF.lg(),fontWeight:800,color:T.accentLight,fontVariantNumeric:"tabular-nums"}},v),e("div",{style:{fontSize:14,color:T.textSec}},l)))
         ),
-        e("div",{style:{marginTop:12,padding:"10px 0 4px",borderTop:"1px solid "+T.border}},e("div",{style:{fontSize:15,color:T.text,textAlign:"center",marginBottom:4,fontWeight:600}},grindFeel(sc.microns)),e("div",{style:{fontSize:13,color:T.textSec,textAlign:"center",marginBottom:8}},"Ratio 1:"+(sc.water/sc.coffee).toFixed(1)),e("div",{style:{display:"flex",flexWrap:"wrap",justifyContent:"center",gap:5}},grinderClicks(sc.microns).map(([g,v])=>e("span",{key:g,style:{fontSize:11,padding:"3px 7px",borderRadius:8,background:T.surface,border:"1px solid "+T.border,color:T.textDim}},v?e("b",{style:{color:T.textSec}},v+" "):null,g)))),
+        e("div",{style:{marginTop:12,padding:"10px 0 4px",borderTop:"1px solid "+T.border}},e("div",{style:{fontSize:16,color:T.text,textAlign:"center",marginBottom:4,fontWeight:600}},grindFeel(sc.microns)),e("div",{style:{fontSize:13,color:T.textSec,textAlign:"center",marginBottom:10}},"Ratio 1:"+(sc.water/sc.coffee).toFixed(1)),e("div",{style:{display:"flex",flexWrap:"wrap",justifyContent:"center",gap:6}},grinderClicks(sc.microns).map(([g,v])=>e("div",{key:g,style:{fontSize:13,padding:"6px 10px",borderRadius:10,background:T.surface,border:"1px solid "+T.border,textAlign:"center"}},v?e("div",{style:{fontSize:18,fontWeight:800,color:T.accentLight}},v):null,e("div",{style:{fontSize:11,color:T.textDim,marginTop:v?2:0}},g))))),
       ),
       sc.beans&&sc.beans.length>0&&e("div",{style:{...S.cd,cursor:"default",padding:16}},
         e("div",{style:{fontSize:12,color:T.accent,fontWeight:700,letterSpacing:1,textTransform:"uppercase",marginBottom:10}},"Caffè suggeriti"),
