@@ -346,6 +346,7 @@ function App(){
   const[advRoast,setAdvRoast]=useState(null);
   const[advProc,setAdvProc]=useState(null);
   const[advGoal,setAdvGoal]=useState(null);
+  const[fromAdv,setFromAdv]=useState(false);
   const sH=h=>{setHist(h);LS.set("brew_history",h);};
   const sC=c=>{setCustomR(c);LS.set("custom_recipes",c);};
   const ALL_R=[...RECIPES,...customR];
@@ -551,7 +552,7 @@ function App(){
           e("div",{style:{fontSize:TF.bSm(),color:T.textDim,fontWeight:600,letterSpacing:"0.08em",textTransform:"uppercase",marginBottom:12}},"Ricette consigliate"),
           results&&results.length>0?results.map(r=>{
             const mo=mObj(r.method);
-            return e("div",{key:r.id,onClick:()=>{setSelR(r);setCc(r.baseCoffee);setView("recipe");},style:{...S.cd,display:"flex",alignItems:"center",gap:12,cursor:"pointer",marginBottom:4}},
+            return e("div",{key:r.id,onClick:()=>{setSelR(r);setCc(r.baseCoffee);setFromAdv(true);setView("recipe");},style:{...S.cd,display:"flex",alignItems:"center",gap:12,cursor:"pointer",marginBottom:4}},
               mo&&Ic(mo.icon,36),
               e("div",{style:{flex:1}},
                 e("div",{style:{fontWeight:700,fontSize:TF.bLg()}},r.name),
@@ -569,7 +570,7 @@ function App(){
   // METHOD
   if(view==="method"){const mo=mObj(selM);const recs=ALL_R.filter(r=>r.method===selM);return e("div",{style:S.pg},
     e("div",{style:S.hd},e("button",{onClick:home,style:S.ibBack},ICO.back(22,"#C0392B"),e("span",{style:{fontSize:13,fontWeight:700}},"Indietro")),Ic(mo?.icon,28),e("span",{style:{...S.ht,fontSize:TF.md()}},mo?.name),e("span",{style:{marginLeft:"auto",fontSize:12,color:T.textSec}},recs.length+" ricette")),
-    e("div",{style:{padding:20}},recs.map(r=>e("div",{key:r.id,onClick:()=>{setSelR(r);setCc(r.baseCoffee);setView("recipe");},style:S.cd},
+    e("div",{style:{padding:20}},recs.map(r=>e("div",{key:r.id,onClick:()=>{setSelR(r);setCc(r.baseCoffee);setFromAdv(true);setView("recipe");},style:S.cd},
       e("div",{style:{display:"flex",justifyContent:"space-between",alignItems:"start",marginBottom:6}},e("h3",{style:{fontWeight:700,fontSize:TF.md(),fontFamily:"'Playfair Display',Georgia,serif",flex:1,paddingRight:8,lineHeight:1.25}},r.name),r.custom&&e("span",{style:{fontSize:11,background:T.accent+"33",color:T.accent,padding:"2px 8px",borderRadius:8,fontWeight:700,marginRight:6}},"TUA"),e("span",{style:S.pl},r.clicks+" click")),
       e("div",{style:{fontSize:TF.bMd(),color:T.textSec,marginBottom:8,lineHeight:1.5}},r.description),
       e("div",{style:{display:"flex",gap:14,flexWrap:"wrap",fontSize:15,color:T.textDim,alignItems:"center"}},e("span",null,r.baseCoffee+"g"),e("span",null,r.baseWater+"ml"),e("span",null,"1:"+(r.baseWater/r.baseCoffee).toFixed(1)),e("span",null,r.temperature>0?r.temperature+"°C":"Fredda"),e("span",null,"~"+fmt(tTime(r))),
@@ -579,7 +580,7 @@ function App(){
 
   // RECIPE
   if(view==="recipe"&&selR){const sc=gS();if(!sc)return null;const mo=mObj(sc.method);let cW=0;return e("div",{style:S.pg},
-    e("div",{style:S.hd},e("button",{onClick:()=>setView("method"),style:S.ibBack},ICO.back(22,"#C0392B"),e("span",{style:{fontSize:13,fontWeight:700}},"Indietro")),e("span",{style:{...S.ht,fontSize:TF.md(),flex:1}},sc.name)),
+    e("div",{style:S.hd},e("button",{onClick:()=>setView(fromAdv?"advisor":"method"),style:S.ibBack},ICO.back(22,"#C0392B"),e("span",{style:{fontSize:13,fontWeight:700}},"Indietro")),e("span",{style:{...S.ht,fontSize:TF.md(),flex:1}},sc.name)),
       e("div",{style:{padding:"12px 20px 0"}},e("button",{onClick:start,style:{...S.bt("#7CAA6E","#FFF"),boxShadow:"0 4px 20px rgba(124,170,110,0.25)",letterSpacing:0.5,width:"100%"}},e("span",{style:{display:"flex",alignItems:"center",justifyContent:"center",gap:10}},ICO.play(16,"#FFF")," Inizia il Brew"))),
     e("div",{style:{padding:20}},
       e("div",{style:{textAlign:"center",marginBottom:14}},Ic(mo?.icon,80),e("div",{style:{fontSize:12,color:T.textSec,fontWeight:500,marginTop:4,letterSpacing:0.5}},"di "+sc.author)),
