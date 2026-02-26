@@ -20,9 +20,10 @@ button:active{transform:scale(0.97);opacity:0.85}
 textarea{font-family:inherit}
 ::-webkit-scrollbar{display:none}
 
-@keyframes drift{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
-@keyframes eyes{0%,38%,42%,100%{transform:scaleY(1)}40%{transform:scaleY(0.08)}}
-@keyframes rise{0%{opacity:0;transform:translateY(0)}10%{opacity:1}80%{opacity:0.6}100%{opacity:0;transform:translateY(-50px)}}
+@keyframes levitate{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@keyframes blink{0%,40%,44%,100%{transform:scaleY(1)}42%{transform:scaleY(0.1)}}
+@keyframes smile{0%,100%{d:path("M58 97 Q70 103 82 97")}50%{d:path("M55 97 Q70 110 85 97")}}
+@keyframes ring{0%{r:4;opacity:0.5;transform:translateY(0)}100%{r:14;opacity:0;transform:translateY(-60px)}}
 @keyframes cupAppear{0%{transform:translateY(20px);opacity:0}100%{transform:translateY(0);opacity:1}}
 @keyframes smileDraw{0%{stroke-dashoffset:20}100%{stroke-dashoffset:0}}
 @keyframes eyeBlink{0%,90%,100%{transform:scaleY(1)}95%{transform:scaleY(0.1)}}
@@ -252,9 +253,9 @@ const RECIPES=[
   {id:"lucafausu-fp-lungo",method:"frenchpress",name:"Lu Cafausu FP 4+4",author:"Lu Cafausu",description:"4 min infusione + 4 min attesa. Corpo con chiarezza.",baseCoffee:16,baseWater:250,temperature:93,clicks:31,microns:930,grindDesc:"Medium-coarse (30-32 click)",beans:["Etiopia Guji natural (frutti, cioccolato)","Colombia Huila lavato (panela, mela verde)","Guatemala Huehuetenango (spezie, cacao)"],steps:[{text:"Versa 250ml a 93°C.",waterAdd:250,duration:10},{text:"Mescola 1 volta con cucchiaio (5s).",waterAdd:0,duration:10},{text:"Copri. Infusione 4 min.",waterAdd:0,duration:220},{text:"Rompi la crosta.",waterAdd:0,duration:15},{text:"Attendi altri 4 min.",waterAdd:0,duration:240},{text:"Pressa lento. Servi.",waterAdd:0,duration:20}]},
   {id:"lucafausu-fp-std",method:"frenchpress",name:"Lu Cafausu FP Standard",author:"Lu Cafausu",description:"Standard specialty. Cupping informali e test tostatura.",baseCoffee:30,baseWater:500,temperature:93,clicks:31,microns:930,grindDesc:"Medium-coarse (30-32 click)",beans:["Qualsiasi singola origine per cupping","Brasile natural (nocciola, corpo pieno)","Etiopia natural (frutti, complessità)"],steps:[{text:"Versa 500ml a 93°C.",waterAdd:500,duration:10},{text:"Mescola 3 volte con cucchiaio (10s).",waterAdd:0,duration:10},{text:"Copri. Pistone in alto. 4 min.",waterAdd:0,duration:220},{text:"Pressa lento. Servi subito.",waterAdd:0,duration:20}]},
   {id:"classic-fp",method:"frenchpress",name:"French Press Classica",author:"Tradizionale",description:"Pressa completa. Corpo pieno.",baseCoffee:30,baseWater:500,temperature:96,clicks:34,microns:1020,grindDesc:"Coarse",beans:["Brasile Santos natural (nocciola, biscotto)","Sumatra Mandheling (terroso, spezie)","Colombia Supremo (cioccolato, equilibrato)"],steps:[{text:"Versa tutta l'acqua.",waterAdd:500,duration:10},{text:"Mescola 3 volte (10s).",waterAdd:0,duration:10},{text:"Copri con stantuffo in alto. Attendi 3:40.",waterAdd:0,duration:220},{text:"Premi fino in fondo.",waterAdd:0,duration:20}]},
-  {id:"cucc-trad",method:"cuccumella",name:"Cuccumella Tradizionale",author:"Tradizione Napoletana",description:"La napoletana vera: acqua nella parte bassa, fuoco, capovolgi quando bolle. Il cuppetiello.",baseCoffee:28,baseWater:200,temperature:100,clicks:20,microns:600,grindDesc:"Medium",beans:["Miscela napoletana (60% arabica, 40% robusta)","Brasile Santos natural (corpo, nocciola)","Etiopia Sidamo lavato (aromi, leggerezza)"],steps:[{text:"Caffè nel filtro. Livella. NON pressare.",waterAdd:0,duration:20},{text:"Acqua nella caldaia (parte SENZA beccuccio).",waterAdd:200,duration:15},{text:"Assembla. Fuoco medio.",waterAdd:0,duration:15},{text:"Attendi ebollizione (~4-5 min).",waterAdd:0,duration:270},{text:"Vapore esce: CAPOVOLGI subito.",waterAdd:0,duration:10},{text:"Percolazione per gravità 4 min. Cuppetiello opzionale.",waterAdd:0,duration:240},{text:"Fine gocciolamento. Servi.",waterAdd:0,duration:30}]},
-  {id:"cucc-spec",method:"cuccumella",name:"Cuccumella Specialty",author:"Caffè Ernani",description:"Più fine, più alta temp.",baseCoffee:25,baseWater:200,temperature:94,clicks:18,microns:540,grindDesc:"Medium-fine",beans:["Etiopia Yirgacheffe lavato (floreale, tè)","Colombia Huila lavato (dolce, pulito)","Costa Rica honey (miele, pesca)"],steps:[{text:"Caffè nel filtro, livellato.",waterAdd:0,duration:20},{text:"Acqua a 94°C.",waterAdd:0,duration:60},{text:"Versa. Assembla veloce.",waterAdd:200,duration:15},{text:"Capovolgi. Percolazione 3:30.",waterAdd:0,duration:210},{text:"Servi subito.",waterAdd:0,duration:45}]},
-  {id:"lucafausu-cucc",method:"cuccumella",name:"Lu Cafausu Cuccumella",author:"Lu Cafausu",description:"Acqua FREDDA nel serbatoio → sale a 100°C. Nessuna pressatura. Gravità.",baseCoffee:29,baseWater:425,temperature:100,clicks:20,microns:600,grindDesc:"Medium (19-21 click)",beans:["Etiopia Guji natural anaerobico (vino, fragola)","Colombia Huila lavato (panela, dolcezza)","Brasile Cerrado natural chiara (nocciola, miele)"],steps:[{text:"Caffè nel filtro. NON pressare.",waterAdd:0,duration:20},{text:"Acqua FREDDA nel serbatoio.",waterAdd:425,duration:15},{text:"Assembla. Fiamma BASSA.",waterAdd:0,duration:15},{text:"Attendi salita acqua (~4-5 min).",waterAdd:0,duration:270},{text:"Ribalta SUBITO.",waterAdd:0,duration:10},{text:"Percolazione. Totale: 6-8 min.",waterAdd:0,duration:120}]},
+  {id:"cucc-trad",method:"cuccumella",name:"Cuccumella Tradizionale",author:"Tradizione Napoletana",description:"La napoletana vera: acqua nella parte bassa, fuoco, capovolgi quando bolle. Il cuppetiello.",baseCoffee:28,baseWater:200,temperature:100,clicks:20,microns:600,grindDesc:"Medium",beans:["Miscela napoletana (60% arabica, 40% robusta)","Brasile Santos natural (corpo, nocciola)","Etiopia Sidamo lavato (aromi, leggerezza)"],steps:[{text:"Caffè nel filtro. Livella. NON pressare.",waterAdd:0,duration:20},{text:"Acqua nella caldaia (parte SENZA beccuccio).",waterAdd:200,duration:15},{text:"Assembla. Fuoco medio.",waterAdd:0,duration:15},{text:"Attendi ebollizione (~5 min).",waterAdd:0,duration:300},{text:"Vapore esce: CAPOVOLGI subito.",waterAdd:0,duration:10},{text:"Percolazione per gravità 5-8 min. Cuppetiello.",waterAdd:0,duration:390},{text:"Fine gocciolamento. Servi.",waterAdd:0,duration:30}]},
+  {id:"cucc-spec",method:"cuccumella",name:"Cuccumella Specialty",author:"Caffè Ernani",description:"Più fine, più alta temp.",baseCoffee:25,baseWater:200,temperature:94,clicks:18,microns:540,grindDesc:"Medium-fine",beans:["Etiopia Yirgacheffe lavato (floreale, tè)","Colombia Huila lavato (dolce, pulito)","Costa Rica honey (miele, pesca)"],steps:[{text:"Caffè nel filtro, livellato.",waterAdd:0,duration:20},{text:"Acqua a 94°C.",waterAdd:0,duration:60},{text:"Versa. Assembla veloce.",waterAdd:200,duration:15},{text:"Capovolgi. Percolazione 5 min.",waterAdd:0,duration:300},{text:"Servi subito.",waterAdd:0,duration:45}]},
+  {id:"lucafausu-cucc",method:"cuccumella",name:"Lu Cafausu Cuccumella",author:"Lu Cafausu",description:"Acqua FREDDA nel serbatoio → sale a 100°C. Nessuna pressatura. Gravità.",baseCoffee:29,baseWater:425,temperature:100,clicks:20,microns:600,grindDesc:"Medium (19-21 click)",beans:["Etiopia Guji natural anaerobico (vino, fragola)","Colombia Huila lavato (panela, dolcezza)","Brasile Cerrado natural chiara (nocciola, miele)"],steps:[{text:"Caffè nel filtro. NON pressare.",waterAdd:0,duration:20},{text:"Acqua FREDDA nel serbatoio.",waterAdd:425,duration:15},{text:"Assembla. Fiamma BASSA.",waterAdd:0,duration:15},{text:"Attendi salita acqua (~4-5 min).",waterAdd:0,duration:270},{text:"Ribalta SUBITO.",waterAdd:0,duration:10},{text:"Percolazione 5-7 min.",waterAdd:0,duration:360}]},
   {id:"cucc-gesha",method:"cuccumella",name:"Cuccumella Gesha Differenziale",author:"Lu Cafausu (Sperimentale)",description:"Preinfusione, stratificazione termica, doppia granulometria. Floreale e persistente.",baseCoffee:20,baseWater:300,temperature:95,clicks:"18+25",microns:750,grindDesc:"Doppia: 18cl (550µm) + 25cl (750µm)",beans:["Panama Geisha lavato (gelsomino, pesca, bergamotto)","Etiopia Gesha Village (floreale, tropicale)","Colombia Gesha honey (miele, gelsomino)"],steps:[{text:"Macina 10g a 550µm, 10g a 750µm.",waterAdd:0,duration:20},{text:"Nel filtro: prima grossa, poi fine. Carta sopra.",waterAdd:0,duration:15},{text:"Bloom: 50ml a 95°C sul filtro.",waterAdd:50,duration:10},{text:"Attendi bloom.",waterAdd:0,duration:30},{text:"Caldaia: 150ml a 95°C.",waterAdd:150,duration:10},{text:"Stratifica: 100ml a 88°C su cucchiaio.",waterAdd:100,duration:15},{text:"Assembla. Capovolgi subito.",waterAdd:0,duration:10},{text:"Percolazione lenta. Cuppetiello opzionale.",waterAdd:0,duration:360},{text:"Panno freddo sul beccuccio. 1 min.",waterAdd:0,duration:60},{text:"Versa. Degusta: naso, 1° sorso, 2° dopo 1 min.",waterAdd:0,duration:60}]},
   {id:"cucc-gesha-iced",method:"cuccumella",name:"Cuccumella Gesha Iced",author:"Lu Cafausu (Sperimentale)",description:"Bloom ghiacciato, stratificazione termica, caffè su ghiaccio. Luminoso e persistente.",baseCoffee:20,baseWater:270,temperature:93,clicks:"18+25",microns:750,grindDesc:"Doppia: 18cl (550µm) + 25cl (750µm)",beans:["Panama Geisha lavato (gelsomino, agrumi)","Etiopia Yirgacheffe natural (fragola, bergamotto)","Colombia Pink Bourbon (tropicale, floreale)"],steps:[{text:"Macina 10g a 550µm, 10g a 750µm.",waterAdd:0,duration:20},{text:"Nel filtro: grossa, poi fine. Carta opzionale.",waterAdd:0,duration:15},{text:"Bloom GHIACCIATO: 45ml a 2-4°C.",waterAdd:45,duration:10},{text:"Attendi 2 min.",waterAdd:0,duration:110},{text:"Caldaia: 130ml a 93°C.",waterAdd:130,duration:10},{text:"Stratifica: 100ml a 85°C su cucchiaio.",waterAdd:100,duration:15},{text:"100-120g ghiaccio nel bicchiere sotto.",waterAdd:0,duration:15},{text:"Assembla. Capovolgi. Goccia su ghiaccio.",waterAdd:0,duration:420},{text:"Mescola. Attendi 30s. Degusta.",waterAdd:0,duration:30}]},
   {id:"moka-trad",method:"moka",name:"Moka Tradizionale",author:"Tradizionale Italiana",description:"Fuoco basso, coperchio aperto, via al gorgoglio.",baseCoffee:15,baseWater:150,temperature:100,clicks:18,microns:540,grindDesc:"Fine-medium",beans:["Miscela italiana 100% arabica","Brasile Santos natural (corpo rotondo)","Colombia Supremo (equilibrato, dolce)"],steps:[{text:"Caldaia fino alla valvola.",waterAdd:150,duration:15},{text:"Caffè nel filtro. NON pressare.",waterAdd:0,duration:15},{text:"Fuoco BASSO. Coperchio aperto.",waterAdd:0,duration:15},{text:"Esce lento, color miele.",waterAdd:0,duration:150},{text:"Gorgoglio: SUBITO via dal fuoco.",waterAdd:0,duration:15}]},
@@ -286,40 +287,29 @@ function cl(min,vw,max){const w=Math.min(window.innerWidth,720);const v=w*vw/100
 const TF={xl:()=>cl(24,6,34),lg:()=>cl(20,5,28),md:()=>cl(18,4.5,24),sm:()=>cl(15,3.8,20),bLg:()=>cl(16,3.6,19),bMd:()=>cl(14,3.2,17),bSm:()=>cl(12,2.8,15)};
 const CupDone=()=>{
   const c=T.text,d=T.textDim;
-  return e("div",{style:{animation:"cupAppear 0.6s ease-out",marginBottom:4}},
+  const rings=[];
+  const spots=[50,60,70,80,90];
+  for(let i=0;i<12;i++){
+    const x=spots[i%5]+Math.sin(i*2.1)*8;
+    const dur=2.0+Math.sin(i*1.3)*0.6;
+    const del=(i*0.45)%3.5;
+    rings.push(e("circle",{key:"r"+i,cx:x,cy:55,r:4,stroke:d,strokeWidth:1.5,fill:"none",opacity:0,
+      style:{animation:"ring "+dur.toFixed(1)+"s ease-out "+del.toFixed(2)+"s infinite"}}));
+  }
+  const[sm,setSm]=useState(0);
+  useEffect(()=>{const iv=setInterval(()=>setSm(p=>(p+1)%200),30);return()=>clearInterval(iv);},[]);
+  const smVal=Math.sin(sm*0.031)*0.3+0.7;
+  return e("div",{style:{animation:"cupAppear 0.7s ease-out",marginBottom:4}},
     e("svg",{width:140,height:150,viewBox:"0 0 140 150",fill:"none",style:{display:"block",margin:"0 auto"}},
-      e("g",{style:{animation:"drift 4s ease-in-out infinite"}},
-
-        e("path",{d:"M45 10 C48 0, 52 -4, 55 10",stroke:d,strokeWidth:2,strokeLinecap:"round",
-          style:{animation:"rise 2.4s ease-out 0s infinite"}}),
-        e("path",{d:"M62 8 C65 -6, 70 -8, 72 8",stroke:d,strokeWidth:2,strokeLinecap:"round",
-          style:{animation:"rise 2.8s ease-out 0.8s infinite"}}),
-        e("path",{d:"M82 10 C85 -2, 89 -6, 91 10",stroke:d,strokeWidth:2,strokeLinecap:"round",
-          style:{animation:"rise 2.2s ease-out 1.6s infinite"}}),
-
-        e("path",{d:"M50 12 C52 2, 56 -2, 58 12",stroke:d,strokeWidth:1.5,strokeLinecap:"round",opacity:0.6,
-          style:{animation:"rise 3.0s ease-out 0.4s infinite"}}),
-        e("path",{d:"M72 11 C74 -1, 78 -4, 80 11",stroke:d,strokeWidth:1.5,strokeLinecap:"round",opacity:0.6,
-          style:{animation:"rise 2.6s ease-out 1.2s infinite"}}),
-
-        e("g",{transform:"translate(0,30)"},
-          e("path",{d:"M28 20 Q24 22 25 28 L35 75 Q40 92 70 92 L70 92 Q100 92 105 75 L115 28 Q116 22 112 20",
-            stroke:c,strokeWidth:2,strokeLinecap:"round",strokeLinejoin:"round"}),
-
-          e("line",{x1:24,y1:20,x2:116,y2:20,stroke:c,strokeWidth:2.5,strokeLinecap:"round"}),
-
-          e("path",{d:"M115 30 C124 32 128 42 127 52 C126 62 122 68 114 66",
-            stroke:c,strokeWidth:2,strokeLinecap:"round"}),
-
-          e("ellipse",{cx:56,cy:46,rx:3.5,ry:3,fill:c,
-            style:{transformOrigin:"56px 46px",animation:"eyes 4s ease-in-out infinite"}}),
-          e("ellipse",{cx:84,cy:46,rx:3.5,ry:3,fill:c,
-            style:{transformOrigin:"84px 46px",animation:"eyes 4s ease-in-out 0.1s infinite"}}),
-
-          e("path",{d:"M60 60 Q70 70 80 60",stroke:c,strokeWidth:2,strokeLinecap:"round"}),
-
-          e("ellipse",{cx:70,cy:102,rx:32,ry:4,stroke:d,strokeWidth:1.5,opacity:0.4}),
-        ),
+      e("g",{style:{animation:"levitate 3s ease-in-out infinite"}},
+        ...rings,
+        e("rect",{x:32,y:55,width:76,height:60,rx:8,stroke:c,strokeWidth:2.5,fill:"none"}),
+        e("line",{x1:30,y1:55,x2:110,y2:55,stroke:c,strokeWidth:3,strokeLinecap:"round"}),
+        e("path",{d:"M108 67 C120 67 124 78 124 85 C124 92 120 103 108 103",stroke:c,strokeWidth:2.5,strokeLinecap:"round",fill:"none"}),
+        e("circle",{cx:55,cy:80,r:3.5,fill:c,style:{transformOrigin:"55px 80px",animation:"blink 3.5s ease-in-out infinite"}}),
+        e("circle",{cx:85,cy:80,r:3.5,fill:c,style:{transformOrigin:"85px 80px",animation:"blink 3.5s ease-in-out 0.12s infinite"}}),
+        e("path",{d:"M58 97 Q70 "+(97+smVal*13)+" 82 97",stroke:c,strokeWidth:2.5,strokeLinecap:"round",fill:"none"}),
+        e("ellipse",{cx:70,cy:126,rx:30,ry:3,fill:d,opacity:0.2}),
       ),
     ));
 };
@@ -447,6 +437,7 @@ function App(){
   // RECIPE
   if(view==="recipe"&&selR){const sc=gS();if(!sc)return null;const mo=mObj(sc.method);let cW=0;return e("div",{style:S.pg},
     e("div",{style:S.hd},e("button",{onClick:()=>setView("method"),style:S.ibBack},ICO.back(22,"#C0392B"),e("span",{style:{fontSize:13,fontWeight:700}},"Indietro")),e("span",{style:{...S.ht,fontSize:TF.md(),flex:1}},sc.name)),
+      e("div",{style:{padding:"12px 20px 0"}},e("button",{onClick:start,style:{...S.bt("#7CAA6E","#FFF"),boxShadow:"0 4px 20px rgba(124,170,110,0.25)",letterSpacing:0.5,width:"100%"}},e("span",{style:{display:"flex",alignItems:"center",justifyContent:"center",gap:10}},ICO.play(16,"#FFF")," Inizia il Brew"))),
     e("div",{style:{padding:20}},
       e("div",{style:{textAlign:"center",marginBottom:14}},Ic(mo?.icon,80),e("div",{style:{fontSize:12,color:T.textSec,fontWeight:500,marginTop:4,letterSpacing:0.5}},"di "+sc.author)),
       e("div",{style:{...S.cd,background:T.surfaceHi,cursor:"default"}},
@@ -480,7 +471,6 @@ function App(){
           ),
         );})
       ),
-      e("button",{onClick:start,style:{...S.bt("#7CAA6E","#FFF"),boxShadow:"0 4px 20px rgba(124,170,110,0.25)",letterSpacing:0.5}},e("span",{style:{display:"flex",alignItems:"center",justifyContent:"center",gap:10}},ICO.play(16,"#FFF")," Inizia il Brew")),
       e("div",{style:{height:28}}),
     ),
   );}
@@ -506,7 +496,7 @@ function App(){
           e("textarea",{value:notes,onChange:ev=>setNotes(ev.target.value),placeholder:"Note...",style:{width:"100%",padding:10,borderRadius:10,border:"1px solid "+T.border,background:T.surfaceHi,color:T.text,fontSize:17,fontFamily:"inherit",resize:"vertical",minHeight:56,boxSizing:"border-box"}}),
         ),
         e("button",{onClick:save,style:S.bt()},e("span",{style:{display:"flex",alignItems:"center",justifyContent:"center",gap:8}},ICO.check(18)," Salva")),
-        e("button",{onClick:home,style:{...S.bt(T.surface,T.textSec),marginTop:8,border:"1px solid "+T.border}},"Salta"),
+        e("button",{onClick:home,style:{...S.bt(T.surface,T.textSec),marginTop:8,border:"1px solid "+T.border}},"Home"),
       ),
     );
 
