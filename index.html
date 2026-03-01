@@ -8,16 +8,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="theme-color" content="#FAF7F2">
+<meta name="theme-color" content="#F5F4EF">
 <title>The Cafausica Brew Guide</title>
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta name="apple-mobile-web-app-title" content="Cafausica">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-body{background:#FAF7F2;overscroll-behavior:none;position:fixed;width:100%;height:100%;overflow:hidden;font-family:'EB Garamond',Georgia,serif;overflow-x:hidden}
+body{background:#F5F4EF;overscroll-behavior:none;position:fixed;width:100%;height:100%;overflow:hidden;font-family:'EB Garamond',Georgia,serif;overflow-x:hidden}
 button{cursor:pointer;font-family:inherit;border:none;background:none;transition:opacity 0.15s,transform 0.1s}
 button:active{transform:scale(0.97);opacity:0.85}
 textarea{font-family:inherit}
@@ -39,7 +39,7 @@ textarea{font-family:inherit}
 </style>
 </head>
 <body>
-<script>document.body.style.background=(localStorage.getItem("cafausica-theme")==="light")?"#FAF7F2":"#1A1410"</script>
+<script>document.body.style.background=(localStorage.getItem("cafausica-theme")==="light")?"#F5F4EF":"#1B1B18"</script>
 <div id="root"></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
@@ -67,8 +67,8 @@ const ICO={
 // ===== SVG ILLUSTRATIONS =====
 const mkSvg=(sz,children)=>e("svg",{width:sz,height:sz,viewBox:"0 0 100 100",fill:"none"},children);
 const THEMES={
-  dark:{bg:"#1A1410",surface:"#251E18",surfaceHi:"#302820",accent:"#C28B5A",accentLight:"#E8B882",accentDim:"#8A6540",text:"#F2EBE3",textSec:"#C4B5A3",textDim:"#6A5E52",green:"#7CAA6E",red:"#C27060",border:"#3A3028"},
-  light:{bg:"#FAF7F2",surface:"#FFFFFF",surfaceHi:"#F5F1EB",accent:"#B5714F",accentLight:"#C4825F",accentDim:"#9A6045",text:"#2D2A26",textSec:"#8A857D",textDim:"#B5AFA6",green:"#6B9E6B",red:"#C27060",border:"#EDE8E0"},
+  dark:{bg:"#1A1915",surface:"#262420",surfaceHi:"#302E2A",accent:"#E08B6D",accentLight:"#F0A88A",accentDim:"#B06A50",text:"#EEEBE6",textSec:"#9F9A93",textDim:"#6B6560",green:"#5A9A6E",red:"#C4553D",border:"#38352F"},
+  light:{fontSize:22,fontWeight:600,fontFamily:"'Inter',sans-serif",lineHeight:1.3},
 };
 let T=THEMES[localStorage.getItem("cafausica-theme")||"dark"]
 
@@ -90,10 +90,10 @@ const Illust={
     e("circle",{key:1,cx:50,cy:6,r:6,fill:"#555",stroke:"#333",strokeWidth:1.5}),
     e("rect",{key:2,x:33,y:20,width:34,height:6,rx:3,fill:"#2A2A2A",stroke:"#333",strokeWidth:1.5}),
     e("rect",{key:3,x:30,y:22,width:40,height:52,rx:2,fill:"#6B6B6B",opacity:0.15,stroke:"#555",strokeWidth:2.5}),
-    e("text",{key:4,x:34,y:38,fill:"#777",fontSize:7,fontWeight:700,fontFamily:"sans-serif"},"4"),
-    e("text",{key:5,x:34,y:48,fill:"#777",fontSize:7,fontWeight:700,fontFamily:"sans-serif"},"3"),
-    e("text",{key:6,x:34,y:58,fill:"#777",fontSize:7,fontWeight:700,fontFamily:"sans-serif"},"2"),
-    e("text",{key:7,x:34,y:68,fill:"#777",fontSize:7,fontWeight:700,fontFamily:"sans-serif"},"1"),
+    e("text",{key:4,x:34,y:38,fill:"#777",fontSize:16,fontWeight:700,fontFamily:"sans-serif"},"4"),
+    e("text",{key:5,x:34,y:48,fill:"#777",fontSize:16,fontWeight:700,fontFamily:"sans-serif"},"3"),
+    e("text",{key:6,x:34,y:58,fill:"#777",fontSize:16,fontWeight:700,fontFamily:"sans-serif"},"2"),
+    e("text",{key:7,x:34,y:68,fill:"#777",fontSize:16,fontWeight:700,fontFamily:"sans-serif"},"1"),
     e("rect",{key:8,x:28,y:74,width:44,height:6,rx:3,fill:"#555",stroke:"#444",strokeWidth:2}),
     e("path",{key:9,d:"M36 92h28",stroke:"#999",strokeWidth:1.5,strokeLinecap:"round"}),
   ]),
@@ -225,7 +225,7 @@ const Illust={
     e("path",{key:11,d:"M20 74l-6 8",stroke:T.accent,strokeWidth:2,strokeLinecap:"round"}),
     e("circle",{key:12,cx:14,cy:82,r:2,fill:T.accent,opacity:0.4}),
     e("path",{key:13,d:"M38 62c3-1 6-1 9 0c3 1 6 1 9 0",stroke:"#D4A574",strokeWidth:0.8,opacity:0.3}),
-    e("text",{key:14,x:41,y:74,fill:T.accent,fontSize:10,fontWeight:600,fontFamily:"serif",opacity:0.25},"aFA"),
+    e("text",{key:14,x:41,y:74,fill:T.accent,fontSize:16,fontWeight:600,fontFamily:"serif",opacity:0.25},"aFA"),
     e("path",{key:15,d:"M36 84h28",stroke:T.accent,strokeWidth:2,strokeLinecap:"round"}),
   ]),
   gina:(sz=64)=>mkSvg(sz,[
@@ -336,7 +336,7 @@ const SubTitle=()=>{
   ];
   const[i,setI]=useState(()=>Math.floor(Math.random()*phrases.length));
   useEffect(()=>{const iv=setInterval(()=>setI(p=>(p+1)%phrases.length),6000);return()=>clearInterval(iv);},[]);
-  return e("div",{key:i,style:{fontSize:15,fontWeight:400,fontFamily:"'EB Garamond',Georgia,serif",color:T.accent,textAlign:"center",animation:"fadeInstruction 1s ease-out",lineHeight:1.5,padding:"0 8px",fontStyle:"italic",fontFamily:"'Cormorant Garamond',Georgia,serif"}},phrases[i]);
+  return e("div",{key:i,style:{fontSize:18,fontWeight:400,fontFamily:"'Cormorant Garamond',Georgia,serif",fontStyle:"italic",color:T.accent,textAlign:"center",animation:"fadeInstruction 1s ease-out",lineHeight:1.6,padding:"0 8px"}},phrases[i]);
 };
 
 
@@ -400,34 +400,31 @@ function VenturaView(props) {
   var dark = props.dark, onBack = props.onBack, onHome = props.onHome;
   var _p = useState("intro"), phase = _p[0], setPhase = _p[1];
   var _m = useState(""), msg = _m[0], setMsg = _m[1];
-  var ink = dark ? "#D4C4AA" : "#5A4E3E";
-  var dim = dark ? "#8A7A66" : "#8A7B6B";
-  var bg = dark ? "#1A1410" : "#FAF7F2";
   var draw = function() {
     setMsg(VENTURA[Math.floor(Math.random() * VENTURA.length)]);
     setPhase("reveal");
   };
-  if (phase === "reveal") return e("div", {style: {minHeight: "100vh", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", padding: "40px 28px"}},
-    e("div", {key: msg, style: {animation: "venturaAppear 3s ease-out", textAlign: "center", maxWidth: 340, flex: 1, display: "flex", flexDirection: "column", justifyContent: "center"}},
-      e("div", {style: {fontSize: 22, fontWeight: 400, color: ink, lineHeight: 2.1, fontStyle: "italic", fontFamily: "'Cormorant Garamond',Georgia,serif"}}, msg),
-      e("div", {style: {marginTop: 28, fontSize: 9, color: dim, letterSpacing: 3, textTransform: "uppercase"}}, "Messaggi di ventura \u00b7 Lu Cafausu")
+  if (phase === "reveal") return e("div", {style: {minHeight: "100vh", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", padding: "48px 32px", background: T.bg}},
+    e("div", {key: msg, style: {animation: "venturaAppear 3s ease-out", textAlign: "center", maxWidth: 380, flex: 1, display: "flex", flexDirection: "column", justifyContent: "center"}},
+      e("div", {style: {fontSize: 24, fontWeight: 400, color: T.text, lineHeight: 2,  fontFamily: "'Inter',sans-serif"}}, msg),
+      e("div", {style: {marginTop: 32, fontSize: 15, color: T.textDim, letterSpacing: 1}}, "messaggi di ventura \u00b7 Lu Cafausu")
     ),
-    e("div", {style: {display: "flex", gap: 16, paddingBottom: 24}},
-      e("button", {onClick: onBack, style: {background: "none", border: "none", color: dim, fontSize: 12, cursor: "pointer", letterSpacing: 1}}, "\u2190 brew"),
-      e("button", {onClick: onHome, style: {background: "none", border: "none", color: dim, fontSize: 12, cursor: "pointer", letterSpacing: 1}}, "\u2190 home")
+    e("div", {style: {display: "flex", gap: 24, paddingBottom: 32}},
+      e("button", {onClick: onBack, style: {background: "none", border: "none", color: T.textSec, fontSize: 16, cursor: "pointer"}}, "\u2190 brew"),
+      e("button", {onClick: onHome, style: {background: "none", border: "none", color: T.textSec, fontSize: 16, cursor: "pointer"}}, "\u2190 home")
     )
   );
-  return e("div", {style: {minHeight: "100vh", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", padding: "40px 28px"}},
-    e("div", {style: {textAlign: "center", maxWidth: 320, flex: 1, display: "flex", flexDirection: "column", justifyContent: "center"}},
-      e("div", {style: {fontSize: 9, color: dim, letterSpacing: 3, textTransform: "uppercase", marginBottom: 24}}, "messaggi di ventura"),
-      e("div", {style: {fontSize: 12, fontWeight: 300, color: dim, lineHeight: 1.7, fontFamily: "'EB Garamond',Georgia,serif", marginBottom: 24}}, "Il caff\u00e8 come medium: sostanza-evento fra gesto, percezione, memoria e linguaggio. Nel vuoto che segue l\u2019ultimo sorso si apre una regione di disponibilit\u00e0."),
-      e("div", {style: {fontSize: 19, fontWeight: 400, color: ink, lineHeight: 2, fontStyle: "italic", fontFamily: "'Cormorant Garamond',Georgia,serif", marginBottom: 32}}, "Poni una domanda esistenziale che riguardi il tuo presente.", e("br"), e("br"), "Non cercare risposta.", e("br"), "Lascia che emerga."),
-      e("button", {onClick: draw, style: {marginTop: 8, background: "none", border: "2px solid " + ink, borderRadius: 0, padding: "14px 32px", color: ink, fontSize: 14, cursor: "pointer", letterSpacing: 2, textTransform: "uppercase", fontWeight: 600}}, "rivela"),
-      e("div", {style: {marginTop: 24, fontSize: 11, color: dim, lineHeight: 1.7, textAlign: "center", maxWidth: 300}}, "Frasi sul limite fra vita e morte: alcune sono la scomposizione di indagini cafausiche, altre riferite ad alcune carte dei tarocchi.", e("br"), e("br"), "Lu Cafausu con la tarologa Valentina \u201cTresia\u201d Tarantino.", e("br"), e("a", {href: "https://amzn.eu/d/070XfOUq", target: "_blank", rel: "noopener", style: {color: dim, textDecoration: "underline"}}, "acquista il libro"))
+  return e("div", {style: {minHeight: "100vh", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", padding: "48px 32px", background: T.bg}},
+    e("div", {style: {textAlign: "center", maxWidth: 360, flex: 1, display: "flex", flexDirection: "column", justifyContent: "center"}},
+      e("div", {style: {fontSize: 15, color: T.textDim, letterSpacing: 2, marginBottom: 32}}, "messaggi di ventura"),
+      e("div", {style: {fontSize: 16, fontWeight: 400, color: T.textSec, lineHeight: 1.8, marginBottom: 32}}, "Il caff\u00e8 come medium: sostanza-evento fra gesto, percezione, memoria e linguaggio. Nel vuoto che segue l\u2019ultimo sorso si apre una regione di disponibilit\u00e0."),
+      e("div", {style: {fontSize: 20, fontWeight: 400, color: ink, lineHeight: 1.8, fontStyle: "italic", fontFamily: "'Cormorant Garamond',Georgia,serif", marginBottom: 32}}, "Poni una domanda esistenziale che riguardi il tuo presente.", e("br"), e("br"), "Non cercare risposta.", e("br"), "Lascia che emerga."),
+      e("button", {onClick: draw, style: {background: T.accent, border: "none", borderRadius: 8, padding: "16px 40px", color: "#FFF", fontSize: 16, cursor: "pointer", fontWeight: 500, letterSpacing: 1}}, "rivela"),
+      e("div", {style: {marginTop: 32, fontSize: 15, color: T.textDim, lineHeight: 1.8, textAlign: "center"}}, "Frasi sul limite fra vita e morte: alcune sono la scomposizione di indagini cafausiche, altre riferite ad alcune carte dei tarocchi.", e("br"), e("br"), "Lu Cafausu con la tarologa Valentina \u201cTresia\u201d Tarantino.", e("br"), e("a", {href: "https://amzn.eu/d/070XfOUq", target: "_blank", rel: "noopener", style: {color: T.accent}}, "acquista il libro"))
     ),
-    e("div", {style: {display: "flex", gap: 16, paddingBottom: 24}},
-      e("button", {onClick: onBack, style: {background: "none", border: "none", color: dim, fontSize: 12, cursor: "pointer", letterSpacing: 1}}, "\u2190 brew"),
-      e("button", {onClick: onHome, style: {background: "none", border: "none", color: dim, fontSize: 12, cursor: "pointer", letterSpacing: 1}}, "\u2190 home")
+    e("div", {style: {display: "flex", gap: 24, paddingBottom: 32}},
+      e("button", {onClick: onBack, style: {background: "none", border: "none", color: T.textSec, fontSize: 16, cursor: "pointer"}}, "\u2190 brew"),
+      e("button", {onClick: onHome, style: {background: "none", border: "none", color: T.textSec, fontSize: 16, cursor: "pointer"}}, "\u2190 home")
     )
   );
 }
@@ -464,35 +461,25 @@ const CupDone=({dark})=>{
   const[pi,setPi]=useState(()=>Math.floor(Math.random()*phrases.length));
   useEffect(()=>{const iv=setInterval(()=>setPi(p=>(p+1)%phrases.length),5500);return()=>clearInterval(iv);},[]);
   const[txt,author]=phrases[pi];
-  const sm=dark?"rgba(200,185,160,":"rgba(100,85,70,";
-  const paper=dark?"#D4C4AA":"#5A4E3E";
-  const authorC=dark?"#8A7A66":"#8A7B6B";
-  const uid="s"+Math.random().toString(36).substr(2,4);
+  const fg=dark?"rgba(237,237,236,":"rgba(27,27,24,";
   const puff=function(delay,dur,x,size){
     return e("div",{key:delay,style:{
       position:"absolute",bottom:0,left:"50%",
-      width:size,height:size,
-      borderRadius:"50%",
-      background:"radial-gradient(circle,"+sm+"0.4) 0%,"+sm+"0.15) 40%,"+sm+"0) 70%)",
+      width:size,height:size,borderRadius:"50%",
+      background:"radial-gradient(circle,"+fg+"0.25) 0%,"+fg+"0.08) 40%,"+fg+"0) 70%)",
       animation:"smokeUp "+dur+"s ease-out "+delay+"s infinite",
-      marginLeft:x,
-      filter:"blur(8px)",
+      marginLeft:x,filter:"blur(10px)",
     }});
   };
-  return e("div",{style:{animation:"cupAppear 1.2s ease-out",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",gap:16,minHeight:"50vh",padding:"0 28px"}},
+  return e("div",{style:{animation:"cupAppear 1.2s ease-out",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",gap:20,minHeight:"50vh",padding:"0 32px"}},
     e("div",{style:{position:"relative",width:140,height:160,overflow:"hidden"}},
-      puff(0,4,"-30px",60),
-      puff(0.5,3.5,"-10px",50),
-      puff(1,4.5,"5px",70),
-      puff(1.5,3.8,"-20px",45),
-      puff(2,4.2,"15px",55),
-      puff(2.5,3.2,"-5px",65),
-      puff(3,4.8,"10px",40),
+      puff(0,4,"-30px",60),puff(0.5,3.5,"-10px",50),puff(1,4.5,"5px",70),
+      puff(1.5,3.8,"-20px",45),puff(2,4.2,"15px",55),puff(2.5,3.2,"-5px",65),puff(3,4.8,"10px",40)
     ),
     e("div",{key:pi,style:{animation:"fadeInstruction 1.2s ease-out",textAlign:"center",minHeight:100}},
-      e("div",{style:{fontSize:18,fontWeight:400,color:paper,lineHeight:1.9,whiteSpace:"pre-line",fontFamily:"'EB Garamond',Georgia,serif",letterSpacing:"0.03em",fontStyle:"italic",fontFamily:"'Cormorant Garamond',Georgia,serif"}},txt),
-      e("div",{style:{fontSize:10,color:authorC,marginTop:16,letterSpacing:3,fontFamily:"'EB Garamond',Georgia,serif",fontWeight:400}},author),
-    ),
+      e("div",{style:{fontSize:22,fontWeight:400,color:T.text,lineHeight:2,whiteSpace:"pre-line",fontFamily:"'Inter',sans-serif"}},txt),
+      e("div",{style:{fontSize:15,color:T.textDim,marginTop:14,fontWeight:400}},author)
+    )
   );
 };
 
@@ -633,12 +620,12 @@ function App(){
   const save=()=>{const r=gS();if(!r)return;sH([{id:Date.now(),recipeName:r.name,method:r.method,coffee:r.coffee,water:r.water,clicks:r.clicks,temperature:r.temperature,rating:rat,notes,date:new Date().toLocaleDateString("it-IT"),time:new Date().toLocaleTimeString("it-IT",{hour:"2-digit",minute:"2-digit"})},...hist].slice(0,50));home();};
 
   const S={
-    pg:{minHeight:"100dvh",background:T.bg,color:T.text,fontFamily:"'EB Garamond',Georgia,serif",maxWidth:720,margin:"0 auto",padding:"0 env(safe-area-inset-right) 0 env(safe-area-inset-left)"},
-    hd:{padding:"14px 16px",display:"flex",alignItems:"center",gap:"12px",borderBottom:"none"},
-    ht:{fontSize:TF.lg(),fontWeight:700,fontFamily:"'EB Garamond',Georgia,serif",lineHeight:1.2},
-    cd:{background:T.surface,borderRadius:8,padding:16,marginBottom:10,border:"1px solid "+T.border,cursor:"pointer",overflow:"hidden"},
-    pl:{display:"inline-block",padding:"5px 12px",borderRadius:20,fontSize:14,fontWeight:600,background:T.surfaceHi,color:T.textSec},
-    bt:(b,f)=>({padding:"16px 24px",borderRadius:0,border:"none",background:b||T.accent,color:f||"#FFF",fontWeight:700,fontSize:18,cursor:"pointer",fontFamily:"inherit",width:"100%",letterSpacing:0.2}),
+    pg:{minHeight:"100dvh",background:T.bg,color:T.text,fontFamily:"'Inter',sans-serif",maxWidth:720,margin:"0 auto",padding:"0 env(safe-area-inset-right) 0 env(safe-area-inset-left)"},
+    hd:{padding:"16px 20px",display:"flex",alignItems:"center",gap:"12px",borderBottom:"none"},
+    ht:{fontSize:TF.lg(),fontWeight:700,fontFamily:"'Inter',sans-serif",lineHeight:1.2},
+    cd:{background:T.surface,borderRadius:16,padding:20,marginBottom:12,border:"1px solid "+T.border,border:"1px solid "+T.border,cursor:"pointer",overflow:"hidden"},
+    pl:{display:"inline-block",padding:"5px 12px",borderRadius:20,fontSize:16,fontWeight:600,background:T.surfaceHi,color:T.textSec},
+    bt:(b,f)=>({padding:"16px 24px",borderRadius:8,border:"none",background:b||T.accent,color:f||"#FFF",fontWeight:700,fontSize:18,cursor:"pointer",fontFamily:"inherit",width:"100%",letterSpacing:0.2}),
     ib:{width:44,height:44,borderRadius:22,border:"none",background:T.accent+"1A",color:T.text,display:"flex",alignItems:"center",justifyContent:"center",cursor:"pointer",transition:"background 0.15s"},
     ibBack:{height:40,borderRadius:20,border:"2px solid #C0392B",background:"#C0392B18",color:T.accent,display:"flex",alignItems:"center",justifyContent:"center",cursor:"pointer",padding:"0 14px",gap:4},
     ibSm:{width:48,height:48,borderRadius:14,border:"2px solid "+T.accentLight,background:T.surface,color:T.accentLight,display:"flex",alignItems:"center",justifyContent:"center",cursor:"pointer"}
@@ -654,46 +641,45 @@ function App(){
         e("path",{d:"M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z",fill:T.textDim,stroke:T.textDim})
       )),
     e("div",{style:{padding:"28px 20px 12px"}},
-      e("div",{style:{fontSize:TF.xl(),color:T.accent,fontWeight:600,letterSpacing:"-0.02em",fontFamily:"'EB Garamond',Georgia,serif",marginBottom:4,lineHeight:1.2}},"The Cafausica Brew Guide"),
+      e("div",{style:{fontSize:TF.xl(),color:T.accent,fontWeight:600,letterSpacing:"-0.02em",fontFamily:"'Inter',sans-serif",marginBottom:4,lineHeight:1.2}},"The Cafausica Brew Guide"),
       e(SubTitle,null),
     ),
     e("div",{style:{padding:"8px 16px 0"}},
-      e("div",{style:{fontSize:TF.bSm(),color:T.textDim,fontWeight:600,letterSpacing:"0.08em",marginBottom:12,paddingLeft:4}},"Metodo"),
-      e("div",{style:{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(140px,1fr))",gap:12}},
-        METHODS.map(m=>{const cnt=ALL_R.filter(r=>r.method===m.id).length;return e("div",{key:m.id,onClick:()=>{setSelM(m.id);setView("method");},style:{...S.cd,padding:14,display:"flex",flexDirection:"column",alignItems:"center",gap:6,textAlign:"center",marginBottom:0}},Ic(m.icon,56),e("div",{style:{fontWeight:700,fontSize:TF.bMd(),lineHeight:1.3}},m.name),e("div",{style:{fontSize:12,color:T.textSec}},cnt+" "+(cnt===1?"ricetta":"ricette")));})
+            e("div",{style:{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(140px,1fr))",gap:12}},
+        METHODS.map(m=>{const cnt=ALL_R.filter(r=>r.method===m.id).length;return e("div",{key:m.id,onClick:()=>{setSelM(m.id);setView("method");},style:{...S.cd,padding:14,display:"flex",flexDirection:"column",alignItems:"center",gap:6,textAlign:"center",marginBottom:0}},Ic(m.icon,56),e("div",{style:{fontWeight:700,fontSize:TF.bMd(),lineHeight:1.3}},m.name),e("div",{style:{fontSize:16,color:T.textSec}},cnt+" "+(cnt===1?"ricetta":"ricette")));})
       ),
     ),
     e("div",{style:{padding:"8px 16px 4px"}},e("div",{onClick:()=>{setAdvRoast(null);setAdvProc(null);setAdvGoal(null);setView("advisor");},style:{...S.cd,display:"flex",alignItems:"center",gap:12,cursor:"pointer",border:"2px solid "+T.accent+"55",background:T.accent+"08"}},
       e("div",{style:{fontSize:24,width:28,textAlign:"center"}},"☕"),
-      e("div",null,e("div",{style:{width:"100%",padding:"14px",borderRadius:0,background:"none",color:T.accent,fontSize:15,fontWeight:500,border:"2px solid "+T.accent,cursor:"pointer",fontFamily:"'EB Garamond',Georgia,serif",letterSpacing:1}},"trova la tua ricetta"),e("div",{style:{fontSize:14,color:T.textSec}},"Scegli tostatura, processo, gusto")),
+      e("div",null,e("div",{style:{width:"100%",padding:"16px",borderRadius:8,background:T.accent,color:"#FFF",fontSize:16,fontWeight:500,cursor:"pointer",border:"none"}},"trova la tua ricetta"),e("div",{style:{fontSize:16,color:T.textSec}},"Scegli tostatura, processo, gusto")),
       e("div",{style:{marginLeft:"auto"}},ICO.right(16)),
     )),
-    hist.length>0&&e("div",{style:{padding:"14px 16px 4px"}},e("div",{onClick:()=>setView("history"),style:{...S.cd,display:"flex",alignItems:"center",gap:12}},ICO.history(20),e("div",null,e("div",{style:{fontWeight:700,fontSize:TF.bLg()}},"I tuoi Brew"),e("div",{style:{fontSize:14,color:T.textSec}},hist.length+" salvati")),e("div",{style:{marginLeft:"auto"}},ICO.right(16)))),
+    hist.length>0&&e("div",{style:{padding:"14px 16px 4px"}},e("div",{onClick:()=>setView("history"),style:{...S.cd,display:"flex",alignItems:"center",gap:12}},ICO.history(20),e("div",null,e("div",{style:{fontWeight:700,fontSize:TF.bLg()}},"I tuoi Brew"),e("div",{style:{fontSize:16,color:T.textSec}},hist.length+" salvati")),e("div",{style:{marginLeft:"auto"}},ICO.right(16)))),
     e("div",{style:{padding:"4px 16px 6px"}},e("div",{onClick:()=>setView("grind"),style:{...S.cd,display:"flex",alignItems:"center",gap:12,cursor:"pointer"}},
       e("div",{style:{fontSize:22,width:24,textAlign:"center"}},"\u2699"),
-      e("div",null,e("div",{style:{fontWeight:700,fontSize:TF.bLg()}},"Guida Granulometria"),e("div",{style:{fontSize:14,color:T.textSec}},"Macinini · click · diagnostica")),
+      e("div",null,e("div",{style:{fontWeight:700,fontSize:TF.bLg()}},"Guida Granulometria"),e("div",{style:{fontSize:16,color:T.textSec}},"Macinini · click · diagnostica")),
       e("div",{style:{marginLeft:"auto"}},ICO.right(16)),
     )),
     e("div",{style:{padding:"4px 16px 6px"}},e("div",{onClick:()=>{initForm(null);setView("addrecipe");},style:{...S.cd,display:"flex",alignItems:"center",gap:12,cursor:"pointer",border:"1px dashed "+T.accent}},
       ICO.plus(20),
-      e("div",null,e("div",{style:{fontWeight:700,fontSize:TF.bLg(),color:T.accent}},"Crea la tua Ricetta"),e("div",{style:{fontSize:14,color:T.textSec}},customR.length>0?customR.length+" ricette personali":"Aggiungi ricette personalizzate")),
+      e("div",null,e("div",{style:{fontWeight:700,fontSize:TF.bLg(),color:T.accent}},"Crea la tua Ricetta"),e("div",{style:{fontSize:16,color:T.textSec}},customR.length>0?customR.length+" ricette personali":"Aggiungi ricette personalizzate")),
       e("div",{style:{marginLeft:"auto"}},ICO.right(16)),
     )),
     e("div",{style:{padding:"6px 16px"}},
       e("div",{style:{...S.cd,cursor:"default",background:"linear-gradient(135deg,"+T.surface+" 0%,"+T.surfaceHi+" 100%)",border:"1px solid #C0392B44"}},
-        e("div",{style:{fontSize:13,fontWeight:700,fontFamily:"'EB Garamond',Georgia,serif",color:T.accent,marginBottom:8,letterSpacing:0.5}},"Progetto aFA"),
-        e("div",{style:{fontSize:13,color:T.textSec,lineHeight:1.6,marginBottom:10}},"Nessun motore, nessuna pressione. Solo gravità. La aFA è una neo-cuccumella in ceramica: oggetto-manifesto che sottrae velocità al caffè per restituire tempo alla parola e al gesto condiviso."),
-        e("a",{href:"https://paypal.me/elleenne",target:"_blank",rel:"noopener",style:{display:"block",padding:"14px 20px",borderRadius:12,background:T.accent,color:"#FFF",fontWeight:700,fontSize:16,textAlign:"center",textDecoration:"none",marginBottom:8}},"Sostieni il progetto aFA"),
+        e("div",{style:{fontSize:16,fontWeight:700,fontFamily:"'Inter',sans-serif",color:T.accent,marginBottom:8,letterSpacing:0.5}},"Progetto aFA"),
+        e("div",{style:{fontSize:16,color:T.textSec,lineHeight:1.6,marginBottom:10}},"Nessun motore, nessuna pressione. Solo gravità. La aFA è una neo-cuccumella in ceramica: oggetto-manifesto che sottrae velocità al caffè per restituire tempo alla parola e al gesto condiviso."),
+        e("a",{href:"https://paypal.me/elleenne",target:"_blank",rel:"noopener",style:{display:"block",padding:"14px 20px",borderRadius:12,background:T.accent,color:"#FFF",fontWeight:700,fontSize:17,textAlign:"center",textDecoration:"none",marginBottom:8}},"Sostieni il progetto aFA"),
         e("div",{style:{display:"flex",gap:8}},
-          e("a",{href:"afa-manifesto.pdf",onClick:function(ev){ev.preventDefault();var base=window.location.href.replace(/\/[^\/]*$/,"/");window.open(base+"afa-manifesto.pdf","_blank");},rel:"noopener",style:{flex:1,display:"block",padding:"12px 10px",borderRadius:10,border:"1px solid #C0392B55",color:T.accent,fontWeight:600,fontSize:14,textAlign:"center",textDecoration:"none"}},"Leggi il Manifesto"),
-          typeof navigator!=="undefined"&&navigator.share?e("button",{onClick:()=>{try{navigator.share({title:"The Cafausica Brew Guide",text:"Un gesto di sottrazione e cura.",url:window.location.href})}catch(x){}},style:{flex:1,padding:"12px 10px",borderRadius:10,border:"1px solid "+T.border,color:T.textSec,fontWeight:600,fontSize:14,background:"none",cursor:"pointer"}},"Condividi"):null,
+          e("a",{href:"afa-manifesto.pdf",onClick:function(ev){ev.preventDefault();var base=window.location.href.replace(/\/[^\/]*$/,"/");window.open(base+"afa-manifesto.pdf","_blank");},rel:"noopener",style:{flex:1,display:"block",padding:"12px 10px",borderRadius:10,border:"1px solid #C0392B55",color:T.accent,fontWeight:600,fontSize:16,textAlign:"center",textDecoration:"none"}},"Leggi il Manifesto"),
+          typeof navigator!=="undefined"&&navigator.share?e("button",{onClick:()=>{try{navigator.share({title:"The Cafausica Brew Guide",text:"Un gesto di sottrazione e cura.",url:window.location.href})}catch(x){}},style:{flex:1,padding:"12px 10px",borderRadius:10,border:"1px solid "+T.border,color:T.textSec,fontWeight:600,fontSize:16,background:"none",cursor:"pointer"}},"Condividi"):null,
         ),
       ),
     ),
-    e("div",{style:{padding:"16px 20px 32px",textAlign:"center"}},e("div",{style:{fontSize:10,color:T.textDim+"99",marginTop:8,letterSpacing:2}},"Lu Cafausu"),
+    e("div",{style:{padding:"16px 20px 32px",textAlign:"center"}},e("div",{style:{fontSize:16,color:T.textDim+"99",marginTop:8,letterSpacing:2}},"Lu Cafausu"),
           e("div",{style:{display:"flex",justifyContent:"center",gap:16,marginTop:10}},
-            e("a",{href:"https://lacolemon.org/",target:"_blank",rel:"noopener",style:{fontSize:11,color:T.textDim,textDecoration:"none",borderBottom:"1px solid "+T.textDim+"44"}},"Lac O Le Mon"),
-            e("a",{href:"https://lucafausu.wordpress.com/",target:"_blank",rel:"noopener",style:{fontSize:11,color:T.textDim,textDecoration:"none",borderBottom:"1px solid "+T.textDim+"44"}},"Lu Cafausu"),
+            e("a",{href:"https://lacolemon.org/",target:"_blank",rel:"noopener",style:{fontSize:16,color:T.textDim,textDecoration:"none",borderBottom:"1px solid "+T.textDim+"44"}},"Lac O Le Mon"),
+            e("a",{href:"https://lucafausu.wordpress.com/",target:"_blank",rel:"noopener",style:{fontSize:16,color:T.textDim,textDecoration:"none",borderBottom:"1px solid "+T.textDim+"44"}},"Lu Cafausu"),
           )),
   );
 
@@ -704,7 +690,7 @@ function App(){
       background:active?T.accent+"20":T.surface,color:active?T.accent:T.textSec,
       fontWeight:active?700:500,fontSize:TF.bMd(),cursor:"pointer",textAlign:"center",flex:1});
     return e("div",{style:S.pg},
-      e("div",{style:S.hd},e("button",{onClick:home,style:S.ibBack},ICO.back(22,T.accent),e("span",{style:{fontSize:13,fontWeight:700}},"Indietro")),e("span",{style:{...S.ht,fontSize:TF.md()}},"trova la tua ricetta")),
+      e("div",{style:S.hd},e("button",{onClick:home,style:S.ibBack},ICO.back(22,T.accent),e("span",{style:{fontSize:16,fontWeight:700}},"Indietro")),e("span",{style:{...S.ht,fontSize:TF.md()}},"trova la tua ricetta")),
       e("div",{style:{padding:20}},
 
         e("div",{style:{marginBottom:20}},
@@ -743,12 +729,12 @@ function App(){
               mo&&Ic(mo.icon,36),
               e("div",{style:{flex:1}},
                 e("div",{style:{fontWeight:700,fontSize:TF.bLg()}},r.name),
-                e("div",{style:{fontSize:13,color:T.textSec}},r.baseCoffee+"g · "+r.baseWater+"ml · "+r.temperature+"°C · "+r.clicks+" click"),
+                e("div",{style:{fontSize:16,color:T.textSec}},r.baseCoffee+"g · "+r.baseWater+"ml · "+r.temperature+"°C · "+r.clicks+" click"),
               ),
               e("div",{style:{marginLeft:"auto"}},ICO.right(16)),
             );
           }):e("div",{style:{color:T.textSec,fontSize:TF.bMd(),textAlign:"center",padding:20}},"Seleziona almeno un criterio"),
-          e("button",{onClick:()=>{setAdvRoast(null);setAdvProc(null);setAdvGoal(null);},style:{...S.bt(T.surface,T.textSec),marginTop:12,border:"1px solid "+T.border,fontSize:14}},"Reset"),
+          e("button",{onClick:()=>{setAdvRoast(null);setAdvProc(null);setAdvGoal(null);},style:{...S.bt(T.surface,T.textSec),marginTop:12,border:"1px solid "+T.border,fontSize:16}},"Reset"),
         ):e("div",{style:{color:T.textSec,fontSize:TF.bMd(),textAlign:"center",padding:30,lineHeight:1.6}},"Seleziona tostatura, processo o quello che cerchi in tazza. Ti suggerirò le ricette più adatte."),
       ),
     );
@@ -756,48 +742,48 @@ function App(){
 
   // METHOD
   if(view==="method"){const mo=mObj(selM);const recs=ALL_R.filter(r=>r.method===selM);return e("div",{style:S.pg},
-    e("div",{style:S.hd},e("button",{onClick:home,style:S.ibBack},ICO.back(22,T.accent),e("span",{style:{fontSize:13,fontWeight:700}},"Indietro")),Ic(mo?.icon,28),e("span",{style:{...S.ht,fontSize:TF.md()}},mo?.name),e("span",{style:{marginLeft:"auto",fontSize:12,color:T.textSec}},recs.length+" ricette")),
+    e("div",{style:S.hd},e("button",{onClick:home,style:S.ibBack},ICO.back(22,T.accent),e("span",{style:{fontSize:16,fontWeight:700}},"Indietro")),Ic(mo?.icon,28),e("span",{style:{...S.ht,fontSize:TF.md()}},mo?.name),e("span",{style:{marginLeft:"auto",fontSize:16,color:T.textSec}},recs.length+" ricette")),
     e("div",{style:{padding:20}},recs.map(r=>e("div",{key:r.id,onClick:()=>{setSelR(r);setCc(r.baseCoffee);setFromAdv(true);setView("recipe");},style:S.cd},
-      e("div",{style:{display:"flex",justifyContent:"space-between",alignItems:"start",marginBottom:6}},e("h3",{style:{fontWeight:700,fontSize:TF.md(),fontFamily:"'EB Garamond',Georgia,serif",flex:1,paddingRight:8,lineHeight:1.25}},r.name),r.custom&&e("span",{style:{fontSize:11,background:T.accent+"33",color:T.accent,padding:"2px 8px",borderRadius:8,fontWeight:700,marginRight:6}},"TUA"),e("span",{style:S.pl},r.clicks+" click")),
+      e("div",{style:{display:"flex",justifyContent:"space-between",alignItems:"start",marginBottom:6}},e("h3",{style:{fontWeight:700,fontSize:TF.md(),fontFamily:"'Inter',sans-serif",flex:1,paddingRight:8,lineHeight:1.25}},r.name),r.custom&&e("span",{style:{fontSize:16,background:T.accent+"33",color:T.accent,padding:"2px 8px",borderRadius:8,fontWeight:700,marginRight:6}},"TUA"),e("span",{style:S.pl},r.clicks+" click")),
       e("div",{style:{fontSize:TF.bMd(),color:T.textSec,marginBottom:8,lineHeight:1.5}},r.description),
-      e("div",{style:{display:"flex",gap:14,flexWrap:"wrap",fontSize:15,color:T.textDim,alignItems:"center"}},e("span",null,r.baseCoffee+"g"),e("span",null,r.baseWater+"ml"),e("span",null,"1:"+(r.baseWater/r.baseCoffee).toFixed(1)),e("span",null,r.temperature>0?r.temperature+"°C":"Fredda"),e("span",null,"~"+fmt(tTime(r))),
-        r.custom&&e("button",{onClick:ev=>{ev.stopPropagation();setSelR(r);initForm(r);setView("editrecipe");},style:{marginLeft:"auto",fontSize:13,color:T.accent,fontWeight:700,background:"none",border:"1px solid "+T.accent+"66",padding:"4px 12px",borderRadius:8,cursor:"pointer"}},"\u270E Modifica")),
+      e("div",{style:{display:"flex",gap:14,flexWrap:"wrap",fontSize:16,color:T.textDim,alignItems:"center"}},e("span",null,r.baseCoffee+"g"),e("span",null,r.baseWater+"ml"),e("span",null,"1:"+(r.baseWater/r.baseCoffee).toFixed(1)),e("span",null,r.temperature>0?r.temperature+"°C":"Fredda"),e("span",null,"~"+fmt(tTime(r))),
+        r.custom&&e("button",{onClick:ev=>{ev.stopPropagation();setSelR(r);initForm(r);setView("editrecipe");},style:{marginLeft:"auto",fontSize:16,color:T.accent,fontWeight:700,background:"none",border:"1px solid "+T.accent+"66",padding:"4px 12px",borderRadius:8,cursor:"pointer"}},"\u270E Modifica")),
     ))),
   );}
 
   // RECIPE
   if(view==="recipe"&&selR){const sc=gS();if(!sc)return null;const mo=mObj(sc.method);let cW=0;return e("div",{style:S.pg},
-    e("div",{style:S.hd},e("button",{onClick:()=>setView(fromAdv?"advisor":"method"),style:S.ibBack},ICO.back(22,T.accent),e("span",{style:{fontSize:13,fontWeight:700}},"Indietro")),e("span",{style:{...S.ht,fontSize:TF.md(),flex:1}},sc.name)),
+    e("div",{style:S.hd},e("button",{onClick:()=>setView(fromAdv?"advisor":"method"),style:S.ibBack},ICO.back(22,T.accent),e("span",{style:{fontSize:16,fontWeight:700}},"Indietro")),e("span",{style:{...S.ht,fontSize:TF.md(),flex:1}},sc.name)),
       e("div",{style:{padding:"12px 20px 0"}},e("button",{onClick:start,style:{...S.bt("#7CAA6E","#FFF"),boxShadow:"0 4px 20px rgba(107,158,107,0.15)",letterSpacing:0.5,width:"100%"}},e("span",{style:{display:"flex",alignItems:"center",justifyContent:"center",gap:10}},ICO.play(16,"#FFF")," Inizia il Brew"))),
     e("div",{style:{padding:20}},
-      e("div",{style:{textAlign:"center",marginBottom:14}},Ic(mo?.icon,80),e("div",{style:{fontSize:12,color:T.textSec,fontWeight:500,marginTop:4,letterSpacing:0.5}},"di "+sc.author)),
+      e("div",{style:{textAlign:"center",marginBottom:14}},Ic(mo?.icon,80),e("div",{style:{fontSize:16,color:T.textSec,fontWeight:500,marginTop:4,letterSpacing:0.5}},"di "+sc.author)),
       e("div",{style:{...S.cd,background:T.surfaceHi,cursor:"default"}},
-        e("div",{style:{fontSize:10,color:T.textDim,fontWeight:700,letterSpacing:2,marginBottom:12,textAlign:"center"}},"PARAMETRI"),
+        e("div",{style:{fontSize:16,color:T.textDim,fontWeight:700,letterSpacing:2,marginBottom:12,textAlign:"center"}},"PARAMETRI"),
         e("div",{style:{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:12}},
-          [["Caffè",(sc.coffee%1===0?sc.coffee:sc.coffee.toFixed(1))+"g"],["Acqua",(sc.water%1===0?sc.water:sc.water.toFixed(1))+"ml"],["Temperatura",sc.temperature>0?sc.temperature+"°":"Fredda"]].map(([l,v],i)=>e("div",{key:i,style:{textAlign:"center"}},e("div",{style:{fontSize:TF.lg(),fontWeight:600,color:T.accentLight,fontVariantNumeric:"tabular-nums"}},v),e("div",{style:{fontSize:14,color:T.textSec}},l)))
+          [["Caffè",(sc.coffee%1===0?sc.coffee:sc.coffee.toFixed(1))+"g"],["Acqua",(sc.water%1===0?sc.water:sc.water.toFixed(1))+"ml"],["Temperatura",sc.temperature>0?sc.temperature+"°":"Fredda"]].map(([l,v],i)=>e("div",{key:i,style:{textAlign:"center"}},e("div",{style:{fontSize:TF.lg(),fontWeight:600,color:T.accentLight,fontVariantNumeric:"tabular-nums"}},v),e("div",{style:{fontSize:16,color:T.textSec}},l)))
         ),
-        e("div",{style:{marginTop:12,padding:"10px 0 4px",borderTop:"1px solid "+T.border}},e("div",{style:{fontSize:16,color:T.text,textAlign:"center",marginBottom:4,fontWeight:600}},grindFeel(sc.microns)),e("div",{style:{fontSize:13,color:T.textSec,textAlign:"center",marginBottom:10}},sc.microns+"µm"),e("div",{style:{display:"flex",flexWrap:"wrap",justifyContent:"center",gap:6}},grinderClicks(sc.microns).map(([g,v])=>e("div",{key:g,style:{fontSize:13,padding:"6px 10px",borderRadius:10,background:T.surface,border:"1px solid "+T.border,textAlign:"center"}},v?e("div",{style:{fontSize:18,fontWeight:600,color:T.accentLight}},v):null,e("div",{style:{fontSize:11,color:T.textDim,marginTop:v?2:0}},g))))),
+        e("div",{style:{marginTop:12,padding:"10px 0 4px",borderTop:"1px solid "+T.border}},e("div",{style:{fontSize:17,color:T.text,textAlign:"center",marginBottom:4,fontWeight:600}},grindFeel(sc.microns)),e("div",{style:{fontSize:16,color:T.textSec,textAlign:"center",marginBottom:10}},sc.microns+"µm"),e("div",{style:{display:"flex",flexWrap:"wrap",justifyContent:"center",gap:6}},grinderClicks(sc.microns).map(([g,v])=>e("div",{key:g,style:{fontSize:16,padding:"6px 10px",borderRadius:10,background:T.surface,border:"1px solid "+T.border,textAlign:"center"}},v?e("div",{style:{fontSize:18,fontWeight:600,color:T.accentLight}},v):null,e("div",{style:{fontSize:16,color:T.textDim,marginTop:v?2:0}},g))))),
       ),
       sc.beans&&sc.beans.length>0&&e("div",{style:{...S.cd,cursor:"default",padding:16}},
-        e("div",{style:{fontSize:12,color:T.accent,fontWeight:700,letterSpacing:1,marginBottom:10}},"Caffè suggeriti"),
-        sc.beans.map((b,i)=>e("div",{key:i,style:{fontSize:16,color:T.textSec,lineHeight:1.6,paddingLeft:10,borderLeft:"2px solid "+T.accentDim,marginBottom:6}},b)),
+        e("div",{style:{fontSize:16,color:T.accent,fontWeight:700,letterSpacing:1,marginBottom:10}},"Caffè suggeriti"),
+        sc.beans.map((b,i)=>e("div",{key:i,style:{fontSize:17,color:T.textSec,lineHeight:1.6,paddingLeft:10,borderLeft:"2px solid "+T.accentDim,marginBottom:6}},b)),
       ),
       e("div",{style:{...S.cd,display:"flex",alignItems:"center",justifyContent:"center",gap:6,padding:"14px 8px",cursor:"default"}},
         e("button",{onClick:()=>setCc(Math.max(0.5,Math.round(((cc??selR.baseCoffee)-1)*10)/10)),style:{...S.ibSm,width:44,height:44,fontSize:22,fontWeight:400,letterSpacing:-3}},"‹‹"),
         e("button",{onClick:()=>setCc(Math.max(0.5,Math.round(((cc??selR.baseCoffee)-0.1)*10)/10)),style:{...S.ibSm,width:44,height:44,fontSize:26,fontWeight:400}},"‹"),
-        e("div",{style:{minWidth:85,textAlign:"center"}},e("div",{style:{fontSize:38,fontWeight:600,lineHeight:1}},sc.coffee%1===0?sc.coffee+"g":sc.coffee.toFixed(1)+"g"),e("div",{style:{fontSize:11,color:T.textSec,fontWeight:600,marginTop:4}},"DOSE")),
+        e("div",{style:{minWidth:85,textAlign:"center"}},e("div",{style:{fontSize:38,fontWeight:600,lineHeight:1}},sc.coffee%1===0?sc.coffee+"g":sc.coffee.toFixed(1)+"g"),e("div",{style:{fontSize:16,color:T.textSec,fontWeight:600,marginTop:4}},"DOSE")),
         e("button",{onClick:()=>setCc(Math.round(((cc??selR.baseCoffee)+0.1)*10)/10),style:{...S.ibSm,width:44,height:44,fontSize:26,fontWeight:400}},"›"),
         e("button",{onClick:()=>setCc(Math.round(((cc??selR.baseCoffee)+1)*10)/10),style:{...S.ibSm,width:44,height:44,fontSize:22,fontWeight:400,letterSpacing:-3}},"››"),
       ),
       e("div",{style:{marginBottom:14}},
-        e("div",{style:{fontSize:15,color:T.textDim,fontWeight:600,letterSpacing:1,marginBottom:12}},sc.steps.length+" step · ~"+fmt(tTime(sc))),
+        e("div",{style:{fontSize:16,color:T.textDim,fontWeight:600,letterSpacing:1,marginBottom:12}},sc.steps.length+" step · ~"+fmt(tTime(sc))),
         sc.steps.map((st,i)=>{cW+=st.waterAdd;return e("div",{key:i,style:{display:"flex",gap:10,marginBottom:8}},
-          e("div",{style:{width:30,height:30,borderRadius:15,background:T.surfaceHi,border:"2px solid "+T.accentDim,display:"flex",alignItems:"center",justifyContent:"center",fontSize:13,fontWeight:700,color:T.accent,flexShrink:0,marginTop:2}},i+1),
+          e("div",{style:{width:30,height:30,borderRadius:15,background:T.surfaceHi,border:"2px solid "+T.accentDim,display:"flex",alignItems:"center",justifyContent:"center",fontSize:16,fontWeight:700,color:T.accent,flexShrink:0,marginTop:2}},i+1),
           e("div",{style:{flex:1}},
             e("div",{style:{fontSize:TF.bLg(),lineHeight:1.5,marginBottom:3}},st.text),
             e("div",{style:{display:"flex",gap:10,flexWrap:"wrap"}},
-              st.waterAdd>0&&e("span",{style:{fontSize:16,fontWeight:700,color:T.accent}},"+"+(st.waterAdd%1===0?st.waterAdd:st.waterAdd.toFixed(1))+"ml → "+(cW%1===0?cW:cW.toFixed(1))+"ml"),
-              st.duration>0&&e("span",{style:{fontSize:16,color:T.textDim,fontWeight:600}},fmt(st.duration)),
+              st.waterAdd>0&&e("span",{style:{fontSize:17,fontWeight:700,color:T.accent}},"+"+(st.waterAdd%1===0?st.waterAdd:st.waterAdd.toFixed(1))+"ml → "+(cW%1===0?cW:cW.toFixed(1))+"ml"),
+              st.duration>0&&e("span",{style:{fontSize:17,color:T.textDim,fontWeight:600}},fmt(st.duration)),
             ),
           ),
         );})
@@ -815,20 +801,20 @@ function App(){
       e("div",null,showVentura?e(VenturaView,{dark:dm==="dark",onBack:function(){setShowVentura(false);},onHome:home}):e("div",{style:{minHeight:"100dvh",background:T.bg,color:T.text,display:"flex",flexDirection:"column",overflowY:"auto"}},
           e("div",{style:{flex:1,display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",padding:"24px 20px 16px"}},
             e(CupDone,{dark:dm==="dark"}),
-            e("div",{style:{fontSize:13,color:T.textDim,marginTop:4,textAlign:"center"}},sc.name," \u00b7 ",fmt(te))
+            e("div",{style:{fontSize:16,color:T.textDim,marginTop:4,textAlign:"center"}},sc.name," \u00b7 ",fmt(te))
           ),
           e("div",{style:{padding:"0 24px 24px",display:"flex",flexDirection:"column",gap:10,maxWidth:400,width:"100%",margin:"0 auto"}},
-            e("button",{onClick:function(){setShowVentura(true);},style:{width:"100%",padding:"16px",background:"none",border:"2px solid "+(dm==="dark"?"rgba(200,185,160,0.4)":"rgba(100,85,70,0.35)"),borderRadius:0,color:dm==="dark"?"#D4C4AA":"#4A3E2E",fontSize:15,cursor:"pointer",letterSpacing:3,fontFamily:"'EB Garamond',Georgia,serif",fontWeight:500}},"messaggi di ventura"),
+            e("button",{onClick:function(){setShowVentura(true);},style:{width:"100%",padding:"16px",background:"#8B2500",border:"none",borderRadius:8,color:"#FFF",fontSize:16,cursor:"pointer",fontWeight:500,fontFamily:"'EB Garamond',Georgia,serif",letterSpacing:1}},"messaggi di ventura"),
             e("div",{style:{display:"flex",alignItems:"center",gap:12,padding:"8px 0"}},
-              e("div",{style:{fontSize:11,color:T.textDim,fontWeight:500,letterSpacing:1,whiteSpace:"nowrap"}},"memoria di un sorso"),
+              e("div",{style:{fontSize:16,color:T.textDim,fontWeight:500,letterSpacing:1,whiteSpace:"nowrap"}},"memoria di un sorso"),
               e("div",{style:{display:"flex",gap:4}},
                 [1,2,3,4,5].map(function(s){return e("button",{key:s,onClick:function(){setRat(s);},style:{background:"none",border:"none",cursor:"pointer",padding:1}},ICO.star(20,s<=rat?T.accent:"transparent",s<=rat?T.accent:T.textDim));})
               )
             ),
-            e("textarea",{value:notes,onChange:function(ev){setNotes(ev.target.value);},placeholder:"note...",style:{width:"100%",padding:10,borderRadius:0,border:"none",borderBottom:"1px solid "+T.border,background:"transparent",color:T.text,fontSize:14,fontFamily:"'EB Garamond',Georgia,serif",resize:"none",minHeight:36,boxSizing:"border-box",outline:"none"}}),
+            e("textarea",{value:notes,onChange:function(ev){setNotes(ev.target.value);},placeholder:"note...",style:{width:"100%",padding:10,borderRadius:0,border:"none",borderBottom:"1px solid "+T.border,background:"transparent",color:T.text,fontSize:16,fontFamily:"'Inter',sans-serif",resize:"none",minHeight:36,boxSizing:"border-box",outline:"none"}}),
             e("div",{style:{display:"flex",gap:10,marginTop:8}},
-              e("button",{onClick:save,style:{flex:1,padding:"14px",borderRadius:0,border:"none",background:T.accent,color:"#FFF",fontSize:15,fontWeight:600,cursor:"pointer",fontFamily:"'EB Garamond',Georgia,serif",letterSpacing:1}},"salva"),
-              e("button",{onClick:home,style:{flex:1,padding:"14px",borderRadius:0,border:"2px solid "+T.border,background:"transparent",color:T.text,fontSize:15,fontWeight:500,cursor:"pointer",fontFamily:"'EB Garamond',Georgia,serif",letterSpacing:1}},"home")
+              e("button",{onClick:save,style:{flex:1,padding:"16px",borderRadius:8,border:"none",background:T.accent,color:"#FFF",fontSize:16,fontWeight:500,cursor:"pointer"}},"salva"),
+              e("button",{onClick:home,style:{flex:1,padding:"16px",borderRadius:8,border:"1px solid "+T.border,background:"transparent",color:T.text,fontSize:16,fontWeight:500,cursor:"pointer"}},"home")
             )
           )
         )
@@ -844,10 +830,10 @@ function App(){
       e("div",{style:{flex:1,display:"flex",flexDirection:"column",padding:18,overflow:"auto"}},
         e("div",{style:{background:T.surfaceHi,borderRadius:18,padding:"16px 16px 20px",marginBottom:10,border:"2px solid "+T.accent,textAlign:"center"}},
           e("div",{style:{display:"flex",justifyContent:"center",gap:8,marginBottom:6}},
-            e("span",{style:{fontSize:14,fontWeight:700,color:T.textDim,letterSpacing:1}},isDesc?"":("STEP "+(cs+1)+" / "+sc.steps.length)),
-            cW>0&&e("span",{style:{fontSize:15,fontWeight:600,color:T.accent,letterSpacing:0.5}},cW+"ml totali"),
+            e("span",{style:{fontSize:16,fontWeight:700,color:T.textDim,letterSpacing:1}},isDesc?"":("STEP "+(cs+1)+" / "+sc.steps.length)),
+            cW>0&&e("span",{style:{fontSize:16,fontWeight:600,color:T.accent,letterSpacing:0.5}},cW+"ml totali"),
           ),
-          (()=>{const act=st?.waterAdd>0?"VERSA":/swirl|mescol|stir|spin|rompi|scav|schiuma|capovolg|premi|press/i.test(st?.text||"")?"AGITA":"ATTENDI";const acCol=act==="VERSA"?T.accent:act==="AGITA"?"#D4A03C":T.textDim;return e("div",{style:{display:"inline-block",padding:"3px 14px",borderRadius:8,background:acCol+"20",color:acCol,fontSize:15,fontWeight:600,letterSpacing:1.5,marginBottom:8}},act)})(),
+          (()=>{const act=st?.waterAdd>0?"VERSA":/swirl|mescol|stir|spin|rompi|scav|schiuma|capovolg|premi|press/i.test(st?.text||"")?"AGITA":"ATTENDI";const acCol=act==="VERSA"?T.accent:act==="AGITA"?"#D4A03C":T.textDim;return e("div",{style:{display:"inline-block",padding:"3px 14px",borderRadius:8,background:acCol+"20",color:acCol,fontSize:16,fontWeight:600,letterSpacing:1.5,marginBottom:8}},act)})(),
           e("div",{style:{fontSize:64,fontWeight:600,fontVariantNumeric:"tabular-nums",color:isDesc?"#8B6914":pr>0.85?T.accentLight:T.text,lineHeight:1,marginBottom:6}},isDesc?"—":fmt(Math.max(0,dur-se))),
           !isDesc&&e("div",{style:{height:6,borderRadius:3,background:T.border,marginBottom:12,overflow:"hidden"}},
             e("div",{style:{height:"100%",borderRadius:3,background:pr>0.85?T.accentLight:T.accent,width:(pr*100)+"%",transition:"width 0.3s linear"}}),
@@ -860,7 +846,7 @@ function App(){
         ),
         e("div",{style:{flex:1}},sc.steps.map((s,i)=>{const d=i<cs,a=i===cs;return e("div",{key:i,style:{display:"flex",gap:8,marginBottom:5,opacity:d?0.35:a?1:0.45}},
           e("div",{style:{width:24,height:24,borderRadius:12,background:d?T.green:a?T.accent:T.surfaceHi,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}},
-            d?ICO.check(11):e("span",{style:{fontSize:11,fontWeight:700,color:a?"#FFF":T.textDim}},i+1)),
+            d?ICO.check(11):e("span",{style:{fontSize:16,fontWeight:700,color:a?"#FFF":T.textDim}},i+1)),
           e("div",{style:{fontSize:18,color:a?T.text:T.textSec,lineHeight:1.4,paddingTop:1}},s.text.length>65?s.text.substring(0,62)+"...":s.text),
         );})),
       ),
@@ -875,7 +861,7 @@ function App(){
 
   // HISTORY
   if(view==="history")return e("div",{style:S.pg},
-    e("div",{style:S.hd},e("button",{onClick:home,style:S.ibBack},ICO.back(22,T.accent),e("span",{style:{fontSize:13,fontWeight:700}},"Indietro")),e("span",{style:S.ht},"I tuoi Brew")),
+    e("div",{style:S.hd},e("button",{onClick:home,style:S.ibBack},ICO.back(22,T.accent),e("span",{style:{fontSize:16,fontWeight:700}},"Indietro")),e("span",{style:S.ht},"I tuoi Brew")),
     e("div",{style:{padding:20}},
       hist.length===0?e("div",{style:{textAlign:"center",padding:40,color:T.textSec}},"Nessun brew salvato."):
       [
@@ -883,12 +869,12 @@ function App(){
           e("div",{style:{display:"flex",justifyContent:"space-between",alignItems:"start"}},
             e("div",{style:{flex:1}},
               e("div",{style:{display:"flex",alignItems:"center",gap:6,marginBottom:3}},mo&&Ic(mo.icon,22),e("span",{style:{fontWeight:700,fontSize:17}},h.recipeName)),
-              e("div",{style:{fontSize:14,color:T.textSec}},h.date+" · "+h.time),
+              e("div",{style:{fontSize:16,color:T.textSec}},h.date+" · "+h.time),
             ),
             e("div",{style:{display:"flex",gap:2}},[1,2,3,4,5].map(s=>ICO.star(22,s<=h.rating?T.accent:"transparent",s<=h.rating?T.accent:T.textDim))),
           ),
-          e("div",{style:{display:"flex",gap:8,marginTop:8,fontSize:13,color:T.textDim}},h.coffee+"g · "+h.water+"ml · "+h.clicks+" click"+(h.temperature>0?" · "+h.temperature+"°C":"")),
-          h.notes&&e("div",{style:{marginTop:6,fontSize:14,color:T.textSec}},'"'+h.notes+'"'),
+          e("div",{style:{display:"flex",gap:8,marginTop:8,fontSize:16,color:T.textDim}},h.coffee+"g · "+h.water+"ml · "+h.clicks+" click"+(h.temperature>0?" · "+h.temperature+"°C":"")),
+          h.notes&&e("div",{style:{marginTop:6,fontSize:16,color:T.textSec}},'"'+h.notes+'"'),
         );}),
         e("button",{key:"del",onClick:()=>sH([]),style:{...S.bt(T.surface,T.red),marginTop:8,border:"1px solid "+T.border,display:"flex",alignItems:"center",justifyContent:"center",gap:8}},ICO.trash(16)," Cancella storico"),
       ],
@@ -900,9 +886,9 @@ function App(){
     const isEdit=view==="editrecipe";
 
     const inp=(lb,val,set,ph,tp)=>e("div",{key:lb,style:{marginBottom:12}},
-      e("label",{style:{fontSize:13,color:T.textSec,fontWeight:600,display:"block",marginBottom:4}},lb),
+      e("label",{style:{fontSize:16,color:T.textSec,fontWeight:600,display:"block",marginBottom:4}},lb),
       e("input",{value:val,onChange:ev=>set(ev.target.value),placeholder:ph,type:tp||"text",
-        style:{width:"100%",padding:"12px 14px",borderRadius:12,border:"1px solid "+T.border,background:T.surface,color:T.text,fontSize:16,outline:"none",boxSizing:"border-box"}}));
+        style:{width:"100%",padding:"12px 14px",borderRadius:12,border:"1px solid "+T.border,background:T.surface,color:T.text,fontSize:17,outline:"none",boxSizing:"border-box"}}));
     const addStep=()=>setFst([...fst,{text:"",waterAdd:0,duration:30}]);
     const rmStep=i=>setFst(fst.filter((_,j)=>j!==i));
     const upStep=(i,k,v)=>setFst(fst.map((s,j)=>j===i?{...s,[k]:v}:s));
@@ -916,15 +902,14 @@ function App(){
     };
     const delR=()=>{sC(customR.filter(r=>r.id!==selR?.id));home();};
     return e("div",{style:S.pg},
-      e("div",{style:S.hd},e("button",{onClick:home,style:S.ibBack},ICO.back(22,T.accent),e("span",{style:{fontSize:13,fontWeight:700}},"Indietro")),e("span",{style:S.ht},isEdit?"Modifica Ricetta":"Nuova Ricetta")),
+      e("div",{style:S.hd},e("button",{onClick:home,style:S.ibBack},ICO.back(22,T.accent),e("span",{style:{fontSize:16,fontWeight:700}},"Indietro")),e("span",{style:S.ht},isEdit?"Modifica Ricetta":"Nuova Ricetta")),
       e("div",{style:{padding:20}},
         inp("Nome ricetta *",fn,setFn,"Es: My V60 Morning"),
         inp("Autore",fa,setFa,"Es: Il tuo nome"),
         inp("Descrizione",fd,setFd,"Note sulla ricetta"),
-        e("div",{style:{marginBottom:12}},
-          e("label",{style:{fontSize:13,color:T.textSec,fontWeight:600,display:"block",marginBottom:4}},"Metodo"),
+        
           e("select",{value:fm,onChange:ev=>setFm(ev.target.value),
-            style:{width:"100%",padding:"12px 14px",borderRadius:12,border:"1px solid "+T.border,background:T.surface,color:T.text,fontSize:16}},
+            style:{width:"100%",padding:"12px 14px",borderRadius:12,border:"1px solid "+T.border,background:T.surface,color:T.text,fontSize:17}},
             METHODS.map(m=>e("option",{key:m.id,value:m.id},m.name)))),
         e("div",{style:{display:"grid",gridTemplateColumns:"1fr 1fr",gap:10}},
           inp("Caffè (g)",fc2,setFc2,"15","number"),
@@ -936,40 +921,39 @@ function App(){
           inp("Micron",fmu2,setFmu2,"720","number"),
           inp("Descrizione grind",fgd2,setFgd2,"Medium-fine"),
         ),
-        e("div",{style:{fontSize:14,color:T.accent,fontWeight:700,letterSpacing:1,marginTop:16,marginBottom:10}},"Step"),
+        e("div",{style:{fontSize:16,color:T.accent,fontWeight:700,letterSpacing:1,marginTop:16,marginBottom:10}},"Step"),
         fst.map((s,i)=>e("div",{key:i,style:{background:T.surface,borderRadius:14,padding:14,marginBottom:10,border:"1px solid "+T.border}},
           e("div",{style:{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:8}},
-            e("span",{style:{fontSize:14,fontWeight:700,color:T.accent}},"Step "+(i+1)),
+            e("span",{style:{fontSize:16,fontWeight:700,color:T.accent}},"Step "+(i+1)),
             fst.length>1&&e("button",{onClick:()=>rmStep(i),style:{...S.ibSm,width:28,height:28,borderRadius:14}},ICO.x(12))),
           e("input",{value:s.text,onChange:ev=>upStep(i,"text",ev.target.value),placeholder:"Descrizione step",
-            style:{width:"100%",padding:"10px 12px",borderRadius:10,border:"1px solid "+T.border,background:T.bg,color:T.text,fontSize:15,marginBottom:8,boxSizing:"border-box"}}),
+            style:{width:"100%",padding:"10px 12px",borderRadius:10,border:"1px solid "+T.border,background:T.bg,color:T.text,fontSize:16,marginBottom:8,boxSizing:"border-box"}}),
           e("div",{style:{display:"flex",gap:8}},
-            e("div",{style:{flex:1}},e("label",{style:{fontSize:11,color:T.textDim}},"Acqua (ml)"),
+            e("div",{style:{flex:1}},e("label",{style:{fontSize:16,color:T.textDim}},"Acqua (ml)"),
               e("input",{value:s.waterAdd,onChange:ev=>upStep(i,"waterAdd",ev.target.value),type:"number",
-                style:{width:"100%",padding:"8px 10px",borderRadius:8,border:"1px solid "+T.border,background:T.bg,color:T.text,fontSize:14,boxSizing:"border-box"}})),
-            e("div",{style:{flex:1}},e("label",{style:{fontSize:11,color:T.textDim}},"Durata (sec)"),
+                style:{width:"100%",padding:"8px 10px",borderRadius:8,border:"1px solid "+T.border,background:T.bg,color:T.text,fontSize:16,boxSizing:"border-box"}})),
+            e("div",{style:{flex:1}},e("label",{style:{fontSize:16,color:T.textDim}},"Durata (sec)"),
               e("input",{value:s.duration,onChange:ev=>upStep(i,"duration",ev.target.value),type:"number",
-                style:{width:"100%",padding:"8px 10px",borderRadius:8,border:"1px solid "+T.border,background:T.bg,color:T.text,fontSize:14,boxSizing:"border-box"}})),
+                style:{width:"100%",padding:"8px 10px",borderRadius:8,border:"1px solid "+T.border,background:T.bg,color:T.text,fontSize:16,boxSizing:"border-box"}})),
           ),
         )),
         e("button",{onClick:addStep,style:{...S.bt(T.surface,T.accent),width:"100%",marginBottom:16,border:"1px dashed "+T.accent}},"+  Aggiungi Step"),
         e("button",{onClick:saveR,style:{...S.bt("#2D7D46","#FFF"),width:"100%",marginBottom:10,fontSize:18,fontWeight:600}},isEdit?"\u2713 Salva Modifiche":"\u2713 Salva Ricetta"),
         isEdit&&e("button",{onClick:delR,style:{...S.bt(T.surface,T.red),width:"100%",border:"1px solid "+T.border,display:"flex",alignItems:"center",justifyContent:"center",gap:8}},ICO.trash(16)," Elimina Ricetta"),
-      ),
     );
   }
 
   // GRIND GUIDE
   if(view==="grind")return e("div",{style:S.pg},
-    e("div",{style:S.hd},e("button",{onClick:home,style:S.ibBack},ICO.back(22,T.accent),e("span",{style:{fontSize:13,fontWeight:700}},"Indietro")),e("span",{style:S.ht},"Guida Granulometria")),
+    e("div",{style:S.hd},e("button",{onClick:home,style:S.ibBack},ICO.back(22,T.accent),e("span",{style:{fontSize:16,fontWeight:700}},"Indietro")),e("span",{style:S.ht},"Guida Granulometria")),
     e("div",{style:{padding:20}},
       e("div",{style:{...S.cd,cursor:"default"}},
-        e("div",{style:{fontSize:14,color:T.accent,fontWeight:700,letterSpacing:1,marginBottom:12}},"Riferimenti macinini"),
-        e("table",{style:{width:"100%",tableLayout:"fixed",borderCollapse:"collapse",fontSize:14}},
+        e("div",{style:{fontSize:16,color:T.accent,fontWeight:700,letterSpacing:1,marginBottom:12}},"Riferimenti macinini"),
+        e("table",{style:{width:"100%",tableLayout:"fixed",borderCollapse:"collapse",fontSize:16}},
           e("thead",null,e("tr",null,
-            e("th",{style:{textAlign:"left",padding:"8px 4px",borderBottom:"1px solid "+T.border,color:T.textSec,fontSize:12,width:"38%"}},"Macinino"),
-            e("th",{style:{textAlign:"center",padding:"8px 4px",borderBottom:"1px solid "+T.border,color:T.textSec,fontSize:12,width:"31%"}},"Medio-Fine"),
-            e("th",{style:{textAlign:"center",padding:"8px 4px",borderBottom:"1px solid "+T.border,color:T.textSec,fontSize:12,width:"31%"}},"Grosso"),
+            e("th",{style:{textAlign:"left",padding:"8px 4px",borderBottom:"1px solid "+T.border,color:T.textSec,fontSize:16,width:"38%"}},"Macinino"),
+            e("th",{style:{textAlign:"center",padding:"8px 4px",borderBottom:"1px solid "+T.border,color:T.textSec,fontSize:16,width:"31%"}},"Medio-Fine"),
+            e("th",{style:{textAlign:"center",padding:"8px 4px",borderBottom:"1px solid "+T.border,color:T.textSec,fontSize:16,width:"31%"}},"Grosso"),
           )),
           e("tbody",null,
             [["Comandante C40","22-25 click","28-32 click"],["Baratza Encore","12-15","20-22"],["Timemore C2/C3","16-18 click","22-24 click"],["Wilfa Svart","AP→Filtro","Filtro→FP"],["1Zpresso JX","2.4-2.8","3.2-3.6"]].map((r,i)=>
@@ -979,20 +963,20 @@ function App(){
         ),
       ),
       e("div",{style:{...S.cd,cursor:"default"}},
-        e("div",{style:{fontSize:14,color:T.accent,fontWeight:700,letterSpacing:1,marginBottom:14}},"Diagnostica"),
+        e("div",{style:{fontSize:16,color:T.accent,fontWeight:700,letterSpacing:1,marginBottom:14}},"Diagnostica"),
         [
           ["\u26A0\uFE0F Troppo fine","V60: >3:30 · AP: >2:30 · Amaro, astringente","Aumenta 2-3 click"],
           ["\u26A0\uFE0F Troppo grossa","V60: <2:30 · AP: <1:15 · Acido, vuoto","Riduci 2-3 click"],
           ["\u2705 Giusta","V60: 2:45-3:30 · AP: 1:30-2:15 · Dolce, pulita","Mantieni"],
         ].map((d,i)=>e("div",{key:i,style:{marginBottom:12,padding:12,borderRadius:12,background:T.surfaceHi}},
-          e("div",{style:{fontWeight:700,fontSize:16,marginBottom:4}},d[0]),
-          e("div",{style:{fontSize:15,color:T.textSec,lineHeight:1.5}},d[1]),
-          e("div",{style:{fontSize:14,color:T.accent,fontWeight:600,marginTop:4}},d[2]),
+          e("div",{style:{fontWeight:700,fontSize:17,marginBottom:4}},d[0]),
+          e("div",{style:{fontSize:16,color:T.textSec,lineHeight:1.5}},d[1]),
+          e("div",{style:{fontSize:16,color:T.accent,fontWeight:600,marginTop:4}},d[2]),
         )),
       ),
       e("div",{style:{...S.cd,cursor:"default"}},
-        e("div",{style:{fontSize:14,color:T.accent,fontWeight:700,letterSpacing:1,marginBottom:10}},"Formula rapida"),
-        e("div",{style:{fontSize:16,color:T.textSec,lineHeight:1.7}},
+        e("div",{style:{fontSize:16,color:T.accent,fontWeight:700,letterSpacing:1,marginBottom:10}},"Formula rapida"),
+        e("div",{style:{fontSize:17,color:T.textSec,lineHeight:1.7}},
           "Comandante C40: ~30µm per click.",
           e("br"),
           "22 click ≈ 660µm (V60 Hoffmann)",
@@ -1005,7 +989,7 @@ function App(){
     ),
   );
 
-  return e("div",{style:S.pg},e("div",{style:{padding:40,textAlign:"center"}},e("button",{onClick:home,style:{padding:"14px 32px",borderRadius:0,border:"2px solid "+T.border,background:"transparent",color:T.text,fontSize:15,fontWeight:500,cursor:"pointer",fontFamily:"'EB Garamond',Georgia,serif",letterSpacing:1}},"home")));
+  return e("div",{style:S.pg},e("div",{style:{padding:40,textAlign:"center"}},e("button",{onClick:home,style:{padding:"14px 32px",borderRadius:8,border:"2px solid "+T.border,background:"transparent",color:T.text,fontSize:16,fontWeight:500,cursor:"pointer",fontFamily:"'Inter',sans-serif",letterSpacing:1}},"home")));
 }
 
 ReactDOM.createRoot(document.getElementById("root")).render(e(App));
@@ -1020,39 +1004,4 @@ if('serviceWorker' in navigator){
 
 </script>
 </body>
-</html>if(n==="gina"){return e("svg",{width:s,height:s,viewBox:"0 0 60 60",fill:"none"},e("path",{d:"M15 12 L45 12 L38 42 L22 42 Z",stroke:c,strokeWidth:2,strokeLinejoin:"round"}),e("line",{x1:12,y1:12,x2:48,y2:12,stroke:c,strokeWidth:2.5,strokeLinecap:"round"}),e("circle",{cx:30,cy:42,r:3,stroke:c,strokeWidth:2}),e("line",{x1:30,y1:45,x2:30,y2:52,stroke:c,strokeWidth:2}),e("rect",{x:18,y:52,width:24,height:6,rx:2,stroke:c,strokeWidth:1.5}));}
-  if(n==="gina")return e("svg",{width:s,height:s,viewBox:"0 0 100 100",fill:"none",stroke:T.text,strokeWidth:2,strokeLinecap:"round"},e("path",{d:"M30 15 L70 15"}),e("path",{d:"M35 15 L40 45"}),e("path",{d:"M65 15 L60 45"}),e("circle",{cx:50,cy:45,r:4,fill:T.text,stroke:"none"}),e("path",{d:"M38 50 L38 55 Q38 60 42 60 L58 60 Q62 60 62 55 L62 50"}),e("path",{d:"M50 60 L50 70"}),e("rect",{x:30,y:70,width:40,height:25,rx:3}));
-  if(run&&!done){
-    const cs=gS().steps[ci];const isP=cs.waterAdd>0;
-    const act=cs.text.includes("ersa")||cs.text.includes("ggiungi")||isP?"VERSA":cs.text.includes("wirl")||cs.text.includes("escola")||cs.text.includes("gir")?"AGITA":"ATTENDI";
-    const advStep=()=>{if(ci<gS().steps.length-1)ns();else setDone(true);};
-    return e("div",{style:{...S.pg,display:"flex",flexDirection:"column",justifyContent:"center",alignItems:"center",minHeight:"100vh",padding:20,position:"relative"}},
-      e("div",{style:{position:"absolute",top:16,left:16,right:16,display:"flex",justifyContent:"space-between",alignItems:"center"}},
-        e("button",{onClick:backFromBrew,style:{background:"none",border:"none",color:T.textSec,fontSize:13,cursor:"pointer",padding:8}},ICO.back(18,T.textSec)," Esci"),
-        e("div",{style:{fontSize:12,color:T.textSec,letterSpacing:1}},gS().name),
-        e("div",{style:{fontSize:12,color:T.textSec}},(ci+1)+"/"+gS().steps.length),
-      ),
-      e("div",{onClick:advStep,style:{flex:1,display:"flex",flexDirection:"column",justifyContent:"center",alignItems:"center",gap:8,cursor:"pointer"}},
-        e("div",{style:{fontSize:80,fontWeight:200,color:T.text,fontVariantNumeric:"tabular-nums",letterSpacing:"-0.03em",lineHeight:1}},
-          Math.floor(sl/60)+":"+String(sl%60).padStart(2,"0")),
-        isP&&e("div",{style:{fontSize:42,fontWeight:400,color:T.accentLight,marginTop:4,fontVariantNumeric:"tabular-nums"}},"+"+Math.round(cs.waterAdd*(cc/gS().baseCoffee)),e("span",{style:{fontSize:20,fontWeight:400}},"ml")),
-        e("div",{style:{fontSize:11,color:T.textDim,letterSpacing:2,marginTop:8}},act),
-      ),
-      e("div",{style:{marginTop:24,fontSize:11,color:dim,lineHeight:1.7,textAlign:"center",maxWidth:300}},"Frasi sul limite fra vita e morte: alcune sono la scomposizione di indagini cafausiche, altre riferite ad alcune carte dei tarocchi.",e("br"),e("br"),"Lu Cafausu con la tarologa Valentina \u201cTresia\u201d Tarantino.",e("br"),e("a",{href:"https://amzn.eu/d/070XfOUq",target:"_blank",rel:"noopener",style:{color:dim,textDecoration:"underline"}},"acquista il libro")),
-    e("div",{style:{position:"absolute",bottom:0,left:0,right:0,padding:"16px 24px 32px"}},
-        e("div",{style:{display:"flex",justifyContent:"center",gap:5,marginBottom:10}},
-          gS().steps.map(function(s,i){return e("div",{key:i,style:{width:i===ci?18:6,height:5,borderRadius:3,background:i===ci?T.accentLight:T.border,transition:"all 0.3s"}})})
-        ),
-        e("div",{key:"step"+ci,style:{fontSize:15,color:T.textSec,textAlign:"center",lineHeight:1.5,animation:"fadeInstruction 0.5s ease-out",minHeight:40}},cs.text),
-        e("div",{style:{display:"flex",justifyContent:"center",alignItems:"center",gap:24,marginTop:8}},ci>0&&e("button",{onClick:function(ev){ev.stopPropagation();ps();},style:{background:T.surface,border:"2px solid "+T.accentLight,borderRadius:10,padding:"8px 18px",color:T.accentLight,fontSize:13,fontWeight:600,cursor:"pointer"}},"\u2190 Prec"),e("div",{style:{fontSize:13,color:T.text,fontWeight:500,fontVariantNumeric:"tabular-nums"}},(ci+1)+" / "+gS().steps.length),ci<gS().steps.length-1&&e("button",{onClick:function(ev){ev.stopPropagation();ns();},style:{background:T.accentLight,border:"none",borderRadius:10,padding:"8px 18px",color:T.bg,fontSize:13,fontWeight:600,cursor:"pointer"}},"Succ \u2192")),
-        e("div",{style:{display:"flex",alignItems:"center",justifyContent:"center",gap:16,marginTop:8}},
-          e("div",{style:{fontSize:12,color:T.textDim,fontVariantNumeric:"tabular-nums"}},fmtT(elapsed)),
-          e("div",{style:{flex:1,height:2,background:T.border,borderRadius:1,overflow:"hidden",maxWidth:180}},
-            e("div",{style:{height:2,background:T.accentLight,borderRadius:1,width:((ci/gS().steps.length)*100)+"%",transition:"width 0.3s"}})),
-          e("div",{style:{fontSize:12,color:T.textDim,fontStyle:"italic",fontFamily:"'Cormorant Garamond',Georgia,serif"}},fmtT(gS().steps.reduce((a,s)=>a+s.duration,0))),
-        ),
-      ),
-    );
-  }
-
-  
+</html>
