@@ -1,2 +1,12 @@
-// v1772366232
-const CACHE_NAME="cafausica-v1772366232";self.addEventListener("install",()=>self.skipWaiting());self.addEventListener("activate",e=>{e.waitUntil(caches.keys().then(ks=>Promise.all(ks.map(k=>caches.delete(k)))).then(()=>self.clients.matchAll()).then(cls=>cls.forEach(c=>c.navigate(c.url))));});self.addEventListener("fetch",e=>{e.respondWith(fetch(e.request));});
+// v1772375239 - cache buster
+self.addEventListener("install", function() { self.skipWaiting(); });
+self.addEventListener("activate", function(e) {
+  e.waitUntil(
+    caches.keys().then(function(ks) {
+      return Promise.all(ks.map(function(k) { return caches.delete(k); }));
+    }).then(function() { return self.clients.claim(); })
+  );
+});
+self.addEventListener("fetch", function(e) {
+  e.respondWith(fetch(e.request));
+});
