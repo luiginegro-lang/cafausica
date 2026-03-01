@@ -1,5 +1,5 @@
-// v1772305255 — force update
-const CACHE_NAME = 'cafausica-v1772305255';
+// v1772362837 — force update
+const CACHE_NAME = 'cafausica-v1772362837';
 self.addEventListener('install', () => self.skipWaiting());
 self.addEventListener('activate', e => {
   e.waitUntil(

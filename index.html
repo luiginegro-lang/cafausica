@@ -339,6 +339,99 @@ const SubTitle=()=>{
   return e("div",{key:i,style:{fontSize:15,fontWeight:300,color:T.accent,fontStyle:"italic",fontFamily:"'Playfair Display',Georgia,serif",textAlign:"center",marginTop:10,marginBottom:4,minHeight:40,animation:"fadeInstruction 1s ease-out",lineHeight:1.6,padding:"0 12px"}},phrases[i]);
 };
 
+
+// ===== VENTURA PHRASES =====
+const VENTURA=[
+"Tutte le carte son da giocare.",
+"Mai dare una spada a un uomo che non sa danzare.",
+"Un caff\u00e8 per questo e per l\u2019altro mondo!",
+"Il silenzio \u00e8 il sacro, prima della parola umana.",
+"La memoria inganna solo chi vuol dimenticare.",
+"La gabbia \u00e8 dorata solo dall\u2019interno.",
+"Sorridi, con leggerezza sorridi.",
+"Se \u00e8 incubo allora siamo vivi.",
+"Una sola terra sotto il mare.",
+"Il matto \u00e8 come un corso d\u2019acqua che segue ogni canale.",
+"Ci\u00f2 che in vita abbiamo cercato pu\u00f2 ora essere opera.",
+"Scoprire facolt\u00e0 inaspettate in terreni sconosciuti.",
+"Al fondo di ogni discorso, non c\u2019\u00e8 una verit\u00e0, ma un ritmo.",
+"Vivere al gerundio. Facendo, non fatto. Passando, non passato. Morendo, non morto.",
+"Quel che conta non \u00e8 la forza, ma l\u2019ardire nell\u2019abbandono.",
+"Quando nulla \u00e8 ancora nato tutto \u00e8 gi\u00e0 avvenuto, eppure ancora tutto \u00e8 avvenibile.",
+"All\u2019inizio della fine c\u2019era una siepe, all\u2019inizio dell\u2019amore l\u2019abisso.",
+"L\u2019animale \u00e8 gemello del consapevole.",
+"Ogni giorno andiamo lentamente incontro a quello da cui fuggiamo.",
+"Questa ammirevole resistenza \u00e8 solo una altissima forma di desistenza: \u00e8 il tukdam.",
+"Danziamo nudi con gli elementi del mondo, liberi dalla morte e dalla vita.",
+"La torre croll\u00f2, morirono centomila nessuno, uno si salv\u00f2.",
+"Far fagotto, viaggiare e non voltarsi. Che non si faccia come Orfeo con la sua Euridice.",
+"C\u2019\u00e8 un ritorno possibile, dal regno dei morti. Per lo pi\u00f9, prende la forma di un racconto, oppure di un raccolto.",
+"Accarezza la ferocia ai tuoi piedi, placa la bestia.",
+"Guarda piano il luogo dove il tempo \u00e8 sospeso, \u00e8 l\u00ec che il desiderio non si consuma.",
+"Ora puoi iniziare ad attraversare il fiume che porta nell\u2019altrove.",
+"Non \u00e8 mai dato sapere dentro quale tasca la morte si faccia viva.",
+"Ci riveliamo estranei al fianco di chi ci ha generato.",
+"La negromante trasmuta e fiorisce se lasciamo andare ci\u00f2 che immobile appare.",
+"Il seme sepolto nella terra \u00e8 la genesi della conoscenza.",
+"Abbandonati alle risonanze e alla bellezza della genesi delle idee.",
+"Vi \u00e8 la possibilit\u00e0 di ospitare l\u2019universo nel potenziale di un piccolo cuore.",
+"Se siamo riusciti a passare dalla parola al silenzio, possiamo ora saltare verso l\u2019amore.",
+"Il muro dietro i nostri corpi \u00e8 caldo, il nostro futuro irradia gemme sul nostro passato.",
+"Inginocchiati alla riva di un fiume, nella notte stellata un grillo frinisce nell\u2019ombra.",
+"Le parole che esprimono il lamento per la morte sono la prima poesia.",
+"Un\u2019opera rotta, spezzata, distrutta, marcita, non muore, si rigenera nella memoria o nel corpo.",
+"Sul tavolo che ci sostiene, due piatti. In uno la piuma, nell\u2019altro il cuore e in mezzo la morte.",
+"Quando odi l\u2019altro, l\u2019altro \u00e8 sempre tuo fratello.",
+"Stabiliamo connessioni, per\u00f2 libere dagli abituali criteri di consequenzialit\u00e0.",
+"Fluidi alimentano il tuo ventre e sgorgano scintille.",
+"Il rimpianto \u00e8 il pensiero che non si accorda con l\u2019accaduto.",
+"Si sa che ci\u00f2 che pensiamo pu\u00f2 diventare realt\u00e0, quello che sogniamo lo \u00e8 gi\u00e0.",
+"Non ci sarebbe alcuna possibilit\u00e0 di conoscere la morte, se accadesse solo una volta.",
+"Ci\u00f2 che amiamo \u00e8 gi\u00e0 stato amato dai nostri genitori.",
+"Squarciato \u00e8 il cielo, emergiamo dal sonno morti, vivi e risorti.",
+"Che cos\u2019\u00e8 l\u2019immortalit\u00e0 senza il cammino della morte, cosa i dorati semi senza la terra?",
+"Non puoi tornare indietro e non \u00e8 facile far finta che nulla sia stato, non si muore solo di morte.",
+"Zampilla la sorgente dal tetto del mondo, ricade, prosegue nel letto del fiume. Come in alto cos\u00ec in basso.",
+"L\u2019anziano cammina sereno nel buio, avanza all\u2019indietro. La torcia illumina l\u2019evidente, ma il tempo \u00e8 finito.",
+];
+
+// ===== VENTURA VIEW =====
+function VenturaView(props) {
+  var dark = props.dark, onBack = props.onBack, onHome = props.onHome;
+  var _p = useState("intro"), phase = _p[0], setPhase = _p[1];
+  var _m = useState(""), msg = _m[0], setMsg = _m[1];
+  var ink = dark ? "#D4C4AA" : "#5A4E3E";
+  var dim = dark ? "#8A7A66" : "#8A7B6B";
+  var bg = dark ? "#1A1410" : "#FAF7F2";
+  var draw = function() {
+    setMsg(VENTURA[Math.floor(Math.random() * VENTURA.length)]);
+    setPhase("reveal");
+  };
+  if (phase === "reveal") return e("div", {style: {minHeight: "100vh", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", padding: "40px 28px"}},
+    e("div", {key: msg, style: {animation: "venturaAppear 3s ease-out", textAlign: "center", maxWidth: 340, flex: 1, display: "flex", flexDirection: "column", justifyContent: "center"}},
+      e("div", {style: {fontSize: 20, fontWeight: 300, color: ink, lineHeight: 2, fontStyle: "italic", fontFamily: "'Playfair Display',Georgia,serif"}}, msg),
+      e("div", {style: {marginTop: 28, fontSize: 9, color: dim, letterSpacing: 3, textTransform: "uppercase"}}, "Messaggi di ventura \u00b7 Lu Cafausu")
+    ),
+    e("div", {style: {display: "flex", gap: 16, paddingBottom: 24}},
+      e("button", {onClick: onBack, style: {background: "none", border: "none", color: dim, fontSize: 12, cursor: "pointer", letterSpacing: 1}}, "\u2190 brew"),
+      e("button", {onClick: onHome, style: {background: "none", border: "none", color: dim, fontSize: 12, cursor: "pointer", letterSpacing: 1}}, "\u2190 home")
+    )
+  );
+  return e("div", {style: {minHeight: "100vh", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", padding: "40px 28px"}},
+    e("div", {style: {textAlign: "center", maxWidth: 320, flex: 1, display: "flex", flexDirection: "column", justifyContent: "center"}},
+      e("div", {style: {fontSize: 9, color: dim, letterSpacing: 3, textTransform: "uppercase", marginBottom: 24}}, "messaggi di ventura"),
+      e("div", {style: {fontSize: 12, fontWeight: 300, color: dim, lineHeight: 1.7, fontFamily: "'DM Sans',sans-serif", marginBottom: 24}}, "Il caff\u00e8 come medium: sostanza-evento fra gesto, percezione, memoria e linguaggio. Nel vuoto che segue l\u2019ultimo sorso si apre una regione di disponibilit\u00e0."),
+      e("div", {style: {fontSize: 19, fontWeight: 300, color: ink, lineHeight: 1.9, fontStyle: "italic", fontFamily: "'Playfair Display',Georgia,serif", marginBottom: 32}}, "Poni una domanda esistenziale che riguardi il tuo presente.", e("br"), e("br"), "Non cercare risposta.", e("br"), "Lascia che emerga."),
+      e("button", {onClick: draw, style: {marginTop: 8, background: "none", border: "2px solid " + ink, borderRadius: 0, padding: "14px 32px", color: ink, fontSize: 14, cursor: "pointer", letterSpacing: 2, textTransform: "uppercase", fontWeight: 600}}, "rivela"),
+      e("div", {style: {marginTop: 24, fontSize: 11, color: dim, lineHeight: 1.7, textAlign: "center", fontStyle: "italic", maxWidth: 300}}, "Frasi sul limite fra vita e morte: alcune sono la scomposizione di indagini cafausiche, altre riferite ad alcune carte dei tarocchi.", e("br"), e("br"), "Lu Cafausu con la tarologa Valentina \u201cTresia\u201d Tarantino.", e("br"), e("a", {href: "https://amzn.eu/d/070XfOUq", target: "_blank", rel: "noopener", style: {color: dim, textDecoration: "underline"}}, "acquista il libro"))
+    ),
+    e("div", {style: {display: "flex", gap: 16, paddingBottom: 24}},
+      e("button", {onClick: onBack, style: {background: "none", border: "none", color: dim, fontSize: 12, cursor: "pointer", letterSpacing: 1}}, "\u2190 brew"),
+      e("button", {onClick: onHome, style: {background: "none", border: "none", color: dim, fontSize: 12, cursor: "pointer", letterSpacing: 1}}, "\u2190 home")
+    )
+  );
+}
+
 const CupDone=({dark})=>{
   const phrases=[
     ["Il muso di Beth si curva\ne mi indica dove andare,\nsembra sorridere.","Luigi Negro"],
@@ -414,6 +507,7 @@ function App(){
   const[se,setSe]=useState(0);
   const[te,setTe]=useState(0);
   const[run,setRun]=useState(false);
+  const[showVentura,setShowVentura]=useState(false);
   const[done,setDone]=useState(false);
   const ir=useRef(null);
   const[hist,setHist]=useState(()=>LS.get("brew_history")||[]);
@@ -540,11 +634,11 @@ function App(){
 
   const S={
     pg:{minHeight:"100dvh",background:T.bg,color:T.text,fontFamily:"'DM Sans','Helvetica Neue',sans-serif",maxWidth:720,margin:"0 auto",padding:"0 env(safe-area-inset-right) 0 env(safe-area-inset-left)"},
-    hd:{padding:"14px 16px",display:"flex",alignItems:"center",gap:"12px",borderBottom:"1px solid "+T.border},
+    hd:{padding:"14px 16px",display:"flex",alignItems:"center",gap:"12px",borderBottom:"none"},
     ht:{fontSize:TF.lg(),fontWeight:700,fontFamily:"'Playfair Display',Georgia,serif",lineHeight:1.2},
-    cd:{background:T.surface,borderRadius:16,padding:20,marginBottom:12,border:"1px solid "+T.border,cursor:"pointer",overflow:"hidden"},
+    cd:{background:T.surface,borderRadius:8,padding:16,marginBottom:10,border:"1px solid "+T.border,cursor:"pointer",overflow:"hidden"},
     pl:{display:"inline-block",padding:"5px 12px",borderRadius:20,fontSize:14,fontWeight:600,background:T.surfaceHi,color:T.textSec},
-    bt:(b,f)=>({padding:"16px 24px",borderRadius:14,border:"none",background:b||T.accent,color:f||"#FFF",fontWeight:700,fontSize:18,cursor:"pointer",fontFamily:"inherit",width:"100%",letterSpacing:0.2}),
+    bt:(b,f)=>({padding:"16px 24px",borderRadius:0,border:"none",background:b||T.accent,color:f||"#FFF",fontWeight:700,fontSize:18,cursor:"pointer",fontFamily:"inherit",width:"100%",letterSpacing:0.2}),
     ib:{width:44,height:44,borderRadius:22,border:"none",background:T.accent+"1A",color:T.text,display:"flex",alignItems:"center",justifyContent:"center",cursor:"pointer",transition:"background 0.15s"},
     ibBack:{height:40,borderRadius:20,border:"2px solid #C0392B",background:"#C0392B18",color:T.accent,display:"flex",alignItems:"center",justifyContent:"center",cursor:"pointer",padding:"0 14px",gap:4},
     ibSm:{width:48,height:48,borderRadius:14,border:"2px solid "+T.accentLight,background:T.surface,color:T.accentLight,display:"flex",alignItems:"center",justifyContent:"center",cursor:"pointer"}
@@ -571,7 +665,7 @@ function App(){
     ),
     e("div",{style:{padding:"8px 16px 4px"}},e("div",{onClick:()=>{setAdvRoast(null);setAdvProc(null);setAdvGoal(null);setView("advisor");},style:{...S.cd,display:"flex",alignItems:"center",gap:12,cursor:"pointer",border:"2px solid "+T.accent+"55",background:T.accent+"08"}},
       e("div",{style:{fontSize:24,width:28,textAlign:"center"}},"☕"),
-      e("div",null,e("div",{style:{width:"100%",padding:"16px 20px",borderRadius:14,background:"#C0392B",color:"#FFF",fontSize:16,fontWeight:700,border:"none",cursor:"pointer",letterSpacing:"0.02em",boxShadow:"0 4px 12px rgba(192,57,43,0.3)"}},"Trova la tua Ricetta"),e("div",{style:{fontSize:14,color:T.textSec}},"Scegli tostatura, processo, gusto")),
+      e("div",null,e("div",{style:{width:"100%",padding:"14px",borderRadius:0,background:"none",color:T.accent,fontSize:14,fontWeight:400,border:"1px solid "+T.border,cursor:"pointer",letterSpacing:2,textTransform:"uppercase",fontFamily:"'Playfair Display',Georgia,serif",fontStyle:"italic"}},"trova la tua ricetta"),e("div",{style:{fontSize:14,color:T.textSec}},"Scegli tostatura, processo, gusto")),
       e("div",{style:{marginLeft:"auto"}},ICO.right(16)),
     )),
     hist.length>0&&e("div",{style:{padding:"14px 16px 4px"}},e("div",{onClick:()=>setView("history"),style:{...S.cd,display:"flex",alignItems:"center",gap:12}},ICO.history(20),e("div",null,e("div",{style:{fontWeight:700,fontSize:TF.bLg()}},"I tuoi Brew"),e("div",{style:{fontSize:14,color:T.textSec}},hist.length+" salvati")),e("div",{style:{marginLeft:"auto"}},ICO.right(16)))),
@@ -591,8 +685,8 @@ function App(){
         e("div",{style:{fontSize:13,color:T.textSec,lineHeight:1.6,marginBottom:10}},"Nessun motore, nessuna pressione. Solo gravità. La aFA è una neo-cuccumella in ceramica: oggetto-manifesto che sottrae velocità al caffè per restituire tempo alla parola e al gesto condiviso."),
         e("a",{href:"https://paypal.me/elleenne",target:"_blank",rel:"noopener",style:{display:"block",padding:"14px 20px",borderRadius:12,background:T.accent,color:"#FFF",fontWeight:700,fontSize:16,textAlign:"center",textDecoration:"none",marginBottom:8}},"Sostieni il progetto aFA"),
         e("div",{style:{display:"flex",gap:8}},
-          e("a",{href:"afa-manifesto.pdf",target:"_blank",rel:"noopener",style:{flex:1,display:"block",padding:"12px 10px",borderRadius:10,border:"1px solid #C0392B55",color:T.accent,fontWeight:600,fontSize:14,textAlign:"center",textDecoration:"none"}},"Leggi il Manifesto"),
-          typeof navigator!=="undefined"&&navigator.share?e("button",{onClick:()=>{try{navigator.share({title:"The Cafausica Brew Guide — Progetto aFA",text:"Neo-cuccumella ceramica a gravità. Un gesto di sottrazione e cura.",url:window.location.href})}catch(x){}},style:{flex:1,padding:"12px 10px",borderRadius:10,border:"1px solid "+T.border,color:T.textSec,fontWeight:600,fontSize:14,background:"none",cursor:"pointer"}},"Condividi"):null,
+          e("a",{href:"afa-manifesto.pdf",onClick:function(ev){ev.preventDefault();var base=window.location.href.replace(/\/[^\/]*$/,"/");window.open(base+"afa-manifesto.pdf","_blank");},rel:"noopener",style:{flex:1,display:"block",padding:"12px 10px",borderRadius:10,border:"1px solid #C0392B55",color:T.accent,fontWeight:600,fontSize:14,textAlign:"center",textDecoration:"none"}},"Leggi il Manifesto"),
+          typeof navigator!=="undefined"&&navigator.share?e("button",{onClick:()=>{try{navigator.share({title:"The Cafausica Brew Guide",text:"Un gesto di sottrazione e cura.",url:window.location.href})}catch(x){}},style:{flex:1,padding:"12px 10px",borderRadius:10,border:"1px solid "+T.border,color:T.textSec,fontWeight:600,fontSize:14,background:"none",cursor:"pointer"}},"Condividi"):null,
         ),
       ),
     ),
@@ -610,7 +704,7 @@ function App(){
       background:active?T.accent+"20":T.surface,color:active?T.accent:T.textSec,
       fontWeight:active?700:500,fontSize:TF.bMd(),cursor:"pointer",textAlign:"center",flex:1});
     return e("div",{style:S.pg},
-      e("div",{style:S.hd},e("button",{onClick:home,style:S.ibBack},ICO.back(22,T.accent),e("span",{style:{fontSize:13,fontWeight:700}},"Indietro")),e("span",{style:{...S.ht,fontSize:TF.md()}},"Trova la tua Ricetta")),
+      e("div",{style:S.hd},e("button",{onClick:home,style:S.ibBack},ICO.back(22,T.accent),e("span",{style:{fontSize:13,fontWeight:700}},"Indietro")),e("span",{style:{...S.ht,fontSize:TF.md()}},"trova la tua ricetta")),
       e("div",{style:{padding:20}},
 
         e("div",{style:{marginBottom:20}},
@@ -718,24 +812,28 @@ function App(){
     let cW=0;for(let i=0;i<=cs;i++)cW+=sc.steps[i].waterAdd;
 
     if(done)return e("div",{style:S.pg},
-      e("div",{style:{padding:"32px 20px",textAlign:"center"}},
-        e(CupDone,{dark:dm==="dark"}),
-        e("h2",{style:{fontSize:TF.lg(),fontWeight:800,fontFamily:"'Playfair Display',Georgia,serif",margin:"4px 0 4px",letterSpacing:"-0.02em"}},"Brew Completo!"),
-        e("p",{style:{color:T.textSec,fontSize:17}},sc.name),
-        e("p",{style:{color:T.accent,fontSize:28,fontWeight:700,marginTop:6}},fmt(te)),
-      ),
-      e("div",{style:{padding:"0 20px"}},
-        e("div",{style:{...S.cd,cursor:"default"}},
-          e("div",{style:{fontSize:11,color:T.textDim,fontWeight:600,textTransform:"uppercase",letterSpacing:1,marginBottom:12,textAlign:"center"}},"Memoria di un sorso"),
-          e("div",{style:{display:"flex",justifyContent:"center",gap:6,marginBottom:14}},
-            [1,2,3,4,5].map(s=>e("button",{key:s,onClick:()=>setRat(s),style:{background:"none",border:"none",cursor:"pointer",padding:3}},ICO.star(34,s<=rat?T.accent:"transparent",s<=rat?T.accent:T.textDim)))
+      e("div",null,showVentura?e(VenturaView,{dark:dm==="dark",onBack:function(){setShowVentura(false);},onHome:home}):e("div",{style:{minHeight:"100dvh",background:T.bg,color:T.text,display:"flex",flexDirection:"column",overflowY:"auto"}},
+          e("div",{style:{flex:1,display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",padding:"24px 20px 16px"}},
+            e(CupDone,{dark:dm==="dark"}),
+            e("div",{style:{fontSize:13,color:T.textDim,marginTop:4,textAlign:"center"}},sc.name," \u00b7 ",fmt(te))
           ),
-          e("textarea",{value:notes,onChange:ev=>setNotes(ev.target.value),placeholder:"Note...",style:{width:"100%",padding:10,borderRadius:10,border:"1px solid "+T.border,background:T.surfaceHi,color:T.text,fontSize:17,fontFamily:"inherit",resize:"vertical",minHeight:56,boxSizing:"border-box"}}),
-        ),
-        e("button",{onClick:save,style:S.bt()},e("span",{style:{display:"flex",alignItems:"center",justifyContent:"center",gap:8}},ICO.check(18)," Salva")),
-        e("button",{onClick:home,style:{...S.bt(T.surface,T.textSec),marginTop:8,border:"1px solid "+T.border}},"Home"),
-      ),
-    );
+          e("div",{style:{padding:"0 24px 24px",display:"flex",flexDirection:"column",gap:10,maxWidth:400,width:"100%",margin:"0 auto"}},
+            e("button",{onClick:function(){setShowVentura(true);},style:{width:"100%",padding:"16px",background:"none",border:"1px solid "+(dm==="dark"?"rgba(200,185,160,0.25)":"rgba(100,85,70,0.2)"),borderRadius:0,color:dm==="dark"?"#D4C4AA":"#5A4E3E",fontSize:13,cursor:"pointer",letterSpacing:3,textTransform:"uppercase",fontFamily:"'Playfair Display',Georgia,serif",fontWeight:400,fontStyle:"italic"}},"messaggi di ventura"),
+            e("div",{style:{display:"flex",alignItems:"center",gap:12,padding:"8px 0"}},
+              e("div",{style:{fontSize:11,color:T.textDim,fontWeight:500,textTransform:"uppercase",letterSpacing:1,whiteSpace:"nowrap"}},"memoria di un sorso"),
+              e("div",{style:{display:"flex",gap:4}},
+                [1,2,3,4,5].map(function(s){return e("button",{key:s,onClick:function(){setRat(s);},style:{background:"none",border:"none",cursor:"pointer",padding:1}},ICO.star(20,s<=rat?T.accent:"transparent",s<=rat?T.accent:T.textDim));})
+              )
+            ),
+            e("textarea",{value:notes,onChange:function(ev){setNotes(ev.target.value);},placeholder:"note...",style:{width:"100%",padding:10,borderRadius:0,border:"none",borderBottom:"1px solid "+T.border,background:"transparent",color:T.text,fontSize:14,fontFamily:"'Playfair Display',Georgia,serif",fontStyle:"italic",resize:"none",minHeight:36,boxSizing:"border-box",outline:"none"}}),
+            e("div",{style:{display:"flex",gap:10,marginTop:8}},
+              e("button",{onClick:save,style:{flex:1,padding:"12px",borderRadius:0,border:"1px solid "+T.accent,background:T.accent,color:"#FFF",fontSize:13,fontWeight:600,cursor:"pointer",letterSpacing:1,textTransform:"uppercase"}},"salva"),
+              e("button",{onClick:home,style:{flex:1,padding:"12px",borderRadius:0,border:"1px solid "+T.border,background:"transparent",color:T.textSec,fontSize:13,fontWeight:500,cursor:"pointer",letterSpacing:1,textTransform:"uppercase"}},"home")
+            )
+          )
+        )
+    ));
+
 
     return e("div",{style:{...S.pg,display:"flex",flexDirection:"column",height:"100dvh"}},
       e("div",{style:{...S.hd,justifyContent:"space-between"}},
@@ -907,7 +1005,7 @@ function App(){
     ),
   );
 
-  return e("div",{style:S.pg},e("div",{style:{padding:40,textAlign:"center"}},e("button",{onClick:home,style:S.bt()},"Home")));
+  return e("div",{style:S.pg},e("div",{style:{padding:40,textAlign:"center"}},e("button",{onClick:home,style:{padding:"12px 32px",borderRadius:0,border:"1px solid "+T.border,background:"transparent",color:T.textSec,fontSize:13,fontWeight:500,cursor:"pointer",letterSpacing:1,textTransform:"uppercase"}},"home")));
 }
 
 ReactDOM.createRoot(document.getElementById("root")).render(e(App));
@@ -940,7 +1038,8 @@ if('serviceWorker' in navigator){
         isP&&e("div",{style:{fontSize:42,fontWeight:300,color:T.accentLight,marginTop:4,fontVariantNumeric:"tabular-nums"}},"+"+Math.round(cs.waterAdd*(cc/gS().baseCoffee)),e("span",{style:{fontSize:20,fontWeight:300}},"ml")),
         e("div",{style:{fontSize:11,color:T.textDim,letterSpacing:2,marginTop:8,textTransform:"uppercase"}},act),
       ),
-      e("div",{style:{position:"absolute",bottom:0,left:0,right:0,padding:"16px 24px 32px"}},
+      e("div",{style:{marginTop:24,fontSize:11,color:dim,lineHeight:1.7,textAlign:"center",fontStyle:"italic",maxWidth:300}},"Frasi sul limite fra vita e morte: alcune sono la scomposizione di indagini cafausiche, altre riferite ad alcune carte dei tarocchi.",e("br"),e("br"),"Lu Cafausu con la tarologa Valentina \u201cTresia\u201d Tarantino.",e("br"),e("a",{href:"https://amzn.eu/d/070XfOUq",target:"_blank",rel:"noopener",style:{color:dim,textDecoration:"underline"}},"acquista il libro")),
+    e("div",{style:{position:"absolute",bottom:0,left:0,right:0,padding:"16px 24px 32px"}},
         e("div",{style:{display:"flex",justifyContent:"center",gap:5,marginBottom:10}},
           gS().steps.map(function(s,i){return e("div",{key:i,style:{width:i===ci?18:6,height:5,borderRadius:3,background:i===ci?T.accentLight:T.border,transition:"all 0.3s"}})})
         ),
