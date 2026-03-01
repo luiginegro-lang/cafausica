@@ -14,10 +14,10 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta name="apple-mobile-web-app-title" content="Cafausica">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,700;0,800;1,300;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-body{background:#FAF7F2;overscroll-behavior:none;position:fixed;width:100%;height:100%;overflow:hidden;font-family:'DM Sans','Helvetica Neue',sans-serif;overflow-x:hidden}
+body{background:#FAF7F2;overscroll-behavior:none;position:fixed;width:100%;height:100%;overflow:hidden;font-family:'EB Garamond',Georgia,serif;overflow-x:hidden}
 button{cursor:pointer;font-family:inherit;border:none;background:none;transition:opacity 0.15s,transform 0.1s}
 button:active{transform:scale(0.97);opacity:0.85}
 textarea{font-family:inherit}
@@ -225,7 +225,7 @@ const Illust={
     e("path",{key:11,d:"M20 74l-6 8",stroke:T.accent,strokeWidth:2,strokeLinecap:"round"}),
     e("circle",{key:12,cx:14,cy:82,r:2,fill:T.accent,opacity:0.4}),
     e("path",{key:13,d:"M38 62c3-1 6-1 9 0c3 1 6 1 9 0",stroke:"#D4A574",strokeWidth:0.8,opacity:0.3}),
-    e("text",{key:14,x:41,y:74,fill:T.accent,fontSize:10,fontWeight:800,fontFamily:"serif",opacity:0.25},"aFA"),
+    e("text",{key:14,x:41,y:74,fill:T.accent,fontSize:10,fontWeight:600,fontFamily:"serif",opacity:0.25},"aFA"),
     e("path",{key:15,d:"M36 84h28",stroke:T.accent,strokeWidth:2,strokeLinecap:"round"}),
   ]),
   gina:(sz=64)=>mkSvg(sz,[
@@ -336,7 +336,7 @@ const SubTitle=()=>{
   ];
   const[i,setI]=useState(()=>Math.floor(Math.random()*phrases.length));
   useEffect(()=>{const iv=setInterval(()=>setI(p=>(p+1)%phrases.length),6000);return()=>clearInterval(iv);},[]);
-  return e("div",{key:i,style:{fontSize:15,fontWeight:300,color:T.accent,fontStyle:"italic",fontFamily:"'Playfair Display',Georgia,serif",textAlign:"center",marginTop:10,marginBottom:4,minHeight:40,animation:"fadeInstruction 1s ease-out",lineHeight:1.6,padding:"0 12px"}},phrases[i]);
+  return e("div",{key:i,style:{fontSize:15,fontWeight:400,fontFamily:"'EB Garamond',Georgia,serif",color:T.accent,textAlign:"center",animation:"fadeInstruction 1s ease-out",lineHeight:1.5,padding:"0 8px",fontStyle:"italic",fontFamily:"'Cormorant Garamond',Georgia,serif"}},phrases[i]);
 };
 
 
@@ -409,7 +409,7 @@ function VenturaView(props) {
   };
   if (phase === "reveal") return e("div", {style: {minHeight: "100vh", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", padding: "40px 28px"}},
     e("div", {key: msg, style: {animation: "venturaAppear 3s ease-out", textAlign: "center", maxWidth: 340, flex: 1, display: "flex", flexDirection: "column", justifyContent: "center"}},
-      e("div", {style: {fontSize: 20, fontWeight: 300, color: ink, lineHeight: 2, fontStyle: "italic", fontFamily: "'Playfair Display',Georgia,serif"}}, msg),
+      e("div", {style: {fontSize: 22, fontWeight: 400, color: ink, lineHeight: 2.1, fontStyle: "italic", fontFamily: "'Cormorant Garamond',Georgia,serif"}}, msg),
       e("div", {style: {marginTop: 28, fontSize: 9, color: dim, letterSpacing: 3, textTransform: "uppercase"}}, "Messaggi di ventura \u00b7 Lu Cafausu")
     ),
     e("div", {style: {display: "flex", gap: 16, paddingBottom: 24}},
@@ -420,10 +420,10 @@ function VenturaView(props) {
   return e("div", {style: {minHeight: "100vh", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", padding: "40px 28px"}},
     e("div", {style: {textAlign: "center", maxWidth: 320, flex: 1, display: "flex", flexDirection: "column", justifyContent: "center"}},
       e("div", {style: {fontSize: 9, color: dim, letterSpacing: 3, textTransform: "uppercase", marginBottom: 24}}, "messaggi di ventura"),
-      e("div", {style: {fontSize: 12, fontWeight: 300, color: dim, lineHeight: 1.7, fontFamily: "'DM Sans',sans-serif", marginBottom: 24}}, "Il caff\u00e8 come medium: sostanza-evento fra gesto, percezione, memoria e linguaggio. Nel vuoto che segue l\u2019ultimo sorso si apre una regione di disponibilit\u00e0."),
-      e("div", {style: {fontSize: 19, fontWeight: 300, color: ink, lineHeight: 1.9, fontStyle: "italic", fontFamily: "'Playfair Display',Georgia,serif", marginBottom: 32}}, "Poni una domanda esistenziale che riguardi il tuo presente.", e("br"), e("br"), "Non cercare risposta.", e("br"), "Lascia che emerga."),
+      e("div", {style: {fontSize: 12, fontWeight: 300, color: dim, lineHeight: 1.7, fontFamily: "'EB Garamond',Georgia,serif", marginBottom: 24}}, "Il caff\u00e8 come medium: sostanza-evento fra gesto, percezione, memoria e linguaggio. Nel vuoto che segue l\u2019ultimo sorso si apre una regione di disponibilit\u00e0."),
+      e("div", {style: {fontSize: 19, fontWeight: 400, color: ink, lineHeight: 2, fontStyle: "italic", fontFamily: "'Cormorant Garamond',Georgia,serif", marginBottom: 32}}, "Poni una domanda esistenziale che riguardi il tuo presente.", e("br"), e("br"), "Non cercare risposta.", e("br"), "Lascia che emerga."),
       e("button", {onClick: draw, style: {marginTop: 8, background: "none", border: "2px solid " + ink, borderRadius: 0, padding: "14px 32px", color: ink, fontSize: 14, cursor: "pointer", letterSpacing: 2, textTransform: "uppercase", fontWeight: 600}}, "rivela"),
-      e("div", {style: {marginTop: 24, fontSize: 11, color: dim, lineHeight: 1.7, textAlign: "center", fontStyle: "italic", maxWidth: 300}}, "Frasi sul limite fra vita e morte: alcune sono la scomposizione di indagini cafausiche, altre riferite ad alcune carte dei tarocchi.", e("br"), e("br"), "Lu Cafausu con la tarologa Valentina \u201cTresia\u201d Tarantino.", e("br"), e("a", {href: "https://amzn.eu/d/070XfOUq", target: "_blank", rel: "noopener", style: {color: dim, textDecoration: "underline"}}, "acquista il libro"))
+      e("div", {style: {marginTop: 24, fontSize: 11, color: dim, lineHeight: 1.7, textAlign: "center", maxWidth: 300}}, "Frasi sul limite fra vita e morte: alcune sono la scomposizione di indagini cafausiche, altre riferite ad alcune carte dei tarocchi.", e("br"), e("br"), "Lu Cafausu con la tarologa Valentina \u201cTresia\u201d Tarantino.", e("br"), e("a", {href: "https://amzn.eu/d/070XfOUq", target: "_blank", rel: "noopener", style: {color: dim, textDecoration: "underline"}}, "acquista il libro"))
     ),
     e("div", {style: {display: "flex", gap: 16, paddingBottom: 24}},
       e("button", {onClick: onBack, style: {background: "none", border: "none", color: dim, fontSize: 12, cursor: "pointer", letterSpacing: 1}}, "\u2190 brew"),
@@ -490,8 +490,8 @@ const CupDone=({dark})=>{
       puff(3,4.8,"10px",40),
     ),
     e("div",{key:pi,style:{animation:"fadeInstruction 1.2s ease-out",textAlign:"center",minHeight:100}},
-      e("div",{style:{fontSize:18,fontWeight:300,color:paper,lineHeight:1.9,whiteSpace:"pre-line",fontStyle:"italic",fontFamily:"'Playfair Display',Georgia,serif",letterSpacing:"0.03em"}},txt),
-      e("div",{style:{fontSize:10,color:authorC,marginTop:16,letterSpacing:3,textTransform:"uppercase",fontFamily:"'DM Sans',sans-serif",fontWeight:400}},author),
+      e("div",{style:{fontSize:18,fontWeight:400,color:paper,lineHeight:1.9,whiteSpace:"pre-line",fontFamily:"'EB Garamond',Georgia,serif",letterSpacing:"0.03em",fontStyle:"italic",fontFamily:"'Cormorant Garamond',Georgia,serif"}},txt),
+      e("div",{style:{fontSize:10,color:authorC,marginTop:16,letterSpacing:3,fontFamily:"'EB Garamond',Georgia,serif",fontWeight:400}},author),
     ),
   );
 };
@@ -633,9 +633,9 @@ function App(){
   const save=()=>{const r=gS();if(!r)return;sH([{id:Date.now(),recipeName:r.name,method:r.method,coffee:r.coffee,water:r.water,clicks:r.clicks,temperature:r.temperature,rating:rat,notes,date:new Date().toLocaleDateString("it-IT"),time:new Date().toLocaleTimeString("it-IT",{hour:"2-digit",minute:"2-digit"})},...hist].slice(0,50));home();};
 
   const S={
-    pg:{minHeight:"100dvh",background:T.bg,color:T.text,fontFamily:"'DM Sans','Helvetica Neue',sans-serif",maxWidth:720,margin:"0 auto",padding:"0 env(safe-area-inset-right) 0 env(safe-area-inset-left)"},
+    pg:{minHeight:"100dvh",background:T.bg,color:T.text,fontFamily:"'EB Garamond',Georgia,serif",maxWidth:720,margin:"0 auto",padding:"0 env(safe-area-inset-right) 0 env(safe-area-inset-left)"},
     hd:{padding:"14px 16px",display:"flex",alignItems:"center",gap:"12px",borderBottom:"none"},
-    ht:{fontSize:TF.lg(),fontWeight:700,fontFamily:"'Playfair Display',Georgia,serif",lineHeight:1.2},
+    ht:{fontSize:TF.lg(),fontWeight:700,fontFamily:"'EB Garamond',Georgia,serif",lineHeight:1.2},
     cd:{background:T.surface,borderRadius:8,padding:16,marginBottom:10,border:"1px solid "+T.border,cursor:"pointer",overflow:"hidden"},
     pl:{display:"inline-block",padding:"5px 12px",borderRadius:20,fontSize:14,fontWeight:600,background:T.surfaceHi,color:T.textSec},
     bt:(b,f)=>({padding:"16px 24px",borderRadius:0,border:"none",background:b||T.accent,color:f||"#FFF",fontWeight:700,fontSize:18,cursor:"pointer",fontFamily:"inherit",width:"100%",letterSpacing:0.2}),
@@ -654,18 +654,18 @@ function App(){
         e("path",{d:"M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z",fill:T.textDim,stroke:T.textDim})
       )),
     e("div",{style:{padding:"28px 20px 12px"}},
-      e("div",{style:{fontSize:TF.xl(),color:T.accent,fontWeight:800,letterSpacing:"-0.02em",fontFamily:"'Playfair Display',Georgia,serif",marginBottom:4,lineHeight:1.2}},"The Cafausica Brew Guide"),
+      e("div",{style:{fontSize:TF.xl(),color:T.accent,fontWeight:600,letterSpacing:"-0.02em",fontFamily:"'EB Garamond',Georgia,serif",marginBottom:4,lineHeight:1.2}},"The Cafausica Brew Guide"),
       e(SubTitle,null),
     ),
     e("div",{style:{padding:"8px 16px 0"}},
-      e("div",{style:{fontSize:TF.bSm(),color:T.textDim,fontWeight:600,letterSpacing:"0.08em",textTransform:"uppercase",marginBottom:12,paddingLeft:4}},"Metodo"),
+      e("div",{style:{fontSize:TF.bSm(),color:T.textDim,fontWeight:600,letterSpacing:"0.08em",marginBottom:12,paddingLeft:4}},"Metodo"),
       e("div",{style:{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(140px,1fr))",gap:12}},
         METHODS.map(m=>{const cnt=ALL_R.filter(r=>r.method===m.id).length;return e("div",{key:m.id,onClick:()=>{setSelM(m.id);setView("method");},style:{...S.cd,padding:14,display:"flex",flexDirection:"column",alignItems:"center",gap:6,textAlign:"center",marginBottom:0}},Ic(m.icon,56),e("div",{style:{fontWeight:700,fontSize:TF.bMd(),lineHeight:1.3}},m.name),e("div",{style:{fontSize:12,color:T.textSec}},cnt+" "+(cnt===1?"ricetta":"ricette")));})
       ),
     ),
     e("div",{style:{padding:"8px 16px 4px"}},e("div",{onClick:()=>{setAdvRoast(null);setAdvProc(null);setAdvGoal(null);setView("advisor");},style:{...S.cd,display:"flex",alignItems:"center",gap:12,cursor:"pointer",border:"2px solid "+T.accent+"55",background:T.accent+"08"}},
       e("div",{style:{fontSize:24,width:28,textAlign:"center"}},"☕"),
-      e("div",null,e("div",{style:{width:"100%",padding:"14px",borderRadius:0,background:"none",color:T.accent,fontSize:14,fontWeight:400,border:"1px solid "+T.border,cursor:"pointer",letterSpacing:2,textTransform:"uppercase",fontFamily:"'Playfair Display',Georgia,serif",fontStyle:"italic"}},"trova la tua ricetta"),e("div",{style:{fontSize:14,color:T.textSec}},"Scegli tostatura, processo, gusto")),
+      e("div",null,e("div",{style:{width:"100%",padding:"14px",borderRadius:0,background:"none",color:T.accent,fontSize:15,fontWeight:500,border:"2px solid "+T.accent,cursor:"pointer",fontFamily:"'EB Garamond',Georgia,serif",letterSpacing:1}},"trova la tua ricetta"),e("div",{style:{fontSize:14,color:T.textSec}},"Scegli tostatura, processo, gusto")),
       e("div",{style:{marginLeft:"auto"}},ICO.right(16)),
     )),
     hist.length>0&&e("div",{style:{padding:"14px 16px 4px"}},e("div",{onClick:()=>setView("history"),style:{...S.cd,display:"flex",alignItems:"center",gap:12}},ICO.history(20),e("div",null,e("div",{style:{fontWeight:700,fontSize:TF.bLg()}},"I tuoi Brew"),e("div",{style:{fontSize:14,color:T.textSec}},hist.length+" salvati")),e("div",{style:{marginLeft:"auto"}},ICO.right(16)))),
@@ -681,7 +681,7 @@ function App(){
     )),
     e("div",{style:{padding:"6px 16px"}},
       e("div",{style:{...S.cd,cursor:"default",background:"linear-gradient(135deg,"+T.surface+" 0%,"+T.surfaceHi+" 100%)",border:"1px solid #C0392B44"}},
-        e("div",{style:{fontSize:13,fontWeight:700,fontFamily:"'Playfair Display',Georgia,serif",color:T.accent,marginBottom:8,letterSpacing:0.5}},"Progetto aFA"),
+        e("div",{style:{fontSize:13,fontWeight:700,fontFamily:"'EB Garamond',Georgia,serif",color:T.accent,marginBottom:8,letterSpacing:0.5}},"Progetto aFA"),
         e("div",{style:{fontSize:13,color:T.textSec,lineHeight:1.6,marginBottom:10}},"Nessun motore, nessuna pressione. Solo gravità. La aFA è una neo-cuccumella in ceramica: oggetto-manifesto che sottrae velocità al caffè per restituire tempo alla parola e al gesto condiviso."),
         e("a",{href:"https://paypal.me/elleenne",target:"_blank",rel:"noopener",style:{display:"block",padding:"14px 20px",borderRadius:12,background:T.accent,color:"#FFF",fontWeight:700,fontSize:16,textAlign:"center",textDecoration:"none",marginBottom:8}},"Sostieni il progetto aFA"),
         e("div",{style:{display:"flex",gap:8}},
@@ -690,7 +690,7 @@ function App(){
         ),
       ),
     ),
-    e("div",{style:{padding:"16px 20px 32px",textAlign:"center"}},e("div",{style:{fontSize:10,color:T.textDim+"99",marginTop:8,letterSpacing:2,fontStyle:"italic"}},"Lu Cafausu"),
+    e("div",{style:{padding:"16px 20px 32px",textAlign:"center"}},e("div",{style:{fontSize:10,color:T.textDim+"99",marginTop:8,letterSpacing:2}},"Lu Cafausu"),
           e("div",{style:{display:"flex",justifyContent:"center",gap:16,marginTop:10}},
             e("a",{href:"https://lacolemon.org/",target:"_blank",rel:"noopener",style:{fontSize:11,color:T.textDim,textDecoration:"none",borderBottom:"1px solid "+T.textDim+"44"}},"Lac O Le Mon"),
             e("a",{href:"https://lucafausu.wordpress.com/",target:"_blank",rel:"noopener",style:{fontSize:11,color:T.textDim,textDecoration:"none",borderBottom:"1px solid "+T.textDim+"44"}},"Lu Cafausu"),
@@ -708,7 +708,7 @@ function App(){
       e("div",{style:{padding:20}},
 
         e("div",{style:{marginBottom:20}},
-          e("div",{style:{fontSize:TF.bSm(),color:T.textDim,fontWeight:600,letterSpacing:"0.08em",textTransform:"uppercase",marginBottom:10}},"Tostatura"),
+          e("div",{style:{fontSize:TF.bSm(),color:T.textDim,fontWeight:600,letterSpacing:"0.08em",marginBottom:10}},"Tostatura"),
           e("div",{style:{display:"flex",gap:8}},
             e("button",{onClick:()=>setAdvRoast(advRoast==="light"?null:"light"),style:btnSt(advRoast==="light")},"Chiara"),
             e("button",{onClick:()=>setAdvRoast(advRoast==="medium"?null:"medium"),style:btnSt(advRoast==="medium")},"Media"),
@@ -717,7 +717,7 @@ function App(){
         ),
 
         e("div",{style:{marginBottom:20}},
-          e("div",{style:{fontSize:TF.bSm(),color:T.textDim,fontWeight:600,letterSpacing:"0.08em",textTransform:"uppercase",marginBottom:10}},"Processo"),
+          e("div",{style:{fontSize:TF.bSm(),color:T.textDim,fontWeight:600,letterSpacing:"0.08em",marginBottom:10}},"Processo"),
           e("div",{style:{display:"flex",gap:8}},
             e("button",{onClick:()=>setAdvProc(advProc==="washed"?null:"washed"),style:btnSt(advProc==="washed")},"Lavato"),
             e("button",{onClick:()=>setAdvProc(advProc==="natural"?null:"natural"),style:btnSt(advProc==="natural")},"Naturale"),
@@ -726,7 +726,7 @@ function App(){
         ),
 
         e("div",{style:{marginBottom:20}},
-          e("div",{style:{fontSize:TF.bSm(),color:T.textDim,fontWeight:600,letterSpacing:"0.08em",textTransform:"uppercase",marginBottom:10}},"Cosa cerchi in tazza"),
+          e("div",{style:{fontSize:TF.bSm(),color:T.textDim,fontWeight:600,letterSpacing:"0.08em",marginBottom:10}},"Cosa cerchi in tazza"),
           e("div",{style:{display:"flex",gap:8,flexWrap:"wrap"}},
             e("button",{onClick:()=>setAdvGoal(advGoal==="bright"?null:"bright"),style:btnSt(advGoal==="bright")},"Acidità"),
             e("button",{onClick:()=>setAdvGoal(advGoal==="balanced"?null:"balanced"),style:btnSt(advGoal==="balanced")},"Bilanciato"),
@@ -736,7 +736,7 @@ function App(){
         ),
 
         (advRoast||advProc||advGoal)?e("div",null,
-          e("div",{style:{fontSize:TF.bSm(),color:T.textDim,fontWeight:600,letterSpacing:"0.08em",textTransform:"uppercase",marginBottom:12}},"Ricette consigliate"),
+          e("div",{style:{fontSize:TF.bSm(),color:T.textDim,fontWeight:600,letterSpacing:"0.08em",marginBottom:12}},"Ricette consigliate"),
           results&&results.length>0?results.map(r=>{
             const mo=mObj(r.method);
             return e("div",{key:r.id,onClick:()=>{setSelR(r);setCc(r.baseCoffee);setFromAdv(true);setView("recipe");},style:{...S.cd,display:"flex",alignItems:"center",gap:12,cursor:"pointer",marginBottom:4}},
@@ -758,7 +758,7 @@ function App(){
   if(view==="method"){const mo=mObj(selM);const recs=ALL_R.filter(r=>r.method===selM);return e("div",{style:S.pg},
     e("div",{style:S.hd},e("button",{onClick:home,style:S.ibBack},ICO.back(22,T.accent),e("span",{style:{fontSize:13,fontWeight:700}},"Indietro")),Ic(mo?.icon,28),e("span",{style:{...S.ht,fontSize:TF.md()}},mo?.name),e("span",{style:{marginLeft:"auto",fontSize:12,color:T.textSec}},recs.length+" ricette")),
     e("div",{style:{padding:20}},recs.map(r=>e("div",{key:r.id,onClick:()=>{setSelR(r);setCc(r.baseCoffee);setFromAdv(true);setView("recipe");},style:S.cd},
-      e("div",{style:{display:"flex",justifyContent:"space-between",alignItems:"start",marginBottom:6}},e("h3",{style:{fontWeight:700,fontSize:TF.md(),fontFamily:"'Playfair Display',Georgia,serif",flex:1,paddingRight:8,lineHeight:1.25}},r.name),r.custom&&e("span",{style:{fontSize:11,background:T.accent+"33",color:T.accent,padding:"2px 8px",borderRadius:8,fontWeight:700,marginRight:6}},"TUA"),e("span",{style:S.pl},r.clicks+" click")),
+      e("div",{style:{display:"flex",justifyContent:"space-between",alignItems:"start",marginBottom:6}},e("h3",{style:{fontWeight:700,fontSize:TF.md(),fontFamily:"'EB Garamond',Georgia,serif",flex:1,paddingRight:8,lineHeight:1.25}},r.name),r.custom&&e("span",{style:{fontSize:11,background:T.accent+"33",color:T.accent,padding:"2px 8px",borderRadius:8,fontWeight:700,marginRight:6}},"TUA"),e("span",{style:S.pl},r.clicks+" click")),
       e("div",{style:{fontSize:TF.bMd(),color:T.textSec,marginBottom:8,lineHeight:1.5}},r.description),
       e("div",{style:{display:"flex",gap:14,flexWrap:"wrap",fontSize:15,color:T.textDim,alignItems:"center"}},e("span",null,r.baseCoffee+"g"),e("span",null,r.baseWater+"ml"),e("span",null,"1:"+(r.baseWater/r.baseCoffee).toFixed(1)),e("span",null,r.temperature>0?r.temperature+"°C":"Fredda"),e("span",null,"~"+fmt(tTime(r))),
         r.custom&&e("button",{onClick:ev=>{ev.stopPropagation();setSelR(r);initForm(r);setView("editrecipe");},style:{marginLeft:"auto",fontSize:13,color:T.accent,fontWeight:700,background:"none",border:"1px solid "+T.accent+"66",padding:"4px 12px",borderRadius:8,cursor:"pointer"}},"\u270E Modifica")),
@@ -772,25 +772,25 @@ function App(){
     e("div",{style:{padding:20}},
       e("div",{style:{textAlign:"center",marginBottom:14}},Ic(mo?.icon,80),e("div",{style:{fontSize:12,color:T.textSec,fontWeight:500,marginTop:4,letterSpacing:0.5}},"di "+sc.author)),
       e("div",{style:{...S.cd,background:T.surfaceHi,cursor:"default"}},
-        e("div",{style:{fontSize:10,color:T.textDim,fontWeight:700,letterSpacing:2,textTransform:"uppercase",marginBottom:12,textAlign:"center"}},"PARAMETRI"),
+        e("div",{style:{fontSize:10,color:T.textDim,fontWeight:700,letterSpacing:2,marginBottom:12,textAlign:"center"}},"PARAMETRI"),
         e("div",{style:{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:12}},
-          [["Caffè",(sc.coffee%1===0?sc.coffee:sc.coffee.toFixed(1))+"g"],["Acqua",(sc.water%1===0?sc.water:sc.water.toFixed(1))+"ml"],["Temperatura",sc.temperature>0?sc.temperature+"°":"Fredda"]].map(([l,v],i)=>e("div",{key:i,style:{textAlign:"center"}},e("div",{style:{fontSize:TF.lg(),fontWeight:800,color:T.accentLight,fontVariantNumeric:"tabular-nums"}},v),e("div",{style:{fontSize:14,color:T.textSec}},l)))
+          [["Caffè",(sc.coffee%1===0?sc.coffee:sc.coffee.toFixed(1))+"g"],["Acqua",(sc.water%1===0?sc.water:sc.water.toFixed(1))+"ml"],["Temperatura",sc.temperature>0?sc.temperature+"°":"Fredda"]].map(([l,v],i)=>e("div",{key:i,style:{textAlign:"center"}},e("div",{style:{fontSize:TF.lg(),fontWeight:600,color:T.accentLight,fontVariantNumeric:"tabular-nums"}},v),e("div",{style:{fontSize:14,color:T.textSec}},l)))
         ),
-        e("div",{style:{marginTop:12,padding:"10px 0 4px",borderTop:"1px solid "+T.border}},e("div",{style:{fontSize:16,color:T.text,textAlign:"center",marginBottom:4,fontWeight:600}},grindFeel(sc.microns)),e("div",{style:{fontSize:13,color:T.textSec,textAlign:"center",marginBottom:10}},sc.microns+"µm"),e("div",{style:{display:"flex",flexWrap:"wrap",justifyContent:"center",gap:6}},grinderClicks(sc.microns).map(([g,v])=>e("div",{key:g,style:{fontSize:13,padding:"6px 10px",borderRadius:10,background:T.surface,border:"1px solid "+T.border,textAlign:"center"}},v?e("div",{style:{fontSize:18,fontWeight:800,color:T.accentLight}},v):null,e("div",{style:{fontSize:11,color:T.textDim,marginTop:v?2:0}},g))))),
+        e("div",{style:{marginTop:12,padding:"10px 0 4px",borderTop:"1px solid "+T.border}},e("div",{style:{fontSize:16,color:T.text,textAlign:"center",marginBottom:4,fontWeight:600}},grindFeel(sc.microns)),e("div",{style:{fontSize:13,color:T.textSec,textAlign:"center",marginBottom:10}},sc.microns+"µm"),e("div",{style:{display:"flex",flexWrap:"wrap",justifyContent:"center",gap:6}},grinderClicks(sc.microns).map(([g,v])=>e("div",{key:g,style:{fontSize:13,padding:"6px 10px",borderRadius:10,background:T.surface,border:"1px solid "+T.border,textAlign:"center"}},v?e("div",{style:{fontSize:18,fontWeight:600,color:T.accentLight}},v):null,e("div",{style:{fontSize:11,color:T.textDim,marginTop:v?2:0}},g))))),
       ),
       sc.beans&&sc.beans.length>0&&e("div",{style:{...S.cd,cursor:"default",padding:16}},
-        e("div",{style:{fontSize:12,color:T.accent,fontWeight:700,letterSpacing:1,textTransform:"uppercase",marginBottom:10}},"Caffè suggeriti"),
+        e("div",{style:{fontSize:12,color:T.accent,fontWeight:700,letterSpacing:1,marginBottom:10}},"Caffè suggeriti"),
         sc.beans.map((b,i)=>e("div",{key:i,style:{fontSize:16,color:T.textSec,lineHeight:1.6,paddingLeft:10,borderLeft:"2px solid "+T.accentDim,marginBottom:6}},b)),
       ),
       e("div",{style:{...S.cd,display:"flex",alignItems:"center",justifyContent:"center",gap:6,padding:"14px 8px",cursor:"default"}},
-        e("button",{onClick:()=>setCc(Math.max(0.5,Math.round(((cc??selR.baseCoffee)-1)*10)/10)),style:{...S.ibSm,width:44,height:44,fontSize:22,fontWeight:300,letterSpacing:-3}},"‹‹"),
-        e("button",{onClick:()=>setCc(Math.max(0.5,Math.round(((cc??selR.baseCoffee)-0.1)*10)/10)),style:{...S.ibSm,width:44,height:44,fontSize:26,fontWeight:300}},"‹"),
-        e("div",{style:{minWidth:85,textAlign:"center"}},e("div",{style:{fontSize:38,fontWeight:800,lineHeight:1}},sc.coffee%1===0?sc.coffee+"g":sc.coffee.toFixed(1)+"g"),e("div",{style:{fontSize:11,color:T.textSec,fontWeight:600,marginTop:4}},"DOSE")),
-        e("button",{onClick:()=>setCc(Math.round(((cc??selR.baseCoffee)+0.1)*10)/10),style:{...S.ibSm,width:44,height:44,fontSize:26,fontWeight:300}},"›"),
-        e("button",{onClick:()=>setCc(Math.round(((cc??selR.baseCoffee)+1)*10)/10),style:{...S.ibSm,width:44,height:44,fontSize:22,fontWeight:300,letterSpacing:-3}},"››"),
+        e("button",{onClick:()=>setCc(Math.max(0.5,Math.round(((cc??selR.baseCoffee)-1)*10)/10)),style:{...S.ibSm,width:44,height:44,fontSize:22,fontWeight:400,letterSpacing:-3}},"‹‹"),
+        e("button",{onClick:()=>setCc(Math.max(0.5,Math.round(((cc??selR.baseCoffee)-0.1)*10)/10)),style:{...S.ibSm,width:44,height:44,fontSize:26,fontWeight:400}},"‹"),
+        e("div",{style:{minWidth:85,textAlign:"center"}},e("div",{style:{fontSize:38,fontWeight:600,lineHeight:1}},sc.coffee%1===0?sc.coffee+"g":sc.coffee.toFixed(1)+"g"),e("div",{style:{fontSize:11,color:T.textSec,fontWeight:600,marginTop:4}},"DOSE")),
+        e("button",{onClick:()=>setCc(Math.round(((cc??selR.baseCoffee)+0.1)*10)/10),style:{...S.ibSm,width:44,height:44,fontSize:26,fontWeight:400}},"›"),
+        e("button",{onClick:()=>setCc(Math.round(((cc??selR.baseCoffee)+1)*10)/10),style:{...S.ibSm,width:44,height:44,fontSize:22,fontWeight:400,letterSpacing:-3}},"››"),
       ),
       e("div",{style:{marginBottom:14}},
-        e("div",{style:{fontSize:15,color:T.textDim,fontWeight:600,letterSpacing:1,textTransform:"uppercase",marginBottom:12}},sc.steps.length+" step · ~"+fmt(tTime(sc))),
+        e("div",{style:{fontSize:15,color:T.textDim,fontWeight:600,letterSpacing:1,marginBottom:12}},sc.steps.length+" step · ~"+fmt(tTime(sc))),
         sc.steps.map((st,i)=>{cW+=st.waterAdd;return e("div",{key:i,style:{display:"flex",gap:10,marginBottom:8}},
           e("div",{style:{width:30,height:30,borderRadius:15,background:T.surfaceHi,border:"2px solid "+T.accentDim,display:"flex",alignItems:"center",justifyContent:"center",fontSize:13,fontWeight:700,color:T.accent,flexShrink:0,marginTop:2}},i+1),
           e("div",{style:{flex:1}},
@@ -818,17 +818,17 @@ function App(){
             e("div",{style:{fontSize:13,color:T.textDim,marginTop:4,textAlign:"center"}},sc.name," \u00b7 ",fmt(te))
           ),
           e("div",{style:{padding:"0 24px 24px",display:"flex",flexDirection:"column",gap:10,maxWidth:400,width:"100%",margin:"0 auto"}},
-            e("button",{onClick:function(){setShowVentura(true);},style:{width:"100%",padding:"16px",background:"none",border:"1px solid "+(dm==="dark"?"rgba(200,185,160,0.25)":"rgba(100,85,70,0.2)"),borderRadius:0,color:dm==="dark"?"#D4C4AA":"#5A4E3E",fontSize:13,cursor:"pointer",letterSpacing:3,textTransform:"uppercase",fontFamily:"'Playfair Display',Georgia,serif",fontWeight:400,fontStyle:"italic"}},"messaggi di ventura"),
+            e("button",{onClick:function(){setShowVentura(true);},style:{width:"100%",padding:"16px",background:"none",border:"2px solid "+(dm==="dark"?"rgba(200,185,160,0.4)":"rgba(100,85,70,0.35)"),borderRadius:0,color:dm==="dark"?"#D4C4AA":"#4A3E2E",fontSize:15,cursor:"pointer",letterSpacing:3,fontFamily:"'EB Garamond',Georgia,serif",fontWeight:500}},"messaggi di ventura"),
             e("div",{style:{display:"flex",alignItems:"center",gap:12,padding:"8px 0"}},
-              e("div",{style:{fontSize:11,color:T.textDim,fontWeight:500,textTransform:"uppercase",letterSpacing:1,whiteSpace:"nowrap"}},"memoria di un sorso"),
+              e("div",{style:{fontSize:11,color:T.textDim,fontWeight:500,letterSpacing:1,whiteSpace:"nowrap"}},"memoria di un sorso"),
               e("div",{style:{display:"flex",gap:4}},
                 [1,2,3,4,5].map(function(s){return e("button",{key:s,onClick:function(){setRat(s);},style:{background:"none",border:"none",cursor:"pointer",padding:1}},ICO.star(20,s<=rat?T.accent:"transparent",s<=rat?T.accent:T.textDim));})
               )
             ),
-            e("textarea",{value:notes,onChange:function(ev){setNotes(ev.target.value);},placeholder:"note...",style:{width:"100%",padding:10,borderRadius:0,border:"none",borderBottom:"1px solid "+T.border,background:"transparent",color:T.text,fontSize:14,fontFamily:"'Playfair Display',Georgia,serif",fontStyle:"italic",resize:"none",minHeight:36,boxSizing:"border-box",outline:"none"}}),
+            e("textarea",{value:notes,onChange:function(ev){setNotes(ev.target.value);},placeholder:"note...",style:{width:"100%",padding:10,borderRadius:0,border:"none",borderBottom:"1px solid "+T.border,background:"transparent",color:T.text,fontSize:14,fontFamily:"'EB Garamond',Georgia,serif",resize:"none",minHeight:36,boxSizing:"border-box",outline:"none"}}),
             e("div",{style:{display:"flex",gap:10,marginTop:8}},
-              e("button",{onClick:save,style:{flex:1,padding:"12px",borderRadius:0,border:"1px solid "+T.accent,background:T.accent,color:"#FFF",fontSize:13,fontWeight:600,cursor:"pointer",letterSpacing:1,textTransform:"uppercase"}},"salva"),
-              e("button",{onClick:home,style:{flex:1,padding:"12px",borderRadius:0,border:"1px solid "+T.border,background:"transparent",color:T.textSec,fontSize:13,fontWeight:500,cursor:"pointer",letterSpacing:1,textTransform:"uppercase"}},"home")
+              e("button",{onClick:save,style:{flex:1,padding:"14px",borderRadius:0,border:"none",background:T.accent,color:"#FFF",fontSize:15,fontWeight:600,cursor:"pointer",fontFamily:"'EB Garamond',Georgia,serif",letterSpacing:1}},"salva"),
+              e("button",{onClick:home,style:{flex:1,padding:"14px",borderRadius:0,border:"2px solid "+T.border,background:"transparent",color:T.text,fontSize:15,fontWeight:500,cursor:"pointer",fontFamily:"'EB Garamond',Georgia,serif",letterSpacing:1}},"home")
             )
           )
         )
@@ -839,22 +839,22 @@ function App(){
       e("div",{style:{...S.hd,justifyContent:"space-between"}},
         e("button",{onClick:()=>{setRun(false);setView("recipe");},style:{...S.ibBack,background:T.red+"18"}},ICO.x(24,T.red)),
         e("span",{style:{fontSize:17,fontWeight:600,color:T.textSec,flex:1,textAlign:"center",overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}},sc.name),
-        e("div",{style:{fontSize:26,fontWeight:800,color:T.accent,fontVariantNumeric:"tabular-nums"}},fmt(te)),
+        e("div",{style:{fontSize:26,fontWeight:600,color:T.accent,fontVariantNumeric:"tabular-nums"}},fmt(te)),
       ),
       e("div",{style:{flex:1,display:"flex",flexDirection:"column",padding:18,overflow:"auto"}},
         e("div",{style:{background:T.surfaceHi,borderRadius:18,padding:"16px 16px 20px",marginBottom:10,border:"2px solid "+T.accent,textAlign:"center"}},
           e("div",{style:{display:"flex",justifyContent:"center",gap:8,marginBottom:6}},
             e("span",{style:{fontSize:14,fontWeight:700,color:T.textDim,letterSpacing:1}},isDesc?"":("STEP "+(cs+1)+" / "+sc.steps.length)),
-            cW>0&&e("span",{style:{fontSize:15,fontWeight:800,color:T.accent,letterSpacing:0.5}},cW+"ml totali"),
+            cW>0&&e("span",{style:{fontSize:15,fontWeight:600,color:T.accent,letterSpacing:0.5}},cW+"ml totali"),
           ),
-          (()=>{const act=st?.waterAdd>0?"VERSA":/swirl|mescol|stir|spin|rompi|scav|schiuma|capovolg|premi|press/i.test(st?.text||"")?"AGITA":"ATTENDI";const acCol=act==="VERSA"?T.accent:act==="AGITA"?"#D4A03C":T.textDim;return e("div",{style:{display:"inline-block",padding:"3px 14px",borderRadius:8,background:acCol+"20",color:acCol,fontSize:15,fontWeight:800,letterSpacing:1.5,marginBottom:8}},act)})(),
-          e("div",{style:{fontSize:64,fontWeight:800,fontVariantNumeric:"tabular-nums",color:isDesc?"#8B6914":pr>0.85?T.accentLight:T.text,lineHeight:1,marginBottom:6}},isDesc?"—":fmt(Math.max(0,dur-se))),
+          (()=>{const act=st?.waterAdd>0?"VERSA":/swirl|mescol|stir|spin|rompi|scav|schiuma|capovolg|premi|press/i.test(st?.text||"")?"AGITA":"ATTENDI";const acCol=act==="VERSA"?T.accent:act==="AGITA"?"#D4A03C":T.textDim;return e("div",{style:{display:"inline-block",padding:"3px 14px",borderRadius:8,background:acCol+"20",color:acCol,fontSize:15,fontWeight:600,letterSpacing:1.5,marginBottom:8}},act)})(),
+          e("div",{style:{fontSize:64,fontWeight:600,fontVariantNumeric:"tabular-nums",color:isDesc?"#8B6914":pr>0.85?T.accentLight:T.text,lineHeight:1,marginBottom:6}},isDesc?"—":fmt(Math.max(0,dur-se))),
           !isDesc&&e("div",{style:{height:6,borderRadius:3,background:T.border,marginBottom:12,overflow:"hidden"}},
             e("div",{style:{height:"100%",borderRadius:3,background:pr>0.85?T.accentLight:T.accent,width:(pr*100)+"%",transition:"width 0.3s linear"}}),
           ),
           e("p",{style:{fontSize:TF.bLg(),lineHeight:1.5,fontWeight:500,marginBottom:st?.waterAdd>0?10:0,maxWidth:340,margin:"0 auto"}},st?.text),
           st?.waterAdd>0&&e("div",{style:{display:"inline-flex",alignItems:"baseline",gap:6,marginTop:10,padding:"6px 18px",borderRadius:12,background:T.accent+"15"}},
-            e("span",{style:{fontSize:36,fontWeight:800,color:T.accent}},"+"+(st.waterAdd%1===0?st.waterAdd:st.waterAdd.toFixed(1))),
+            e("span",{style:{fontSize:36,fontWeight:600,color:T.accent}},"+"+(st.waterAdd%1===0?st.waterAdd:st.waterAdd.toFixed(1))),
             e("span",{style:{fontSize:20,fontWeight:600,color:T.accent}},"ml"),
           ),
         ),
@@ -888,7 +888,7 @@ function App(){
             e("div",{style:{display:"flex",gap:2}},[1,2,3,4,5].map(s=>ICO.star(22,s<=h.rating?T.accent:"transparent",s<=h.rating?T.accent:T.textDim))),
           ),
           e("div",{style:{display:"flex",gap:8,marginTop:8,fontSize:13,color:T.textDim}},h.coffee+"g · "+h.water+"ml · "+h.clicks+" click"+(h.temperature>0?" · "+h.temperature+"°C":"")),
-          h.notes&&e("div",{style:{marginTop:6,fontSize:14,color:T.textSec,fontStyle:"italic"}},'"'+h.notes+'"'),
+          h.notes&&e("div",{style:{marginTop:6,fontSize:14,color:T.textSec}},'"'+h.notes+'"'),
         );}),
         e("button",{key:"del",onClick:()=>sH([]),style:{...S.bt(T.surface,T.red),marginTop:8,border:"1px solid "+T.border,display:"flex",alignItems:"center",justifyContent:"center",gap:8}},ICO.trash(16)," Cancella storico"),
       ],
@@ -936,7 +936,7 @@ function App(){
           inp("Micron",fmu2,setFmu2,"720","number"),
           inp("Descrizione grind",fgd2,setFgd2,"Medium-fine"),
         ),
-        e("div",{style:{fontSize:14,color:T.accent,fontWeight:700,letterSpacing:1,textTransform:"uppercase",marginTop:16,marginBottom:10}},"Step"),
+        e("div",{style:{fontSize:14,color:T.accent,fontWeight:700,letterSpacing:1,marginTop:16,marginBottom:10}},"Step"),
         fst.map((s,i)=>e("div",{key:i,style:{background:T.surface,borderRadius:14,padding:14,marginBottom:10,border:"1px solid "+T.border}},
           e("div",{style:{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:8}},
             e("span",{style:{fontSize:14,fontWeight:700,color:T.accent}},"Step "+(i+1)),
@@ -953,7 +953,7 @@ function App(){
           ),
         )),
         e("button",{onClick:addStep,style:{...S.bt(T.surface,T.accent),width:"100%",marginBottom:16,border:"1px dashed "+T.accent}},"+  Aggiungi Step"),
-        e("button",{onClick:saveR,style:{...S.bt("#2D7D46","#FFF"),width:"100%",marginBottom:10,fontSize:18,fontWeight:800}},isEdit?"\u2713 Salva Modifiche":"\u2713 Salva Ricetta"),
+        e("button",{onClick:saveR,style:{...S.bt("#2D7D46","#FFF"),width:"100%",marginBottom:10,fontSize:18,fontWeight:600}},isEdit?"\u2713 Salva Modifiche":"\u2713 Salva Ricetta"),
         isEdit&&e("button",{onClick:delR,style:{...S.bt(T.surface,T.red),width:"100%",border:"1px solid "+T.border,display:"flex",alignItems:"center",justifyContent:"center",gap:8}},ICO.trash(16)," Elimina Ricetta"),
       ),
     );
@@ -964,7 +964,7 @@ function App(){
     e("div",{style:S.hd},e("button",{onClick:home,style:S.ibBack},ICO.back(22,T.accent),e("span",{style:{fontSize:13,fontWeight:700}},"Indietro")),e("span",{style:S.ht},"Guida Granulometria")),
     e("div",{style:{padding:20}},
       e("div",{style:{...S.cd,cursor:"default"}},
-        e("div",{style:{fontSize:14,color:T.accent,fontWeight:700,letterSpacing:1,textTransform:"uppercase",marginBottom:12}},"Riferimenti macinini"),
+        e("div",{style:{fontSize:14,color:T.accent,fontWeight:700,letterSpacing:1,marginBottom:12}},"Riferimenti macinini"),
         e("table",{style:{width:"100%",tableLayout:"fixed",borderCollapse:"collapse",fontSize:14}},
           e("thead",null,e("tr",null,
             e("th",{style:{textAlign:"left",padding:"8px 4px",borderBottom:"1px solid "+T.border,color:T.textSec,fontSize:12,width:"38%"}},"Macinino"),
@@ -979,7 +979,7 @@ function App(){
         ),
       ),
       e("div",{style:{...S.cd,cursor:"default"}},
-        e("div",{style:{fontSize:14,color:T.accent,fontWeight:700,letterSpacing:1,textTransform:"uppercase",marginBottom:14}},"Diagnostica"),
+        e("div",{style:{fontSize:14,color:T.accent,fontWeight:700,letterSpacing:1,marginBottom:14}},"Diagnostica"),
         [
           ["\u26A0\uFE0F Troppo fine","V60: >3:30 · AP: >2:30 · Amaro, astringente","Aumenta 2-3 click"],
           ["\u26A0\uFE0F Troppo grossa","V60: <2:30 · AP: <1:15 · Acido, vuoto","Riduci 2-3 click"],
@@ -991,7 +991,7 @@ function App(){
         )),
       ),
       e("div",{style:{...S.cd,cursor:"default"}},
-        e("div",{style:{fontSize:14,color:T.accent,fontWeight:700,letterSpacing:1,textTransform:"uppercase",marginBottom:10}},"Formula rapida"),
+        e("div",{style:{fontSize:14,color:T.accent,fontWeight:700,letterSpacing:1,marginBottom:10}},"Formula rapida"),
         e("div",{style:{fontSize:16,color:T.textSec,lineHeight:1.7}},
           "Comandante C40: ~30µm per click.",
           e("br"),
@@ -1005,7 +1005,7 @@ function App(){
     ),
   );
 
-  return e("div",{style:S.pg},e("div",{style:{padding:40,textAlign:"center"}},e("button",{onClick:home,style:{padding:"12px 32px",borderRadius:0,border:"1px solid "+T.border,background:"transparent",color:T.textSec,fontSize:13,fontWeight:500,cursor:"pointer",letterSpacing:1,textTransform:"uppercase"}},"home")));
+  return e("div",{style:S.pg},e("div",{style:{padding:40,textAlign:"center"}},e("button",{onClick:home,style:{padding:"14px 32px",borderRadius:0,border:"2px solid "+T.border,background:"transparent",color:T.text,fontSize:15,fontWeight:500,cursor:"pointer",fontFamily:"'EB Garamond',Georgia,serif",letterSpacing:1}},"home")));
 }
 
 ReactDOM.createRoot(document.getElementById("root")).render(e(App));
@@ -1035,10 +1035,10 @@ if('serviceWorker' in navigator){
       e("div",{onClick:advStep,style:{flex:1,display:"flex",flexDirection:"column",justifyContent:"center",alignItems:"center",gap:8,cursor:"pointer"}},
         e("div",{style:{fontSize:80,fontWeight:200,color:T.text,fontVariantNumeric:"tabular-nums",letterSpacing:"-0.03em",lineHeight:1}},
           Math.floor(sl/60)+":"+String(sl%60).padStart(2,"0")),
-        isP&&e("div",{style:{fontSize:42,fontWeight:300,color:T.accentLight,marginTop:4,fontVariantNumeric:"tabular-nums"}},"+"+Math.round(cs.waterAdd*(cc/gS().baseCoffee)),e("span",{style:{fontSize:20,fontWeight:300}},"ml")),
-        e("div",{style:{fontSize:11,color:T.textDim,letterSpacing:2,marginTop:8,textTransform:"uppercase"}},act),
+        isP&&e("div",{style:{fontSize:42,fontWeight:400,color:T.accentLight,marginTop:4,fontVariantNumeric:"tabular-nums"}},"+"+Math.round(cs.waterAdd*(cc/gS().baseCoffee)),e("span",{style:{fontSize:20,fontWeight:400}},"ml")),
+        e("div",{style:{fontSize:11,color:T.textDim,letterSpacing:2,marginTop:8}},act),
       ),
-      e("div",{style:{marginTop:24,fontSize:11,color:dim,lineHeight:1.7,textAlign:"center",fontStyle:"italic",maxWidth:300}},"Frasi sul limite fra vita e morte: alcune sono la scomposizione di indagini cafausiche, altre riferite ad alcune carte dei tarocchi.",e("br"),e("br"),"Lu Cafausu con la tarologa Valentina \u201cTresia\u201d Tarantino.",e("br"),e("a",{href:"https://amzn.eu/d/070XfOUq",target:"_blank",rel:"noopener",style:{color:dim,textDecoration:"underline"}},"acquista il libro")),
+      e("div",{style:{marginTop:24,fontSize:11,color:dim,lineHeight:1.7,textAlign:"center",maxWidth:300}},"Frasi sul limite fra vita e morte: alcune sono la scomposizione di indagini cafausiche, altre riferite ad alcune carte dei tarocchi.",e("br"),e("br"),"Lu Cafausu con la tarologa Valentina \u201cTresia\u201d Tarantino.",e("br"),e("a",{href:"https://amzn.eu/d/070XfOUq",target:"_blank",rel:"noopener",style:{color:dim,textDecoration:"underline"}},"acquista il libro")),
     e("div",{style:{position:"absolute",bottom:0,left:0,right:0,padding:"16px 24px 32px"}},
         e("div",{style:{display:"flex",justifyContent:"center",gap:5,marginBottom:10}},
           gS().steps.map(function(s,i){return e("div",{key:i,style:{width:i===ci?18:6,height:5,borderRadius:3,background:i===ci?T.accentLight:T.border,transition:"all 0.3s"}})})
@@ -1049,7 +1049,7 @@ if('serviceWorker' in navigator){
           e("div",{style:{fontSize:12,color:T.textDim,fontVariantNumeric:"tabular-nums"}},fmtT(elapsed)),
           e("div",{style:{flex:1,height:2,background:T.border,borderRadius:1,overflow:"hidden",maxWidth:180}},
             e("div",{style:{height:2,background:T.accentLight,borderRadius:1,width:((ci/gS().steps.length)*100)+"%",transition:"width 0.3s"}})),
-          e("div",{style:{fontSize:12,color:T.textDim}},fmtT(gS().steps.reduce((a,s)=>a+s.duration,0))),
+          e("div",{style:{fontSize:12,color:T.textDim,fontStyle:"italic",fontFamily:"'Cormorant Garamond',Georgia,serif"}},fmtT(gS().steps.reduce((a,s)=>a+s.duration,0))),
         ),
       ),
     );
