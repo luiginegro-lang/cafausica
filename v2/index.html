@@ -1,112 +1,168 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cafausica V2</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cafausica V2</title>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
 
-  <style>
-    body {
-      margin: 0;
-      background: #1B1B18;
-      color: #EDEDEC;
-      font-family: sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
+<style>
+body {
+  margin: 0;
+  background: #1B1B18;
+  color: #EDEDEC;
+  font-family: sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
 
-    .container {
-      text-align: center;
-      max-width: 400px;
-      width: 90%;
-    }
+.container {
+  width: 90%;
+  max-width: 420px;
+  text-align: center;
+}
 
-    button {
-      display: block;
-      width: 100%;
-      margin: 10px 0;
-      padding: 12px;
-      background: none;
-      border: 1px solid #444;
-      color: #EDEDEC;
-      cursor: pointer;
-    }
-  </style>
+button {
+  display: block;
+  width: 100%;
+  margin: 8px 0;
+  padding: 12px;
+  background: none;
+  border: 1px solid #444;
+  color: #EDEDEC;
+  cursor: pointer;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  margin: 6px 0;
+  background: #2A2A27;
+  border: 1px solid #444;
+  color: #EDEDEC;
+}
+</style>
 </head>
+
 <body>
-  <div id="root"></div>
+<div id="root"></div>
 
-  <script>
-    const { useState } = React;
+<script>
+const { useState, useEffect } = React;
 
-    const METHODS = [
-      { id: "v60", name: "Hario V60" },
-      { id: "aeropress", name: "AeroPress" }
-    ];
+const METHODS = [
+  { id: "v60", name: "Hario V60" },
+  { id: "aeropress", name: "AeroPress" }
+];
 
-    function App() {
-      const [phase, setPhase] = useState("home");
-      const [selectedMethod, setSelectedMethod] = useState(null);
-      const [coffees, setCoffees] = useState([
-        { id: 1, name: "Guji 2026", origin: "Etiopia", process: "Natural" }
-      ]);
-      const [selectedCoffee, setSelectedCoffee] = useState(null);
+function App() {
+  const [phase, setPhase] = useState("home");
+  const [selectedMethod, setSelectedMethod] = useState(null);
+  const [selectedCoffee, setSelectedCoffee] = useState(null);
 
-      if (phase === "home") {
-        return React.createElement("div", { className: "container" },
-          React.createElement("h2", null, "Seleziona Metodo"),
-          METHODS.map(method =>
-            React.createElement("button", {
-              key: method.id,
-              onClick: () => {
-                setSelectedMethod(method);
-                setPhase("coffee");
-              }
-            }, method.name)
-          )
-        );
-      }
+  const [coffees, setCoffees] = useState([]);
+  const [newCoffee, setNewCoffee] = useState({ name: "", origin: "", process: "" });
 
-      if (phase === "coffee") {
-        return React.createElement("div", { className: "container" },
-          React.createElement("h2", null, "Seleziona Caffè"),
-          coffees.map(coffee =>
-            React.createElement("button", {
-              key: coffee.id,
-              onClick: () => {
-                setSelectedCoffee(coffee);
-                setPhase("ready");
-              }
-            },
-              coffee.name + " — " + coffee.origin + " " + coffee.process
-            )
-          )
-        );
-      }
+  // Load from localStorage
+  useEffect(() => {
+    const saved = JSON.parse(localStorage.getItem("cafausica-coffees") || "[]");
+    setCoffees(saved);
+  }, []);
 
-      if (phase === "ready") {
-        return React.createElement("div", { className: "container" },
-          React.createElement("h2", null, "Pronto"),
-          React.createElement("p", null,
-            "Metodo: " + selectedMethod.name
-          ),
-          React.createElement("p", null,
-            "Caffè: " + selectedCoffee.name
-          )
-        );
-      }
+  // Save to localStorage
+  useEffect(() => {
+    localStorage.setItem("cafausica-coffees", JSON.stringify(coffees));
+  }, [coffees]);
 
-      return null;
-    }
+  function addCoffee() {
+    if (!newCoffee.name) return;
 
-    ReactDOM.createRoot(document.getElementById("root")).render(
-      React.createElement(App)
+    const coffee = {
+      id: Date.now(),
+      ...newCoffee
+    };
+
+    setCoffees([...coffees, coffee]);
+    setNewCoffee({ name: "", origin: "", process: "" });
+    setPhase("coffee");
+  }
+
+  if (phase === "home") {
+    return React.createElement("div", { className: "container" },
+      React.createElement("h2", null, "Seleziona Metodo"),
+      METHODS.map(method =>
+        React.createElement("button", {
+          key: method.id,
+          onClick: () => {
+            setSelectedMethod(method);
+            setPhase("coffee");
+          }
+        }, method.name)
+      )
     );
-  </script>
+  }
+
+  if (phase === "coffee") {
+    return React.createElement("div", { className: "container" },
+      React.createElement("h2", null, "Seleziona Caffè"),
+      coffees.map(coffee =>
+        React.createElement("button", {
+          key: coffee.id,
+          onClick: () => {
+            setSelectedCoffee(coffee);
+            setPhase("ready");
+          }
+        },
+          coffee.name + " — " + coffee.origin + " " + coffee.process
+        )
+      ),
+      React.createElement("button", {
+        onClick: () => setPhase("create")
+      }, "+ Nuovo Caffè")
+    );
+  }
+
+  if (phase === "create") {
+    return React.createElement("div", { className: "container" },
+      React.createElement("h2", null, "Nuovo Caffè"),
+      React.createElement("input", {
+        placeholder: "Nome",
+        value: newCoffee.name,
+        onChange: e => setNewCoffee({ ...newCoffee, name: e.target.value })
+      }),
+      React.createElement("input", {
+        placeholder: "Origine",
+        value: newCoffee.origin,
+        onChange: e => setNewCoffee({ ...newCoffee, origin: e.target.value })
+      }),
+      React.createElement("input", {
+        placeholder: "Processo",
+        value: newCoffee.process,
+        onChange: e => setNewCoffee({ ...newCoffee, process: e.target.value })
+      }),
+      React.createElement("button", { onClick: addCoffee }, "Archivia"),
+      React.createElement("button", { onClick: () => setPhase("coffee") }, "Annulla")
+    );
+  }
+
+  if (phase === "ready") {
+    return React.createElement("div", { className: "container" },
+      React.createElement("h2", null, "Pronto"),
+      React.createElement("p", null, "Metodo: " + selectedMethod.name),
+      React.createElement("p", null, "Caffè: " + selectedCoffee.name)
+    );
+  }
+
+  return null;
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(
+  React.createElement(App)
+);
+</script>
 </body>
 </html>
