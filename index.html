@@ -390,6 +390,7 @@ const VENTURA=[
 // ===== VENTURA VIEW =====
 function VenturaView(props) {
   var dark = props.dark, onBack = props.onBack, onHome = props.onHome;
+  var _vi=useState(false),vInfo=_vi[0],setVInfo=_vi[1];
   var _p = useState("intro"), phase = _p[0], setPhase = _p[1];
   var _m = useState(""), msg = _m[0], setMsg = _m[1];
   var draw = function() {
@@ -403,8 +404,8 @@ function VenturaView(props) {
       )
     ),
     e("div", {style: {paddingBottom: 48, textAlign: "center"}},
-      e("div", {style: {fontSize: 14, color: T.textDim, marginBottom: 20}}, "messaggi di ventura \u00b7 Lu Cafausu"),
-      e("a", {href: "https://amzn.eu/d/070XfOUq", target: "_blank", rel: "noopener", style: {display: "inline-block", fontSize: 15, color: T.red, marginBottom: 24, textDecoration: "none"}}, "il libro"),
+      e("div", {style: {fontSize: 14, color: T.textDim, marginBottom: 20}}, "messaggi di ventura \u00b7 Lu Cafausu"),e("button",{onClick:function(){setVInfo(!vInfo);},style:{background:"none",border:"none",color:T.textDim,fontSize:12,cursor:"pointer",marginTop:4,padding:"1px 6px",borderRadius:"50%",border:"1px solid "+T.textDim,opacity:vInfo?0:0.5,transition:"opacity 0.3s"}},"i"),vInfo&&e("div",{onClick:function(){setVInfo(false);},style:{fontSize:15,color:T.textDim,marginTop:10,lineHeight:1.6,maxWidth:320,margin:"10px auto",fontFamily:"'Cormorant Garamond',Georgia,serif",fontStyle:"italic",cursor:"pointer",animation:"fadeInstruction 0.6s ease-in"}},"Da Messaggi di ventura. Frasi nate dalla scomposizione di alcune carte scelte dei tarocchi (a cura di Tresia) e delle pratiche cafausiche. XII edizione della Festa dei Vivi (che riflettono sulla morte)."),
+      e("div",{style:{height:16}}),e("a", {href: "https://amzn.eu/d/070XfOUq", target: "_blank", rel: "noopener", style: {display: "inline-block", fontSize: 15, color: T.red, marginBottom: 24, textDecoration: "none"}}, "il libro"),
       e("div", {style: {display: "flex", gap: 24, justifyContent: "center"}},
         e("button", {onClick: onBack, style: {background: "none", border: "none", color: T.textSec, fontSize: 16, cursor: "pointer"}}, "\u2190 brew"),
         e("button", {onClick: onHome, style: {background: "none", border: "none", color: T.textSec, fontSize: 16, cursor: "pointer"}}, "\u2190 home")
@@ -426,6 +427,7 @@ function VenturaView(props) {
 }
 
 const CupDone=({dark})=>{
+  var _info=useState(false),showInfo=_info[0],setShowInfo=_info[1];
   const phrases=[
     ["Il muso di Beth si curva\ne mi indica dove andare,\nsembra sorridere.","Luigi Negro"],
     ["Lu Cafausu sar\u00e0 il nostro\nponte provvisorio.","Emilio Vavarella"],
@@ -455,7 +457,7 @@ const CupDone=({dark})=>{
     ["Giglio.","Daniela Spagna Musso"],
   ];
   const[pi,setPi]=useState(()=>Math.floor(Math.random()*phrases.length));
-  useEffect(()=>{const iv=setInterval(()=>setPi(p=>(p+1)%phrases.length),5500);return()=>clearInterval(iv);},[]);
+  useEffect(()=>{const iv=setInterval(()=>setPi(p=>(p+1)%phrases.length),10000);return()=>clearInterval(iv);},[]);
   const[txt,author]=phrases[pi];
   const fg=dark?"rgba(237,237,236,":"rgba(27,27,24,";
   const puff=function(delay,dur,x,size){
@@ -474,7 +476,7 @@ const CupDone=({dark})=>{
     ),
     e("div",{key:pi,style:{animation:"fadeInstruction 1.2s ease-out",textAlign:"center",minHeight:100}},
       e("div",{style:{fontSize:20,fontWeight:400,color:T.text,lineHeight:1.35,whiteSpace:"pre-line",fontFamily:"'EB Garamond',Georgia,serif"}},txt),
-      e("div",{style:{fontSize:15,color:T.textDim,marginTop:14,fontWeight:400}},author)
+      e("div",{style:{fontSize:15,color:T.textDim,marginTop:14,fontWeight:400}},author,e("button",{onClick:function(){setShowInfo(!showInfo);},style:{background:"none",border:"none",color:T.textDim,fontSize:13,cursor:"pointer",marginLeft:4,padding:"1px 6px",borderRadius:"50%",border:"1px solid "+T.textDim,verticalAlign:"middle",opacity:showInfo?0:0.5,transition:"opacity 0.3s"}},"i")),showInfo&&e("div",{onClick:function(){setShowInfo(false);},style:{fontSize:15,color:T.textDim,marginTop:12,lineHeight:1.6,textAlign:"center",fontFamily:"'Cormorant Garamond',Georgia,serif",fontStyle:"italic",cursor:"pointer"}},"Parola per la Festa dei Vivi (che riflettono sulla morte), III ed., 2012. Affresco sulle pareti de Lu Cafausu, San Cesario di Lecce.")
     )
   );
 };
@@ -735,7 +737,7 @@ function App(){
   // METHOD
   if(view==="method"){const mo=mObj(selM);const recs=ALL_R.filter(r=>r.method===selM);return e("div",{style:{...S.pg,background:T.bg,color:T.text}},
     e("div",{style:S.hd},e("button",{onClick:home,style:S.ibBack},ICO.back(22,T.accent),e("span",{style:{fontSize:16,fontWeight:700}},"Indietro")),Ic(mo?.icon,28),e("span",{style:{...S.ht,fontSize:TF.md()}},mo?.name),e("span",{style:{marginLeft:"auto",fontSize:16,color:T.textSec}},recs.length+" ricette")),
-    e("div",{style:{padding:20}},recs.map(r=>e("div",{key:r.id,onClick:()=>{setSelR(r);setCc(r.baseCoffee);setFromAdv(true);setView("recipe");},style:S.cd},
+    e("div",{style:{padding:20}},recs.map(r=>e("div",{key:r.id,onClick:()=>{setSelR(r);setCc(r.baseCoffee);setFromAdv(false);setView("recipe");},style:S.cd},
       e("div",{style:{display:"flex",justifyContent:"space-between",alignItems:"start",marginBottom:6}},e("h3",{style:{fontWeight:700,fontSize:TF.md(),fontFamily:"'Inter',sans-serif",flex:1,paddingRight:8,lineHeight:1.25}},r.name),r.custom&&e("span",{style:{fontSize:16,background:T.accent+"33",color:T.accent,padding:"2px 8px",borderRadius:8,fontWeight:700,marginRight:6}},"TUA"),e("span",{style:S.pl},r.clicks+" click")),
       e("div",{style:{fontSize:TF.bMd(),color:T.textSec,marginBottom:8,lineHeight:1.5}},r.description),
       e("div",{style:{display:"flex",gap:14,flexWrap:"wrap",fontSize:16,color:T.textDim,alignItems:"center"}},e("span",null,r.baseCoffee+"g"),e("span",null,r.baseWater+"ml"),e("span",null,"1:"+(r.baseWater/r.baseCoffee).toFixed(1)),e("span",null,r.temperature>0?r.temperature+"°C":"Fredda"),e("span",null,"~"+fmt(tTime(r))),
