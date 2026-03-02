@@ -804,7 +804,7 @@ function App(){
           e("div",{style:{padding:"0 24px 24px",display:"flex",flexDirection:"column",gap:10,maxWidth:400,width:"100%",margin:"0 auto",boxSizing:"border-box"}},
             e("button",{onClick:function(){setShowVentura(true);},style:{width:"100%",padding:"16px",background:"#8B2500",border:"none",borderRadius:8,color:"#FFF",fontSize:16,cursor:"pointer",fontWeight:500,fontFamily:"'EB Garamond',Georgia,serif",letterSpacing:1}},"messaggi di ventura"),
             e("div",{style:{display:"flex",alignItems:"center",gap:12,padding:"8px 0"}},
-              e("div",{style:{fontSize:16,color:T.textDim,fontWeight:500,letterSpacing:1,whiteSpace:"nowrap"}},"sc.name"),
+              e("div",{style:{fontSize:16,color:T.textDim,fontWeight:500,letterSpacing:1,whiteSpace:"nowrap"}},sc.name),
               e("div",{style:{display:"flex",gap:4}},
                 [1,2,3,4,5].map(function(s){return e("button",{key:s,onClick:function(){setRat(s);},style:{background:"none",border:"none",cursor:"pointer",padding:1}},ICO.star(20,s<=rat?T.accent:"transparent",s<=rat?T.accent:T.textDim));})
               )
