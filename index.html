@@ -809,11 +809,15 @@ function App(){
                 [1,2,3,4,5].map(function(s){return e("button",{key:s,onClick:function(){setRat(s);},style:{background:"none",border:"none",cursor:"pointer",padding:1}},ICO.star(20,s<=rat?T.accent:"transparent",s<=rat?T.accent:T.textDim));})
               )
             ),
-
             e("div",{style:{marginTop:4}},
               e("button",{onClick:function(){setShowSorso(!showSorso);setSorsoTags([]);setSorsoFrase("");},style:{background:"none",border:"none",color:"#8B2500",fontSize:17,fontWeight:700,cursor:"pointer",padding:"8px 0",letterSpacing:0.5,display:"flex",alignItems:"center",gap:6}},showSorso?"\u25BE il sorso":"\u25B8 il sorso"),
               showSorso&&e("div",{style:{padding:"12px 0",animation:"fadeInstruction 0.4s ease-in"}},
-                e("div",{style:{fontSize:14,color:T.textDim,fontStyle:"italic",fontFamily:"'Cormorant Garamond',Georgia,serif",marginBottom:14,lineHeight:1.5}},"i descrittori non descrivono. costruiscono un terreno comune di attenzione."),
+                e("div",{style:{fontSize:14,color:T.textDim,fontStyle:"italic",fontFamily:"'Cormorant Garamond',Georgia,serif",marginBottom:14,lineHeight:1.5}},"I descrittori non descrivono. Costruiscono un terreno comune di attenzione."),
+                e("div",{style:{marginBottom:10}},
+                  e("div",{style:{fontSize:13,color:T.textDim,fontWeight:600,letterSpacing:"0.1em",marginBottom:8}},"SOGLIA"),
+                  e("input",{value:sorsoFrase,onChange:function(ev){setSorsoFrase(ev.target.value);},placeholder:"ora? dove sei, come sei?",
+                    style:{width:"100%",padding:"12px 0",border:"none",borderBottom:"1px solid "+T.border,background:"transparent",color:T.text,fontSize:17,fontFamily:"'Cormorant Garamond',Georgia,serif",fontStyle:"italic",outline:"none",boxSizing:"border-box"}})
+                ),
                 e("div",{style:{marginBottom:14}},
                   e("div",{style:{fontSize:13,color:T.textDim,fontWeight:600,letterSpacing:"0.1em",marginBottom:8}},"RUOTA"),
                   e("div",{style:{display:"flex",flexWrap:"wrap",gap:6}},
@@ -823,11 +827,6 @@ function App(){
                         style:{padding:"6px 12px",borderRadius:16,border:"1px solid "+(active?T.accent:T.border),background:active?T.accent+"20":"transparent",color:active?T.accent:T.textSec,fontSize:15,cursor:"pointer",fontWeight:active?600:400,transition:"all 0.15s"}},tag);
                     })
                   )
-                ),
-                e("div",{style:{marginBottom:10}},
-                  e("div",{style:{fontSize:13,color:T.textDim,fontWeight:600,letterSpacing:"0.1em",marginBottom:8}},"SOGLIA"),
-                  e("input",{value:sorsoFrase,onChange:function(ev){setSorsoFrase(ev.target.value);},placeholder:"dove sei, come sei bevendo?",
-                    style:{width:"100%",padding:"12px 0",border:"none",borderBottom:"1px solid "+T.border,background:"transparent",color:T.text,fontSize:17,fontFamily:"'Cormorant Garamond',Georgia,serif",fontStyle:"italic",outline:"none",boxSizing:"border-box"}})
                 ),
                 sorsoFrase.trim()&&e("button",{onClick:function(){var sc2=gS();var method=sc2?sc2.name:"";var dt=new Date().toLocaleDateString("it-IT");var frase=sorsoFrase.trim();var appUrl="https://lucafausu.github.io/cafausica";var shareTxt=frase+"\n\n\u2014 the cafausica brew guide\n"+appUrl;try{var fd=new FormData();fd.append("entry.853251827",frase);
 fd.append("entry.18779385",method);
