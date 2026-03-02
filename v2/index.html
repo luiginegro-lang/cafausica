@@ -19,6 +19,23 @@
       align-items: center;
       height: 100vh;
     }
+
+    .container {
+      text-align: center;
+      max-width: 400px;
+      width: 90%;
+    }
+
+    button {
+      display: block;
+      width: 100%;
+      margin: 10px 0;
+      padding: 12px;
+      background: none;
+      border: 1px solid #444;
+      color: #EDEDEC;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
@@ -27,8 +44,64 @@
   <script>
     const { useState } = React;
 
+    const METHODS = [
+      { id: "v60", name: "Hario V60" },
+      { id: "aeropress", name: "AeroPress" }
+    ];
+
     function App() {
-      return React.createElement("div", null, "Cafausica V2 attiva");
+      const [phase, setPhase] = useState("home");
+      const [selectedMethod, setSelectedMethod] = useState(null);
+      const [coffees, setCoffees] = useState([
+        { id: 1, name: "Guji 2026", origin: "Etiopia", process: "Natural" }
+      ]);
+      const [selectedCoffee, setSelectedCoffee] = useState(null);
+
+      if (phase === "home") {
+        return React.createElement("div", { className: "container" },
+          React.createElement("h2", null, "Seleziona Metodo"),
+          METHODS.map(method =>
+            React.createElement("button", {
+              key: method.id,
+              onClick: () => {
+                setSelectedMethod(method);
+                setPhase("coffee");
+              }
+            }, method.name)
+          )
+        );
+      }
+
+      if (phase === "coffee") {
+        return React.createElement("div", { className: "container" },
+          React.createElement("h2", null, "Seleziona Caffè"),
+          coffees.map(coffee =>
+            React.createElement("button", {
+              key: coffee.id,
+              onClick: () => {
+                setSelectedCoffee(coffee);
+                setPhase("ready");
+              }
+            },
+              coffee.name + " — " + coffee.origin + " " + coffee.process
+            )
+          )
+        );
+      }
+
+      if (phase === "ready") {
+        return React.createElement("div", { className: "container" },
+          React.createElement("h2", null, "Pronto"),
+          React.createElement("p", null,
+            "Metodo: " + selectedMethod.name
+          ),
+          React.createElement("p", null,
+            "Caffè: " + selectedCoffee.name
+          )
+        );
+      }
+
+      return null;
     }
 
     ReactDOM.createRoot(document.getElementById("root")).render(
