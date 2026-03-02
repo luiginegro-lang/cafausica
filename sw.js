@@ -1,4 +1,4 @@
-// v1772375239 - cache buster
+// v20260302-v24 - force cache clear
 self.addEventListener("install", function() { self.skipWaiting(); });
 self.addEventListener("activate", function(e) {
   e.waitUntil(
@@ -8,5 +8,7 @@ self.addEventListener("activate", function(e) {
   );
 });
 self.addEventListener("fetch", function(e) {
-  e.respondWith(fetch(e.request));
+  e.respondWith(fetch(e.request).catch(function() {
+    return caches.match(e.request);
+  }));
 });
