@@ -804,7 +804,7 @@ function App(){
           e("div",{style:{padding:"0 24px 24px",display:"flex",flexDirection:"column",gap:10,maxWidth:400,width:"100%",margin:"0 auto",boxSizing:"border-box"}},
             e("button",{onClick:function(){setShowVentura(true);},style:{width:"100%",padding:"16px",background:"#8B2500",border:"none",borderRadius:8,color:"#FFF",fontSize:16,cursor:"pointer",fontWeight:500,fontFamily:"'EB Garamond',Georgia,serif",letterSpacing:1}},"messaggi di ventura"),
             e("div",{style:{display:"flex",alignItems:"center",gap:12,padding:"8px 0"}},
-              e("div",{style:{fontSize:16,color:T.textDim,fontWeight:500,letterSpacing:1,whiteSpace:"nowrap"}},"memoria di un sorso"),
+              e("div",{style:{fontSize:16,color:T.textDim,fontWeight:500,letterSpacing:1,whiteSpace:"nowrap"}},"sc.name"),
               e("div",{style:{display:"flex",gap:4}},
                 [1,2,3,4,5].map(function(s){return e("button",{key:s,onClick:function(){setRat(s);},style:{background:"none",border:"none",cursor:"pointer",padding:1}},ICO.star(20,s<=rat?T.accent:"transparent",s<=rat?T.accent:T.textDim));})
               )
@@ -834,11 +834,11 @@ fd.append("entry.1380311466",dt);;fetch("https://docs.google.com/forms/d/e/1FAIp
                   style:{background:"#5A9A7D",border:"none",borderRadius:10,color:"#FFF",fontSize:15,cursor:"pointer",padding:"12px 20px",display:"flex",alignItems:"center",justifyContent:"center",gap:8,marginTop:8,fontWeight:500,fontFamily:"'Inter',sans-serif",letterSpacing:0.3,width:"100%",boxSizing:"border-box"}},
                   "condividi il sorso"
                 ),
-                e("div",{style:{marginTop:16,fontSize:13,color:T.textDim+"88",fontFamily:"'Cormorant Garamond',Georgia,serif",fontStyle:"italic",textAlign:"right"}},"grazie Kenneth \u2661")
+    
               )
             ),
 
-            e("textarea",{value:notes,onChange:function(ev){setNotes(ev.target.value);},placeholder:sc.name+"...",style:{width:"100%",padding:10,borderRadius:0,border:"none",borderBottom:"1px solid "+T.border,background:"transparent",color:T.text,fontSize:16,fontFamily:"'Inter',sans-serif",resize:"none",minHeight:36,boxSizing:"border-box",outline:"none"}}),
+            
             e("div",{style:{display:"flex",gap:10,marginTop:8}},
               e("button",{onClick:save,style:{flex:1,padding:"16px",borderRadius:8,border:"none",background:T.accent,color:"#FFF",fontSize:16,fontWeight:500,cursor:"pointer"}},"salva"),
               e("button",{onClick:home,style:{flex:1,padding:"16px",borderRadius:8,border:"1px solid "+T.border,background:"transparent",color:T.text,fontSize:16,fontWeight:500,cursor:"pointer"}},"home")
