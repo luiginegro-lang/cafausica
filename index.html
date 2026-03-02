@@ -499,6 +499,9 @@ function App(){
   const[customR,setCustomR]=useState(()=>LS.get("custom_recipes")||[]);
   const[rat,setRat]=useState(0);
   const[notes,setNotes]=useState("");
+  var _st=useState([]),sorsoTags=_st[0],setSorsoTags=_st[1];
+  var _sf=useState(""),sorsoFrase=_sf[0],setSorsoFrase=_sf[1];
+  var _ss=useState(false),showSorso=_ss[0],setShowSorso=_ss[1];
   // Custom recipe form state
   const[fn,setFn]=useState("");
   const[fa,setFa]=useState("");
@@ -613,9 +616,9 @@ function App(){
     ];
   };
 
-  const home=()=>{setView("home");setSelM(null);setSelR(null);setRun(false);setDone(false);setCc(null);};
+  const home=()=>{setView("home");setSelM(null);setSelR(null);setRun(false);setDone(false);setCc(null);setSorsoTags([]);setSorsoFrase("");setShowSorso(false);};
   const initForm=(r)=>{setFn(r?r.name:"");setFa(r?r.author:"");setFd(r?r.description:"");setFm(r?r.method:"v60");setFc2(r?String(r.baseCoffee):"15");setFw2(r?String(r.baseWater):"250");setFt2(r?String(r.temperature):"93");setFk2(r?String(r.clicks):"24");setFmu2(r?String(r.microns):"720");setFgd2(r?r.grindDesc:"Medium-fine");setFst(r?[...r.steps]:[{text:"",waterAdd:0,duration:30}]);};
-  const save=()=>{const r=gS();if(!r)return;sH([{id:Date.now(),recipeName:r.name,method:r.method,coffee:r.coffee,water:r.water,clicks:r.clicks,temperature:r.temperature,rating:rat,notes,date:new Date().toLocaleDateString("it-IT"),time:new Date().toLocaleTimeString("it-IT",{hour:"2-digit",minute:"2-digit"})},...hist].slice(0,50));home();};
+  const save=()=>{const r=gS();if(!r)return;sH([{id:Date.now(),recipeName:r.name,method:r.method,coffee:r.coffee,water:r.water,clicks:r.clicks,temperature:r.temperature,rating:rat,notes,sorsoTags:sorsoTags,sorsoFrase:sorsoFrase,date:new Date().toLocaleDateString("it-IT"),time:new Date().toLocaleTimeString("it-IT",{hour:"2-digit",minute:"2-digit"})},...hist].slice(0,50));home();};
 
   const S={
     pg:{minHeight:"100dvh",background:T.bg,color:T.text,fontFamily:"'Inter',sans-serif",maxWidth:720,margin:"0 auto",padding:"0 env(safe-area-inset-right) 0 env(safe-area-inset-left)"},
@@ -804,6 +807,34 @@ function App(){
                 [1,2,3,4,5].map(function(s){return e("button",{key:s,onClick:function(){setRat(s);},style:{background:"none",border:"none",cursor:"pointer",padding:1}},ICO.star(20,s<=rat?T.accent:"transparent",s<=rat?T.accent:T.textDim));})
               )
             ),
+
+            e("div",{style:{marginTop:4}},
+              e("button",{onClick:function(){setShowSorso(!showSorso);setSorsoTags([]);setSorsoFrase("");},style:{background:"none",border:"none",color:showSorso?T.accent:T.textDim,fontSize:16,fontWeight:600,cursor:"pointer",padding:"8px 0",letterSpacing:0.5,display:"flex",alignItems:"center",gap:6}},showSorso?"\u25BE il sorso":"\u25B8 il sorso"),
+              showSorso&&e("div",{style:{padding:"12px 0",animation:"fadeInstruction 0.4s ease-in"}},
+                e("div",{style:{fontSize:14,color:T.textDim,fontStyle:"italic",fontFamily:"'Cormorant Garamond',Georgia,serif",marginBottom:14,lineHeight:1.5}},"i descrittori non descrivono. costruiscono un terreno comune di attenzione."),
+                e("div",{style:{marginBottom:14}},
+                  e("div",{style:{fontSize:13,color:T.textDim,fontWeight:600,letterSpacing:"0.1em",marginBottom:8}},"RUOTA"),
+                  e("div",{style:{display:"flex",flexWrap:"wrap",gap:6}},
+                    ["floreale","fruttato","agrumato","dolce","caramello","cioccolato","noci","speziato","erbaceo","tostato","cereale","fermentato","vegetale","terroso","affumicato","salato"].map(function(tag){
+                      var active=sorsoTags.indexOf(tag)>=0;
+                      return e("button",{key:tag,onClick:function(){setSorsoTags(active?sorsoTags.filter(function(t){return t!==tag;}):sorsoTags.concat([tag]));},
+                        style:{padding:"6px 12px",borderRadius:16,border:"1px solid "+(active?T.accent:T.border),background:active?T.accent+"20":"transparent",color:active?T.accent:T.textSec,fontSize:15,cursor:"pointer",fontWeight:active?600:400,transition:"all 0.15s"}},tag);
+                    })
+                  )
+                ),
+                e("div",{style:{marginBottom:10}},
+                  e("div",{style:{fontSize:13,color:T.textDim,fontWeight:600,letterSpacing:"0.1em",marginBottom:8}},"SOGLIA"),
+                  e("input",{value:sorsoFrase,onChange:function(ev){setSorsoFrase(ev.target.value);},placeholder:"dove sei, come sei bevendo?",
+                    style:{width:"100%",padding:"12px 0",border:"none",borderBottom:"1px solid "+T.border,background:"transparent",color:T.text,fontSize:17,fontFamily:"'Cormorant Garamond',Georgia,serif",fontStyle:"italic",outline:"none",boxSizing:"border-box"}})
+                ),
+                sorsoFrase.trim()&&e("button",{onClick:function(){var txt=sorsoFrase.trim()+"\n\n\u2014 the cafausica brew guide";if(typeof navigator!=="undefined"&&navigator.share){navigator.share({text:txt}).catch(function(){});}else if(typeof navigator!=="undefined"&&navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(txt).then(function(){alert("copiato!");}).catch(function(){prompt("copia il testo:",txt);});}else{prompt("copia il testo:",txt);}},
+                  style:{background:"#5A9A7D",border:"none",borderRadius:10,color:"#FFF",fontSize:15,cursor:"pointer",padding:"12px 20px",display:"flex",alignItems:"center",justifyContent:"center",gap:8,marginTop:8,fontWeight:500,fontFamily:"'Inter',sans-serif",letterSpacing:0.3,width:"100%",boxSizing:"border-box"}},
+                  "condividi il sorso"
+                ),
+                e("div",{style:{marginTop:16,fontSize:13,color:T.textDim+"88",fontFamily:"'Cormorant Garamond',Georgia,serif",fontStyle:"italic",textAlign:"right"}},"grazie Kenneth \u2661")
+              )
+            ),
+
             e("textarea",{value:notes,onChange:function(ev){setNotes(ev.target.value);},placeholder:sc.name+"...",style:{width:"100%",padding:10,borderRadius:0,border:"none",borderBottom:"1px solid "+T.border,background:"transparent",color:T.text,fontSize:16,fontFamily:"'Inter',sans-serif",resize:"none",minHeight:36,boxSizing:"border-box",outline:"none"}}),
             e("div",{style:{display:"flex",gap:10,marginTop:8}},
               e("button",{onClick:save,style:{flex:1,padding:"16px",borderRadius:8,border:"none",background:T.accent,color:"#FFF",fontSize:16,fontWeight:500,cursor:"pointer"}},"salva"),
@@ -868,6 +899,8 @@ function App(){
           ),
           e("div",{style:{display:"flex",gap:8,marginTop:8,fontSize:16,color:T.textDim}},h.coffee+"g · "+h.water+"ml · "+h.clicks+" click"+(h.temperature>0?" · "+h.temperature+"°C":"")),
           h.notes&&e("div",{style:{marginTop:6,fontSize:16,color:T.textSec}},'"'+h.notes+'"'),
+          h.sorsoFrase&&e("div",{style:{marginTop:4,fontSize:16,color:T.accent,fontStyle:"italic",fontFamily:"'Cormorant Garamond',Georgia,serif"}},h.sorsoFrase),
+          h.sorsoTags&&h.sorsoTags.length>0&&e("div",{style:{display:"flex",flexWrap:"wrap",gap:4,marginTop:4}},h.sorsoTags.map(function(t){return e("span",{key:t,style:{fontSize:14,padding:"2px 8px",borderRadius:10,background:T.accent+"15",color:T.accent}},t);})),
         );}),
         e("button",{key:"del",onClick:()=>sH([]),style:{...S.bt(T.surface,T.red),marginTop:8,border:"1px solid "+T.border,display:"flex",alignItems:"center",justifyContent:"center",gap:8}},ICO.trash(16)," Cancella storico"),
       ],
