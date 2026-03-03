@@ -525,8 +525,26 @@ function App(){
   const ALL_R=[...RECIPES,...customR];
 
   const gS=useCallback(()=>{
-    if(!selR)return null;const c=cc??selR.baseCoffee;const m=c/selR.baseCoffee;
-    return{...selR,coffee:Math.round(c*10)/10,water:Math.round(selR.baseWater*m*10)/10,steps:selR.steps.map(s=>({...s,waterAdd:Math.round(s.waterAdd*m*10)/10})),mult:m};
+    if(!selR)return null;
+    const c=cc??selR.baseCoffee;
+    const m=c/selR.baseCoffee;
+    return{
+      ...selR,
+      coffee:Math.round(c*10)/10,
+      water:Math.round(selR.baseWater*m*10)/10,
+      mult:m,
+      steps:selR.steps.map(s=>{
+        let newDur=s.duration;
+        if(s.duration===0){
+          newDur=0;
+        } else if(s.waterAdd>0){
+          newDur=Math.round(s.duration*m);
+        } else if(s.duration>=60){
+          newDur=Math.round(s.duration*Math.pow(m,0.7));
+        }
+        return{...s,waterAdd:Math.round(s.waterAdd*m*10)/10,duration:newDur};
+      })
+    };
   },[selR,cc]);
 
 
