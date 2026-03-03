@@ -812,7 +812,7 @@ function App(){
   // BREW
   if(view==="brew"&&selR){
     const sc=gS();if(!sc)return null;const st=sc.steps[cs];const isDesc=st?.duration===0;const dur=isDesc?1:st?.duration||1;const pr=isDesc?0:Math.min(se/dur,1);
-    let cW=0;for(let i=0;i<=cs;i++)cW+=sc.steps[i].waterAdd;
+    let cW=0;for(let i=0;i<=cs;i++)cW=Math.round((cW+sc.steps[i].waterAdd)*10)/10;
 
     if(done)return e("div",{style:{...S.pg,background:T.bg,color:T.text}},
       e("div",null,showVentura?e(VenturaView,{dark:dm==="dark",onBack:function(){setShowVentura(false);},onHome:home}):e("div",{style:{minHeight:"100dvh",background:T.bg,color:T.text,display:"flex",flexDirection:"column",overflowY:"auto",alignItems:"center"}},
@@ -876,7 +876,7 @@ fd.append("entry.1380311466",dt);;fetch("https://docs.google.com/forms/d/e/1FAIp
         e("div",{style:{background:T.surfaceHi,borderRadius:18,padding:"16px 16px 20px",marginBottom:10,border:"2px solid "+T.accent,textAlign:"center"}},
           e("div",{style:{display:"flex",justifyContent:"center",gap:8,marginBottom:6}},
             e("span",{style:{fontSize:16,fontWeight:700,color:T.textDim,letterSpacing:1}},isDesc?"":("STEP "+(cs+1)+" / "+sc.steps.length)),
-            cW>0&&e("span",{style:{fontSize:16,fontWeight:600,color:T.accent,letterSpacing:0.5}},cW+"ml totali"),
+            cW>0&&e("span",{style:{fontSize:16,fontWeight:600,color:T.accent,letterSpacing:0.5}},cMath.round(cW)+"ml totali"),
           ),
           (()=>{const act=st?.waterAdd>0?"VERSA":/swirl|mescol|stir|spin|rompi|scav|schiuma|capovolg|premi|press/i.test(st?.text||"")?"AGITA":"ATTENDI";const acCol=act==="VERSA"?T.accent:act==="AGITA"?"#D4A03C":T.textDim;return e("div",{style:{display:"inline-block",padding:"3px 14px",borderRadius:8,background:acCol+"20",color:acCol,fontSize:16,fontWeight:600,letterSpacing:1.5,marginBottom:8}},act)})(),
           e("div",{style:{fontSize:64,fontWeight:600,fontVariantNumeric:"tabular-nums",color:isDesc?T.text:pr>0.85?T.accentLight:T.text,lineHeight:1,marginBottom:6}},isDesc?"—":fmt(Math.max(0,dur-se))),
@@ -885,7 +885,7 @@ fd.append("entry.1380311466",dt);;fetch("https://docs.google.com/forms/d/e/1FAIp
           ),
           e("p",{style:{fontSize:TF.bLg(),lineHeight:1.5,fontWeight:500,marginBottom:st?.waterAdd>0?10:0,maxWidth:340,margin:"0 auto"}},st?.text),
           st?.waterAdd>0&&e("div",{style:{display:"inline-flex",alignItems:"baseline",gap:6,marginTop:10,padding:"6px 18px",borderRadius:12,background:T.accent+"15"}},
-            e("span",{style:{fontSize:36,fontWeight:600,color:T.accent}},"+"+(st.waterAdd%1===0?st.waterAdd:st.waterAdd.toFixed(1))),
+            e("span",{style:{fontSize:36,fontWeight:600,color:T.accent}},"+"+Math.round(st.waterAdd*10)/10),
             e("span",{style:{fontSize:20,fontWeight:600,color:T.accent}},"ml"),
           ),
         ),
