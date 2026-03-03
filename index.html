@@ -876,7 +876,7 @@ fd.append("entry.1380311466",dt);;fetch("https://docs.google.com/forms/d/e/1FAIp
         e("div",{style:{background:T.surfaceHi,borderRadius:18,padding:"16px 16px 20px",marginBottom:10,border:"2px solid "+T.accent,textAlign:"center"}},
           e("div",{style:{display:"flex",justifyContent:"center",gap:8,marginBottom:6}},
             e("span",{style:{fontSize:16,fontWeight:700,color:T.textDim,letterSpacing:1}},isDesc?"":("STEP "+(cs+1)+" / "+sc.steps.length)),
-            cW>0&&e("span",{style:{fontSize:16,fontWeight:600,color:T.accent,letterSpacing:0.5}},cMath.round(cW)+"ml totali"),
+            cW>0&&e("span",{style:{fontSize:16,fontWeight:600,color:T.accent,letterSpacing:0.5}},Math.round(cW)+"ml totali"),
           ),
           (()=>{const act=st?.waterAdd>0?"VERSA":/swirl|mescol|stir|spin|rompi|scav|schiuma|capovolg|premi|press/i.test(st?.text||"")?"AGITA":"ATTENDI";const acCol=act==="VERSA"?T.accent:act==="AGITA"?"#D4A03C":T.textDim;return e("div",{style:{display:"inline-block",padding:"3px 14px",borderRadius:8,background:acCol+"20",color:acCol,fontSize:16,fontWeight:600,letterSpacing:1.5,marginBottom:8}},act)})(),
           e("div",{style:{fontSize:64,fontWeight:600,fontVariantNumeric:"tabular-nums",color:isDesc?T.text:pr>0.85?T.accentLight:T.text,lineHeight:1,marginBottom:6}},isDesc?"—":fmt(Math.max(0,dur-se))),
@@ -1045,6 +1045,6 @@ ReactDOM.createRoot(document.getElementById("root")).render(e(App));
 if('serviceWorker' in navigator){
   navigator.serviceWorker.register('sw.js');
 }
-}</script>
+</script>
 </body>
 </html>
