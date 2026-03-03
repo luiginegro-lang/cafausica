@@ -957,7 +957,7 @@ fd.append("entry.1380311466",dt);;fetch("https://docs.google.com/forms/d/e/1FAIp
         
           e("select",{value:fm,onChange:ev=>setFm(ev.target.value),
             style:{width:"100%",padding:"12px 14px",borderRadius:12,border:"1px solid "+T.border,background:T.surface,color:T.text,fontSize:17}},
-            METHODS.map(m=>e("option",{key:m.id,value:m.id},m.name)))),
+            METHODS.map(m=>e("option",{key:m.id,value:m.id},m.name))),
         e("div",{style:{display:"grid",gridTemplateColumns:"1fr 1fr",gap:10}},
           inp("Caffè (g)",fc2,setFc2,"15","number"),
           inp("Acqua (ml)",fw2,setFw2,"250","number"),
