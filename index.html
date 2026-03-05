@@ -389,6 +389,61 @@ const VENTURA=[
 "L\u2019anziano cammina sereno nel buio, avanza all\u2019indietro. La torcia illumina l\u2019evidente, ma il tempo \u00e8 finito.",
 ];
 
+
+const VENTURA_EN=[
+"All cards are there to be played.",
+"Never give a sword to a man who cannot dance.",
+"A coffee for this world and the next!",
+"Silence is the sacred, before the human word.",
+"Memory only deceives those who wish to forget.",
+"The cage is gilded only from the inside.",
+"Smile, lightly smile.",
+"If it is nightmare then we are alive.",
+"A single land beneath the sea.",
+"The fool is like a watercourse that follows every channel.",
+"What we sought in life can now become a work.",
+"To discover unexpected faculties in unknown terrains.",
+"At the bottom of every discourse, there is not a truth, but a rhythm.",
+"Living in the gerund. Doing, not done. Passing, not past. Dying, not dead.",
+"What matters is not strength, but the daring in surrender.",
+"When nothing is yet born everything has already happened, and yet everything is still possible.",
+"At the beginning of the end there was a hedge, at the beginning of love the abyss.",
+"The animal is twin to the conscious.",
+"Every day we slowly walk towards that from which we flee.",
+"This admirable resistance is only the highest form of desistance: it is tukdam.",
+"We dance naked with the elements of the world, free from death and from life.",
+"The tower fell, a hundred thousand nobodies died, one was saved.",
+"Pack up, travel and don\u2019t look back. Let us not do as Orpheus with his Eurydice.",
+"There is a possible return from the kingdom of the dead. Mostly, it takes the form of a story, or of a harvest.",
+"Caress the ferocity at your feet, calm the beast.",
+"Gaze gently at the place where time is suspended, it is there that desire does not consume itself.",
+"Now you can begin to cross the river that leads elsewhere.",
+"It is never given to know in which pocket death comes alive.",
+"We reveal ourselves as strangers beside those who brought us into being.",
+"The necromancer transmutes and blooms if we let go of what appears immobile.",
+"The seed buried in the earth is the genesis of knowledge.",
+"Surrender to the resonances and to the beauty of the genesis of ideas.",
+"There is the possibility of hosting the universe in the potential of a small heart.",
+"If we have managed to pass from word to silence, we can now leap towards love.",
+"The wall behind our bodies is warm, our future radiates gems upon our past.",
+"Kneeling at the bank of a river, in the starlit night a cricket chirps in the shadow.",
+"The words that express the lament for death are the first poetry.",
+"A broken, shattered, destroyed, decayed work does not die, it regenerates in memory or in the body.",
+"On the table that sustains us, two plates. In one the feather, in the other the heart, and between them death.",
+"When you hate the other, the other is always your brother.",
+"We establish connections, yet free from the habitual criteria of consequentiality.",
+"Fluids nourish your belly and sparks pour forth.",
+"Regret is the thought that will not accord with what has happened.",
+"It is known that what we think can become reality; what we dream already is.",
+"There would be no possibility of knowing death, if it happened only once.",
+"What we love has already been loved by our parents.",
+"The sky is torn open, we emerge from sleep dead, alive and risen.",
+"What is immortality without the journey of death, what are golden seeds without the earth?",
+"You cannot go back and it is not easy to pretend that nothing has been; one does not die only of death.",
+"The spring gushes from the roof of the world, falls back, continues in the riverbed. As above so below.",
+"The elder walks serene in the dark, advancing backwards. The torch illuminates the obvious, but time is finished.",
+];
+
 // ===== VENTURA VIEW =====
 function VenturaView(props) {
   var dark = props.dark, onBack = props.onBack, onHome = props.onHome;
@@ -396,7 +451,7 @@ function VenturaView(props) {
   var _p = useState("intro"), phase = _p[0], setPhase = _p[1];
   var _m = useState(""), msg = _m[0], setMsg = _m[1];
   var draw = function() {
-    setMsg(VENTURA[Math.floor(Math.random() * VENTURA.length)]);
+    setMsg((props.ven||VENTURA)[Math.floor(Math.random() * (props.ven||VENTURA).length)]);
     setPhase("reveal");
   };
   if (phase === "reveal") return e("div", {style: {minHeight: "100dvh", display: "flex", flexDirection: "column", background: T.bg, padding: "0 32px"}},
@@ -406,20 +461,20 @@ function VenturaView(props) {
       )
     ),
     e("div", {style: {paddingBottom: 48, textAlign: "center"}},
-      e("div", {style: {fontSize: 14, color: T.textDim, marginBottom: 20}}, "messaggi di ventura \u00b7 Lu Cafausu"),e("button",{onClick:function(){setVInfo(!vInfo);},style:{background:"none",border:"none",color:T.textDim,fontSize:12,cursor:"pointer",marginTop:4,padding:"1px 6px",borderRadius:"50%",border:"1px solid "+T.textDim,opacity:vInfo?0:0.5,transition:"opacity 0.3s"}},"i"),vInfo&&e("div",{onClick:function(){setVInfo(false);},style:{fontSize:15,color:T.textDim,marginTop:10,lineHeight:1.6,maxWidth:320,margin:"10px auto",fontFamily:"'Cormorant Garamond',Georgia,serif",fontStyle:"italic",cursor:"pointer",animation:"fadeInstruction 0.6s ease-in"}},"Da Messaggi di ventura. Frasi nate dalla scomposizione di alcune carte scelte dei tarocchi (a cura di Tresia) e delle pratiche cafausiche. XII edizione della Festa dei Vivi (che riflettono sulla morte)."),
+      e("div", {style: {fontSize: 14, color: T.textDim, marginBottom: 20}}, (lang==="en"?"fortune messages \u00b7 Lu Cafausu":"messaggi di ventura \u00b7 Lu Cafausu")),e("button",{onClick:function(){setVInfo(!vInfo);},style:{background:"none",border:"none",color:T.textDim,fontSize:12,cursor:"pointer",marginTop:4,padding:"1px 6px",borderRadius:"50%",border:"1px solid "+T.textDim,opacity:vInfo?0:0.5,transition:"opacity 0.3s"}},"i"),vInfo&&e("div",{onClick:function(){setVInfo(false);},style:{fontSize:15,color:T.textDim,marginTop:10,lineHeight:1.6,maxWidth:320,margin:"10px auto",fontFamily:"'Cormorant Garamond',Georgia,serif",fontStyle:"italic",cursor:"pointer",animation:"fadeInstruction 0.6s ease-in"}},(props.lang==="en"?"From Messaggi di ventura. Phrases born from the decomposition of selected tarot cards (curated by Tresia) and cafausic practices. 12th edition of La Festa dei Vivi (reflecting on death).":"Da Messaggi di ventura. Frasi nate dalla scomposizione di alcune carte scelte dei tarocchi (a cura di Tresia) e delle pratiche cafausiche. XII edizione della Festa dei Vivi (che riflettono sulla morte).")),
       e("div",{style:{height:16}}),e("div",{style:{height:16}}),e("a", {href: "https://amzn.eu/d/070XfOUq", target: "_blank", rel: "noopener", style: {display: "inline-block", fontSize: 15, color: T.red, marginBottom: 24, textDecoration: "none"}}, "il libro"),
       e("div", {style: {display: "flex", gap: 24, justifyContent: "center"}},
-        e("button", {onClick: onBack, style: {background: "none", border: "none", color: T.textSec, fontSize: 16, cursor: "pointer"}}, "\u2190 brew"),
-        e("button", {onClick: onHome, style: {background: "none", border: "none", color: T.textSec, fontSize: 16, cursor: "pointer"}}, "\u2190 home")
+        e("button", {onClick: onBack, style: {background: "none", border: "none", color: T.textSec, fontSize: 16, cursor: "pointer"}}, (lang==="en"?"\u2190 brew":"\u2190 brew")),
+        e("button", {onClick: onHome, style: {background: "none", border: "none", color: T.textSec, fontSize: 16, cursor: "pointer"}}, (lang==="en"?"\u2190 home":"\u2190 home"))
       )
     )
   );
   return e("div", {style: {minHeight: "100dvh", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", padding: "48px 32px", background: T.bg}},
     e("div", {style: {textAlign: "center", maxWidth: 340}},
       e("div", {style: {fontSize: 21, fontWeight: 400, color: T.text, lineHeight: 1.9, fontStyle: "italic", fontFamily: "'Cormorant Garamond',Georgia,serif", marginBottom: 48}},
-        "Poni una domanda esistenziale. Non cercare una risposta. Lascia che emerga."
+        (props.lang==="en"?"Ask an existential question. Do not seek an answer. Let it emerge.":"Poni una domanda esistenziale. Non cercare una risposta. Lascia che emerga.")
       ),
-      e("button", {onClick: draw, style: {width: "100%", background: "#8B2500", border: "none", borderRadius: 8, padding: "18px 40px", color: "#FFF", fontSize: 17, cursor: "pointer", fontWeight: 500, letterSpacing: 1}}, "rivela")
+      e("button", {onClick: draw, style: {width: "100%", background: "#8B2500", border: "none", borderRadius: 8, padding: "18px 40px", color: "#FFF", fontSize: 17, cursor: "pointer", fontWeight: 500, letterSpacing: 1}}, (props.lang==="en"?"reveal":"rivela"))
     ),
     e("div", {style: {position: "absolute", bottom: 32, display: "flex", gap: 24}},
       e("button", {onClick: onBack, style: {background: "none", border: "none", color: T.textSec, fontSize: 16, cursor: "pointer"}}, "\u2190 brew"),
@@ -428,7 +483,7 @@ function VenturaView(props) {
   );
 }
 
-const CupDone=({dark})=>{
+const CupDone=({dark,lang})=>{
   var _info=useState(false),showInfo=_info[0],setShowInfo=_info[1];
   const phrases=[
     ["Il muso di Beth si curva\ne mi indica dove andare,\nsembra sorridere.","Luigi Negro"],
@@ -478,7 +533,7 @@ const CupDone=({dark})=>{
     ),
     e("div",{key:pi,style:{animation:"fadeInstruction 1.2s ease-out",textAlign:"center",minHeight:100}},
       e("div",{style:{fontSize:20,fontWeight:400,color:T.text,lineHeight:1.35,whiteSpace:"pre-line",fontFamily:"'EB Garamond',Georgia,serif"}},txt),
-      e("div",{style:{fontSize:15,color:T.textDim,marginTop:14,fontWeight:400}},author,e("button",{onClick:function(){setShowInfo(!showInfo);},style:{background:"none",border:"none",color:T.textDim,fontSize:13,cursor:"pointer",marginLeft:4,padding:"1px 6px",borderRadius:"50%",border:"1px solid "+T.textDim,verticalAlign:"middle",opacity:showInfo?0:0.5,transition:"opacity 0.3s"}},"i")),showInfo&&e("div",{onClick:function(){setShowInfo(false);},style:{fontSize:15,color:T.textDim,marginTop:12,lineHeight:1.6,textAlign:"center",fontFamily:"'Cormorant Garamond',Georgia,serif",fontStyle:"italic",cursor:"pointer"}},"Parola per la Festa dei Vivi (che riflettono sulla morte), III ed., 2012. Affresco sulle pareti de Lu Cafausu, San Cesario di Lecce.")
+      e("div",{style:{fontSize:15,color:T.textDim,marginTop:14,fontWeight:400}},author,e("button",{onClick:function(){setShowInfo(!showInfo);},style:{background:"none",border:"none",color:T.textDim,fontSize:13,cursor:"pointer",marginLeft:4,padding:"1px 6px",borderRadius:"50%",border:"1px solid "+T.textDim,verticalAlign:"middle",opacity:showInfo?0:0.5,transition:"opacity 0.3s"}},"i")),showInfo&&e("div",{onClick:function(){setShowInfo(false);},style:{fontSize:15,color:T.textDim,marginTop:12,lineHeight:1.6,textAlign:"center",fontFamily:"'Cormorant Garamond',Georgia,serif",fontStyle:"italic",cursor:"pointer"}},(lang==="en"?"Word for La Festa dei Vivi (reflecting on death), 3rd ed., 2012. Fresco on the walls of Lu Cafausu, San Cesario di Lecce.":"Parola per la Festa dei Vivi (che riflettono sulla morte), III ed., 2012. Affresco sulle pareti de Lu Cafausu, San Cesario di Lecce."))
     )
   );
 };
@@ -486,6 +541,11 @@ const CupDone=({dark})=>{
 function App(){
   const[dm,setDm]=useState(()=>{try{return localStorage.getItem("cafausica-theme")||"dark"}catch(e){return"dark"}});
   const togTh=()=>{const n=dm==="dark"?"light":"dark";setDm(n);T=THEMES[n];try{localStorage.setItem("cafausica-theme",n)}catch(e){};document.documentElement.setAttribute("data-theme",n);document.documentElement.style.background=T.bg;document.body.style.background=T.bg;};
+  var _lang=useState(function(){try{return localStorage.getItem("cafausica-lang")||"it";}catch(e){return "it";}});
+  var lang=_lang[0],setLang=_lang[1];
+  var toggleLang=function(){var nl=lang==="it"?"en":"it";setLang(nl);try{localStorage.setItem("cafausica-lang",nl);}catch(e){}};
+  var VEN=lang==="en"?VENTURA_EN:VENTURA;
+  var L=lang==="en"?"en":"it";
   const[view,setView]=useState("home");
   const[selM,setSelM]=useState(null);
   const[selR,setSelR]=useState(null);
@@ -618,6 +678,16 @@ function App(){
 
 
   const grindFeel=(microns)=>{
+    if(lang==="en"){
+      if(microns<=150) return "Flour, impalpable powder";
+      if(microns<=300) return "Powdered sugar";
+      if(microns<=450) return "Fine caster sugar";
+      if(microns<=600) return "Fine table salt";
+      if(microns<=750) return "Fine beach sand";
+      if(microns<=900) return "Medium salt, sand";
+      if(microns<=1100) return "Coarse salt, coarse sand";
+      return "Very coarse salt, peppercorns";
+    }
     if(microns<=150) return "Farina, polvere impalpabile";
     if(microns<=300) return "Zucchero a velo";
     if(microns<=450) return "Zucchero semolato fine";
@@ -657,39 +727,40 @@ function App(){
   // HOME
   if(view==="home")return e("div",{style:{...S.pg,background:T.bg,color:T.text}},
     e("button",{onClick:togTh,style:{position:"fixed",top:16,right:16,zIndex:999,width:44,height:44,borderRadius:"50%",border:"2px solid "+T.textDim,background:T.surface,display:"flex",alignItems:"center",justifyContent:"center",cursor:"pointer",fontSize:20,color:T.accentLight,boxShadow:"0 2px 8px rgba(0,0,0,0.15)"}},dm==="dark"?"\u2600":"\u263D"),
+    e("button",{onClick:toggleLang,style:{position:"fixed",top:16,right:68,zIndex:999,width:36,height:36,borderRadius:"50%",border:"2px solid "+T.textDim,background:T.surface,display:"flex",alignItems:"center",justifyContent:"center",cursor:"pointer",fontSize:13,color:T.textDim,fontWeight:700,boxShadow:"0 2px 8px rgba(0,0,0,0.15)"}},lang==="it"?"EN":"IT"),
     e("div",{style:{padding:"28px 20px 12px"}},
       e("div",{style:{fontSize:TF.xl(),color:T.text,fontWeight:500,letterSpacing:"-0.02em",fontFamily:"'EB Garamond',Georgia,serif",marginBottom:4,lineHeight:1.2,paddingRight:60}},"The Cafausica Brew Guide"),
       e(SubTitle,null),
     ),
     e("div",{style:{padding:"8px 16px 0"}},
             e("div",{style:{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(140px,1fr))",gap:12}},
-        METHODS.map(m=>{const cnt=ALL_R.filter(r=>r.method===m.id).length;return e("div",{key:m.id,onClick:()=>{setSelM(m.id);setView("method");},style:{...S.cd,background:T.surface,border:"1px solid "+T.border,padding:14,display:"flex",flexDirection:"column",alignItems:"center",gap:6,textAlign:"center",marginBottom:0}},Ic(m.icon,56),e("div",{style:{fontWeight:700,fontSize:TF.bMd(),lineHeight:1.3}},m.name),e("div",{style:{fontSize:16,color:T.textSec}},cnt+" "+(cnt===1?"ricetta":"ricette")));})
+        METHODS.map(m=>{const cnt=ALL_R.filter(r=>r.method===m.id).length;return e("div",{key:m.id,onClick:()=>{setSelM(m.id);setView("method");},style:{...S.cd,background:T.surface,border:"1px solid "+T.border,padding:14,display:"flex",flexDirection:"column",alignItems:"center",gap:6,textAlign:"center",marginBottom:0}},Ic(m.icon,56),e("div",{style:{fontWeight:700,fontSize:TF.bMd(),lineHeight:1.3}},m.name),e("div",{style:{fontSize:16,color:T.textSec}},cnt+" "+(cnt===1?(lang==="en"?"recipe":"ricetta"):(lang==="en"?"recipes":"ricette"))));})
       ),
     ),
     e("div",{style:{padding:"8px 16px 4px"}},e("div",{onClick:()=>{setAdvRoast(null);setAdvProc(null);setAdvGoal(null);setView("advisor");},style:{...S.cd,background:T.surface,border:"1px dashed "+T.accent,display:"flex",alignItems:"center",gap:12,cursor:"pointer"}},
       e("div",{style:{fontSize:24,width:28,textAlign:"center"}},"☕"),
-      e("div",null,e("div",{style:{fontWeight:700,fontSize:TF.bLg(),color:T.accent}},"Trova la tua Ricetta"),e("div",{style:{fontSize:16,color:T.textSec}},"Scegli tostatura, processo, gusto")),
+      e("div",null,e("div",{style:{fontWeight:700,fontSize:TF.bLg(),color:T.accent}},(lang==="en"?"Find Your Recipe":"Trova la tua Ricetta")),e("div",{style:{fontSize:16,color:T.textSec}},(lang==="en"?"Choose roast, process, taste":"Scegli tostatura, processo, gusto"))),
       e("div",{style:{marginLeft:"auto"}},ICO.right(16)),
     )),
-    hist.length>0&&e("div",{style:{padding:"14px 16px 4px"}},e("div",{onClick:()=>setView("history"),style:{...S.cd,background:T.surface,border:"1px solid "+T.border,display:"flex",alignItems:"center",gap:12}},ICO.history(20),e("div",null,e("div",{style:{fontWeight:700,fontSize:TF.bLg()}},"I tuoi Brew"),e("div",{style:{fontSize:16,color:T.textSec}},hist.length+" salvati")),e("div",{style:{marginLeft:"auto"}},ICO.right(16)))),
+    hist.length>0&&e("div",{style:{padding:"14px 16px 4px"}},e("div",{onClick:()=>setView("history"),style:{...S.cd,background:T.surface,border:"1px solid "+T.border,display:"flex",alignItems:"center",gap:12}},ICO.history(20),e("div",null,e("div",{style:{fontWeight:700,fontSize:TF.bLg()}},(lang==="en"?"Your Brews":"I tuoi Brew")),e("div",{style:{fontSize:16,color:T.textSec}},hist.length+(lang==="en"?" saved":" salvati"))),e("div",{style:{marginLeft:"auto"}},ICO.right(16)))),
     e("div",{style:{padding:"4px 16px 6px"}},e("div",{onClick:()=>setView("grind"),style:{...S.cd,background:T.surface,border:"1px solid "+T.border,display:"flex",alignItems:"center",gap:12,cursor:"pointer"}},
       e("div",{style:{fontSize:22,width:24,textAlign:"center"}},"\u2699"),
-      e("div",null,e("div",{style:{fontWeight:700,fontSize:TF.bLg()}},"Guida Granulometria"),e("div",{style:{fontSize:16,color:T.textSec}},"Macinini · click · diagnostica")),
+      e("div",null,e("div",{style:{fontWeight:700,fontSize:TF.bLg()}},(lang==="en"?"Grind Guide":"Guida Granulometria")),e("div",{style:{fontSize:16,color:T.textSec}},(lang==="en"?"Grinders · clicks · diagnostics":"Macinini · click · diagnostica"))),
       e("div",{style:{marginLeft:"auto"}},ICO.right(16)),
     )),
     e("div",{style:{padding:"4px 16px 6px"}},e("div",{onClick:()=>{initForm(null);setView("addrecipe");},style:{...S.cd,background:T.surface,border:"1px solid "+T.border,display:"flex",alignItems:"center",gap:12,cursor:"pointer",border:"1px dashed "+T.accent}},
       ICO.plus(20),
-      e("div",null,e("div",{style:{fontWeight:700,fontSize:TF.bLg(),color:T.accent}},"Crea la tua Ricetta"),e("div",{style:{fontSize:16,color:T.textSec}},customR.length>0?customR.length+" ricette personali":"Aggiungi ricette personalizzate")),
+      e("div",null,e("div",{style:{fontWeight:700,fontSize:TF.bLg(),color:T.accent}},(lang==="en"?"Create Your Recipe":"Crea la tua Ricetta")),e("div",{style:{fontSize:16,color:T.textSec}},customR.length>0?customR.length+(lang==="en"?" custom recipes":" ricette personali"):(lang==="en"?"Add custom recipes":"Aggiungi ricette personalizzate"))),
       e("div",{style:{marginLeft:"auto"}},ICO.right(16)),
     )),
     e("div",{style:{padding:"6px 16px"}},
       e("div",{style:{...S.cd,background:T.surface,border:"1px solid "+T.border,cursor:"default",background:"linear-gradient(135deg,"+T.surface+" 0%,"+T.surfaceHi+" 100%)",border:"1px solid "+T.red+"44"}},
         e("div",{style:{fontSize:16,fontWeight:700,fontFamily:"'Inter',sans-serif",color:T.accent,marginBottom:8,letterSpacing:0.5}},"Progetto aFA"),
-        e("div",{style:{fontSize:16,color:T.textSec,lineHeight:1.6,marginBottom:10}},"Nessun motore, nessuna pressione. Solo gravità. La aFA è una neo-cuccumella in ceramica: oggetto-manifesto che sottrae velocità al caffè per restituire tempo alla parola e al gesto condiviso."),
-        e("a",{href:"https://paypal.me/elleenne",target:"_blank",rel:"noopener",style:{display:"block",padding:"14px 20px",borderRadius:12,background:T.accent,color:"#FFF",fontWeight:700,fontSize:17,textAlign:"center",textDecoration:"none",marginBottom:8}},"Sostieni il progetto aFA"),
+        e("div",{style:{fontSize:16,color:T.textSec,lineHeight:1.6,marginBottom:10}},(lang==="en"?"No engine, no pressure. Just gravity. The aFA is a neo-cuccumella in ceramic: a manifesto-object that subtracts speed from coffee to return time to the word and the shared gesture.":"Nessun motore, nessuna pressione. Solo gravità. La aFA è una neo-cuccumella in ceramica: oggetto-manifesto che sottrae velocità al caffè per restituire tempo alla parola e al gesto condiviso.")),
+        e("a",{href:"https://paypal.me/elleenne",target:"_blank",rel:"noopener",style:{display:"block",padding:"14px 20px",borderRadius:12,background:T.accent,color:"#FFF",fontWeight:700,fontSize:17,textAlign:"center",textDecoration:"none",marginBottom:8}},(lang==="en"?"Support the aFA project":"Sostieni il progetto aFA")),
         e("div",{style:{display:"flex",gap:8}},
-          e("a",{href:"afa-manifesto.pdf",onClick:function(ev){ev.preventDefault();var base=window.location.href.replace(/\/[^\/]*$/,"/");window.open(base+"afa-manifesto.pdf","_blank");},rel:"noopener",style:{flex:1,display:"block",padding:"12px 10px",borderRadius:10,border:"1px solid "+T.red+"55",color:T.accent,fontWeight:600,fontSize:16,textAlign:"center",textDecoration:"none"}},"Leggi il Manifesto"),
-          typeof navigator!=="undefined"&&navigator.share?e("button",{onClick:()=>{try{navigator.share({title:"The Cafausica Brew Guide",text:"Un gesto di sottrazione e cura.",url:window.location.href})}catch(x){}},style:{flex:1,padding:"12px 10px",borderRadius:10,border:"1px solid "+T.border,color:T.textSec,fontWeight:600,fontSize:16,background:"none",cursor:"pointer"}},"Condividi"):null,
+          e("a",{href:"afa-manifesto.pdf",onClick:function(ev){ev.preventDefault();var base=window.location.href.replace(/\/[^\/]*$/,"/");window.open(base+"afa-manifesto.pdf","_blank");},rel:"noopener",style:{flex:1,display:"block",padding:"12px 10px",borderRadius:10,border:"1px solid "+T.red+"55",color:T.accent,fontWeight:600,fontSize:16,textAlign:"center",textDecoration:"none"}},(lang==="en"?"Read the Manifesto":"Leggi il Manifesto")),
+          typeof navigator!=="undefined"&&navigator.share?e("button",{onClick:()=>{try{navigator.share({title:"The Cafausica Brew Guide",text:"Un gesto di sottrazione e cura.",url:window.location.href})}catch(x){}},style:{flex:1,padding:"12px 10px",borderRadius:10,border:"1px solid "+T.border,color:T.textSec,fontWeight:600,fontSize:16,background:"none",cursor:"pointer"}},(lang==="en"?"Share":"Condividi")):null,
         ),
       ),
     ),
@@ -707,11 +778,11 @@ function App(){
       background:active?T.accent+"20":T.surface,color:active?T.accent:T.textSec,
       fontWeight:active?700:500,fontSize:TF.bMd(),cursor:"pointer",textAlign:"center",flex:1});
     return e("div",{style:{...S.pg,background:T.bg,color:T.text}},
-      e("div",{style:S.hd},e("button",{onClick:home,style:S.ibBack},ICO.back(22,T.accent),e("span",{style:{fontSize:16,fontWeight:700}},"Indietro")),e("span",{style:{...S.ht,fontSize:TF.md()}},"Trova la tua Ricetta")),
+      e("div",{style:S.hd},e("button",{onClick:home,style:S.ibBack},ICO.back(22,T.accent),e("span",{style:{fontSize:16,fontWeight:700}},(lang==="en"?"Back":"Indietro"))),e("span",{style:{...S.ht,fontSize:TF.md()}},(lang==="en"?"Find Your Recipe":"Trova la tua Ricetta"))),
       e("div",{style:{padding:20}},
 
         e("div",{style:{marginBottom:20}},
-          e("div",{style:{fontSize:TF.bSm(),color:T.textDim,fontWeight:600,letterSpacing:"0.08em",marginBottom:10}},"Tostatura"),
+          e("div",{style:{fontSize:TF.bSm(),color:T.textDim,fontWeight:600,letterSpacing:"0.08em",marginBottom:10}},(lang==="en"?"Roast":"Tostatura")),
           e("div",{style:{display:"flex",gap:8}},
             e("button",{onClick:()=>setAdvRoast(advRoast==="light"?null:"light"),style:btnSt(advRoast==="light")},"Chiara"),
             e("button",{onClick:()=>setAdvRoast(advRoast==="medium"?null:"medium"),style:btnSt(advRoast==="medium")},"Media"),
@@ -720,7 +791,7 @@ function App(){
         ),
 
         e("div",{style:{marginBottom:20}},
-          e("div",{style:{fontSize:TF.bSm(),color:T.textDim,fontWeight:600,letterSpacing:"0.08em",marginBottom:10}},"Processo"),
+          e("div",{style:{fontSize:TF.bSm(),color:T.textDim,fontWeight:600,letterSpacing:"0.08em",marginBottom:10}},(lang==="en"?"Process":"Processo")),
           e("div",{style:{display:"flex",gap:8}},
             e("button",{onClick:()=>setAdvProc(advProc==="washed"?null:"washed"),style:btnSt(advProc==="washed")},"Lavato"),
             e("button",{onClick:()=>setAdvProc(advProc==="natural"?null:"natural"),style:btnSt(advProc==="natural")},"Naturale"),
@@ -729,7 +800,7 @@ function App(){
         ),
 
         e("div",{style:{marginBottom:20}},
-          e("div",{style:{fontSize:TF.bSm(),color:T.textDim,fontWeight:600,letterSpacing:"0.08em",marginBottom:10}},"Cosa cerchi in tazza"),
+          e("div",{style:{fontSize:TF.bSm(),color:T.textDim,fontWeight:600,letterSpacing:"0.08em",marginBottom:10}},(lang==="en"?"What you seek in the cup":"Cosa cerchi in tazza")),
           e("div",{style:{display:"flex",gap:8,flexWrap:"wrap"}},
             e("button",{onClick:()=>setAdvGoal(advGoal==="bright"?null:"bright"),style:btnSt(advGoal==="bright")},"Acidità"),
             e("button",{onClick:()=>setAdvGoal(advGoal==="balanced"?null:"balanced"),style:btnSt(advGoal==="balanced")},"Bilanciato"),
@@ -739,7 +810,7 @@ function App(){
         ),
 
         (advRoast||advProc||advGoal)?e("div",null,
-          e("div",{style:{fontSize:TF.bSm(),color:T.textDim,fontWeight:600,letterSpacing:"0.08em",marginBottom:12}},"Ricette consigliate"),
+          e("div",{style:{fontSize:TF.bSm(),color:T.textDim,fontWeight:600,letterSpacing:"0.08em",marginBottom:12}},(lang==="en"?"Recommended recipes":"Ricette consigliate")),
           results&&results.length>0?results.map(r=>{
             const mo=mObj(r.method);
             return e("div",{key:r.id,onClick:()=>{setSelR(r);setCc(r.baseCoffee);setFromAdv(true);setView("recipe");},style:{...S.cd,background:T.surface,border:"1px solid "+T.border,display:"flex",alignItems:"center",gap:12,cursor:"pointer",marginBottom:4}},
@@ -750,39 +821,39 @@ function App(){
               ),
               e("div",{style:{marginLeft:"auto"}},ICO.right(16)),
             );
-          }):e("div",{style:{color:T.textSec,fontSize:TF.bMd(),textAlign:"center",padding:20}},"Seleziona almeno un criterio"),
+          }):e("div",{style:{color:T.textSec,fontSize:TF.bMd(),textAlign:"center",padding:20}},(lang==="en"?"Select at least one":"Seleziona almeno un criterio")),
           e("button",{onClick:()=>{setAdvRoast(null);setAdvProc(null);setAdvGoal(null);},style:{...S.bt(T.surface,T.textSec),marginTop:12,border:"1px solid "+T.border,fontSize:16}},"Reset"),
-        ):e("div",{style:{color:T.textSec,fontSize:TF.bMd(),textAlign:"center",padding:30,lineHeight:1.6}},"Seleziona tostatura, processo o quello che cerchi in tazza. Ti suggerirò le ricette più adatte."),
+        ):e("div",{style:{color:T.textSec,fontSize:TF.bMd(),textAlign:"center",padding:30,lineHeight:1.6}},(lang==="en"?"Select roast, process or what you seek. I\u2019ll suggest the best recipes.":"Seleziona tostatura, processo o quello che cerchi in tazza. Ti suggerirò le ricette più adatte.")),
       ),
     );
   }
 
   // METHOD
   if(view==="method"){const mo=mObj(selM);const recs=ALL_R.filter(r=>r.method===selM);return e("div",{style:{...S.pg,background:T.bg,color:T.text}},
-    e("div",{style:S.hd},e("button",{onClick:home,style:S.ibBack},ICO.back(22,T.accent),e("span",{style:{fontSize:16,fontWeight:700}},"Indietro")),Ic(mo?.icon,28),e("span",{style:{...S.ht,fontSize:TF.md()}},mo?.name),e("span",{style:{marginLeft:"auto",fontSize:16,color:T.textSec}},recs.length+" ricette")),
+    e("div",{style:S.hd},e("button",{onClick:home,style:S.ibBack},ICO.back(22,T.accent),e("span",{style:{fontSize:16,fontWeight:700}},(lang==="en"?"Back":"Indietro"))),Ic(mo?.icon,28),e("span",{style:{...S.ht,fontSize:TF.md()}},mo?.name),e("span",{style:{marginLeft:"auto",fontSize:16,color:T.textSec}},recs.length+(lang==="en"?" recipes":" ricette"))),
     e("div",{style:{padding:20}},recs.map(r=>e("div",{key:r.id,onClick:()=>{setSelR(r);setCc(r.baseCoffee);setFromAdv(false);setView("recipe");},style:S.cd},
       e("div",{style:{display:"flex",justifyContent:"space-between",alignItems:"start",marginBottom:6}},e("h3",{style:{fontWeight:700,fontSize:TF.md(),fontFamily:"'Inter',sans-serif",flex:1,paddingRight:8,lineHeight:1.25}},r.name),r.custom&&e("span",{style:{fontSize:16,background:T.accent+"33",color:T.accent,padding:"2px 8px",borderRadius:8,fontWeight:700,marginRight:6}},"TUA"),e("span",{style:S.pl},r.clicks+" click")),
       e("div",{style:{fontSize:TF.bMd(),color:T.textSec,marginBottom:8,lineHeight:1.5}},r.description),
-      e("div",{style:{display:"flex",gap:14,flexWrap:"wrap",fontSize:16,color:T.textDim,alignItems:"center"}},e("span",null,r.baseCoffee+"g"),e("span",null,r.baseWater+"ml"),e("span",null,"1:"+(r.baseWater/r.baseCoffee).toFixed(1)),e("span",null,r.temperature>0?r.temperature+"°C":"Fredda"),e("span",null,"~"+fmt(tTime(r))),
-        r.custom&&e("button",{onClick:ev=>{ev.stopPropagation();setSelR(r);initForm(r);setView("editrecipe");},style:{marginLeft:"auto",fontSize:16,color:T.accent,fontWeight:700,background:"none",border:"1px solid "+T.accent+"66",padding:"4px 12px",borderRadius:8,cursor:"pointer"}},"\u270E Modifica")),
+      e("div",{style:{display:"flex",gap:14,flexWrap:"wrap",fontSize:16,color:T.textDim,alignItems:"center"}},e("span",null,r.baseCoffee+"g"),e("span",null,r.baseWater+"ml"),e("span",null,"1:"+(r.baseWater/r.baseCoffee).toFixed(1)),e("span",null,r.temperature>0?r.temperature+"°C":(lang==="en"?"Cold":"Fredda")),e("span",null,"~"+fmt(tTime(r))),
+        r.custom&&e("button",{onClick:ev=>{ev.stopPropagation();setSelR(r);initForm(r);setView("editrecipe");},style:{marginLeft:"auto",fontSize:16,color:T.accent,fontWeight:700,background:"none",border:"1px solid "+T.accent+"66",padding:"4px 12px",borderRadius:8,cursor:"pointer"}},(lang==="en"?"\u270E Edit":"\u270E Modifica"))),
     ))),
   );}
 
   // RECIPE
   if(view==="recipe"&&selR){const sc=gS();if(!sc)return null;const mo=mObj(sc.method);let cW=0;return e("div",{style:{...S.pg,background:T.bg,color:T.text}},
-    e("div",{style:S.hd},e("button",{onClick:()=>setView(fromAdv?"advisor":"method"),style:S.ibBack},ICO.back(22,T.accent),e("span",{style:{fontSize:16,fontWeight:700}},"Indietro")),e("span",{style:{...S.ht,fontSize:TF.md(),flex:1}},sc.name)),
-      e("div",{style:{padding:"12px 20px 0"}},e("button",{onClick:start,style:{...S.bt("#7CAA6E","#FFF"),boxShadow:"0 4px 20px rgba(107,158,107,0.15)",letterSpacing:0.5,width:"100%"}},e("span",{style:{display:"flex",alignItems:"center",justifyContent:"center",gap:10}},ICO.play(16,"#FFF")," Inizia il Brew"))),
+    e("div",{style:S.hd},e("button",{onClick:()=>setView(fromAdv?"advisor":"method"),style:S.ibBack},ICO.back(22,T.accent),e("span",{style:{fontSize:16,fontWeight:700}},(lang==="en"?"Back":"Indietro"))),e("span",{style:{...S.ht,fontSize:TF.md(),flex:1}},sc.name)),
+      e("div",{style:{padding:"12px 20px 0"}},e("button",{onClick:start,style:{...S.bt("#7CAA6E","#FFF"),boxShadow:"0 4px 20px rgba(107,158,107,0.15)",letterSpacing:0.5,width:"100%"}},e("span",{style:{display:"flex",alignItems:"center",justifyContent:"center",gap:10}},ICO.play(16,"#FFF"),(lang==="en"?" Start Brew":" Inizia il Brew")))),
     e("div",{style:{padding:20}},
       e("div",{style:{textAlign:"center",marginBottom:14}},Ic(mo?.icon,80),e("div",{style:{fontSize:16,color:T.textSec,fontWeight:500,marginTop:4,letterSpacing:0.5}},"di "+sc.author)),
       e("div",{style:{...S.cd,background:T.surface,border:"1px solid "+T.border,background:T.surfaceHi,cursor:"default"}},
         e("div",{style:{fontSize:16,color:T.textDim,fontWeight:700,letterSpacing:2,marginBottom:12,textAlign:"center"}},"PARAMETRI"),
         e("div",{style:{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:12}},
-          [["Caffè",(sc.coffee%1===0?sc.coffee:sc.coffee.toFixed(1))+"g"],["Acqua",(sc.water%1===0?sc.water:sc.water.toFixed(1))+"ml"],["Temperatura",sc.temperature>0?sc.temperature+"°":"Fredda"]].map(([l,v],i)=>e("div",{key:i,style:{textAlign:"center"}},e("div",{style:{fontSize:TF.lg(),fontWeight:600,color:T.accentLight,fontVariantNumeric:"tabular-nums"}},v),e("div",{style:{fontSize:16,color:T.textSec}},l)))
+          [[(lang==="en"?"Coffee":"Caffè"),(sc.coffee%1===0?sc.coffee:sc.coffee.toFixed(1))+"g"],[(lang==="en"?"Water":"Acqua"),(sc.water%1===0?sc.water:sc.water.toFixed(1))+"ml"],[(lang==="en"?"Temperature":"Temperatura"),sc.temperature>0?sc.temperature+"°":(lang==="en"?"Cold":"Fredda")]].map(([l,v],i)=>e("div",{key:i,style:{textAlign:"center"}},e("div",{style:{fontSize:TF.lg(),fontWeight:600,color:T.accentLight,fontVariantNumeric:"tabular-nums"}},v),e("div",{style:{fontSize:16,color:T.textSec}},l)))
         ),
         e("div",{style:{marginTop:12,padding:"10px 0 4px",borderTop:"1px solid "+T.border}},e("div",{style:{fontSize:17,color:T.text,textAlign:"center",marginBottom:4,fontWeight:600}},grindFeel(sc.microns)),e("div",{style:{fontSize:16,color:T.textSec,textAlign:"center",marginBottom:10}},sc.microns+"µm"),e("div",{style:{display:"flex",flexWrap:"wrap",justifyContent:"center",gap:6}},grinderClicks(sc.microns).map(([g,v])=>e("div",{key:g,style:{fontSize:16,padding:"6px 10px",borderRadius:10,background:T.surface,border:"1px solid "+T.border,textAlign:"center"}},v?e("div",{style:{fontSize:18,fontWeight:600,color:T.accentLight}},v):null,e("div",{style:{fontSize:16,color:T.textDim,marginTop:v?2:0}},g))))),
       ),
       sc.beans&&sc.beans.length>0&&e("div",{style:{...S.cd,background:T.surface,border:"1px solid "+T.border,cursor:"default",padding:16}},
-        e("div",{style:{fontSize:16,color:T.accent,fontWeight:700,letterSpacing:1,marginBottom:10}},"Caffè suggeriti"),
+        e("div",{style:{fontSize:16,color:T.accent,fontWeight:700,letterSpacing:1,marginBottom:10}},(lang==="en"?"Suggested beans":"Caffè suggeriti")),
         sc.beans.map((b,i)=>e("div",{key:i,style:{fontSize:17,color:T.textSec,lineHeight:1.6,paddingLeft:10,borderLeft:"2px solid "+T.accentDim,marginBottom:6}},b)),
       ),
       e("div",{style:{...S.cd,background:T.surface,border:"1px solid "+T.border,display:"flex",alignItems:"center",justifyContent:"center",gap:6,padding:"14px 8px",cursor:"default"}},
@@ -815,12 +886,12 @@ function App(){
     let cW=0;for(let i=0;i<=cs;i++)cW=Math.round((cW+sc.steps[i].waterAdd)*10)/10;
 
     if(done)return e("div",{style:{...S.pg,background:T.bg,color:T.text}},
-      e("div",null,showVentura?e(VenturaView,{dark:dm==="dark",onBack:function(){setShowVentura(false);},onHome:home}):e("div",{style:{minHeight:"100dvh",background:T.bg,color:T.text,display:"flex",flexDirection:"column",overflowY:"auto",alignItems:"center"}},
+      e("div",null,showVentura?e(VenturaView,{dark:dm==="dark",onBack:function(){setShowVentura(false);},onHome:home,ven:VEN,lang:lang}):e("div",{style:{minHeight:"100dvh",background:T.bg,color:T.text,display:"flex",flexDirection:"column",overflowY:"auto",alignItems:"center"}},
           e("div",{style:{flex:1,display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",padding:"24px 20px 16px",width:"100%",boxSizing:"border-box"}},
-            e(CupDone,{dark:dm==="dark"})
+            e(CupDone,{dark:dm==="dark",lang:lang})
           ),
           e("div",{style:{padding:"0 24px 24px",display:"flex",flexDirection:"column",gap:10,maxWidth:400,width:"100%",margin:"0 auto",boxSizing:"border-box"}},
-            e("button",{onClick:function(){setShowVentura(true);},style:{width:"100%",padding:"16px",background:"#8B2500",border:"none",borderRadius:8,color:"#FFF",fontSize:16,cursor:"pointer",fontWeight:500,fontFamily:"'EB Garamond',Georgia,serif",letterSpacing:1}},"messaggi di ventura"),
+            e("button",{onClick:function(){setShowVentura(true);},style:{width:"100%",padding:"16px",background:"#8B2500",border:"none",borderRadius:8,color:"#FFF",fontSize:16,cursor:"pointer",fontWeight:500,fontFamily:"'EB Garamond',Georgia,serif",letterSpacing:1}},(lang==="en"?"fortune messages":"messaggi di ventura")),
             e("div",{style:{display:"flex",alignItems:"center",gap:12,padding:"8px 0"}},
               e("div",{style:{fontSize:16,color:T.textDim,fontWeight:500,letterSpacing:1,whiteSpace:"nowrap"}},sc.name),
               e("div",{style:{display:"flex",gap:4}},
@@ -828,7 +899,7 @@ function App(){
               )
             ),
             e("div",{style:{marginTop:4}},
-              e("button",{onClick:function(){setShowSorso(!showSorso);setSorsoTags([]);setSorsoFrase("");},style:{background:"none",border:"none",color:"#8B2500",fontSize:17,fontWeight:700,cursor:"pointer",padding:"8px 0",letterSpacing:0.5,display:"flex",alignItems:"center",gap:6}},showSorso?"\u25BE il sorso":"\u25B8 il sorso"),
+              e("button",{onClick:function(){setShowSorso(!showSorso);setSorsoTags([]);setSorsoFrase("");},style:{background:"none",border:"none",color:"#8B2500",fontSize:17,fontWeight:700,cursor:"pointer",padding:"8px 0",letterSpacing:0.5,display:"flex",alignItems:"center",gap:6}},showSorso?(lang==="en"?"\u25BE the sip":"\u25BE il sorso"):(lang==="en"?"\u25B8 the sip":"\u25B8 il sorso")),
               showSorso&&e("div",{style:{padding:"12px 0",animation:"fadeInstruction 0.4s ease-in"}},
                 e("div",{style:{fontSize:14,color:T.textDim,fontStyle:"italic",fontFamily:"'Cormorant Garamond',Georgia,serif",marginBottom:14,lineHeight:1.5}},"I descrittori non descrivono. Costruiscono un terreno comune di attenzione."),
                 e("div",{style:{marginBottom:10}},
@@ -850,7 +921,7 @@ function App(){
 fd.append("entry.18779385",method);
 fd.append("entry.1380311466",dt);;fetch("https://docs.google.com/forms/d/e/1FAIpQLSdh4DEtt91jx58G6KHDF5J28AHxrTNOvPd-jZpeLLtjKHhJkA/formResponse",{method:"POST",body:fd,mode:"no-cors"}).catch(function(){});}catch(ex){}try{var cv=document.createElement("canvas");cv.width=1080;cv.height=1080;var cx=cv.getContext("2d");cx.fillStyle="#1B1B18";cx.fillRect(0,0,1080,1080);cx.fillStyle="#DA7756";cx.fillRect(0,0,1080,3);cx.fillRect(0,1077,1080,3);cx.textAlign="center";cx.textBaseline="middle";cx.fillStyle="#EDEDEC";cx.font="italic 42px Georgia,serif";var words=frase.split(" ");var lines=[];var ln="";for(var wi=0;wi<words.length;wi++){var test=ln+(ln?" ":"")+words[wi];if(cx.measureText(test).width>800){lines.push(ln);ln=words[wi];}else ln=test;}if(ln)lines.push(ln);var ly=540-(lines.length-1)*30;for(var li=0;li<lines.length;li++)cx.fillText(lines[li],540,ly+li*60);cx.fillStyle="#78716C";cx.font="16px sans-serif";cx.fillText("\u2014 the cafausica brew guide",540,960);cx.font="14px sans-serif";cx.fillStyle="#78716C88";cx.fillText(appUrl,540,990);cv.toBlob(function(blob){if(navigator.share&&navigator.canShare){try{var f2=new File([blob],"il-sorso.png",{type:"image/png"});if(navigator.canShare({files:[f2]})){navigator.share({text:shareTxt,files:[f2]}).catch(function(){});return;}}catch(ex2){}}if(navigator.share){navigator.share({text:shareTxt}).catch(function(){});}else{var a2=document.createElement("a");a2.href=URL.createObjectURL(blob);a2.download="il-sorso.png";a2.click();}},"image/png");}catch(ex){if(navigator.share)navigator.share({text:shareTxt}).catch(function(){});else prompt("copia:",shareTxt);}},
                   style:{background:"#5A9A7D",border:"none",borderRadius:10,color:"#FFF",fontSize:15,cursor:"pointer",padding:"12px 20px",display:"flex",alignItems:"center",justifyContent:"center",gap:8,marginTop:8,fontWeight:500,fontFamily:"'Inter',sans-serif",letterSpacing:0.3,width:"100%",boxSizing:"border-box"}},
-                  "condividi il sorso"
+                  (lang==="en"?"share the sip":"condividi il sorso")
                 ),
     
               )
@@ -858,7 +929,7 @@ fd.append("entry.1380311466",dt);;fetch("https://docs.google.com/forms/d/e/1FAIp
 
             
             e("div",{style:{display:"flex",gap:10,marginTop:8}},
-              e("button",{onClick:save,style:{flex:1,padding:"16px",borderRadius:8,border:"none",background:T.accent,color:"#FFF",fontSize:16,fontWeight:500,cursor:"pointer"}},"salva"),
+              e("button",{onClick:save,style:{flex:1,padding:"16px",borderRadius:8,border:"none",background:T.accent,color:"#FFF",fontSize:16,fontWeight:500,cursor:"pointer"}},(lang==="en"?"save":"salva")),
               e("button",{onClick:home,style:{flex:1,padding:"16px",borderRadius:8,border:"1px solid "+T.border,background:"transparent",color:T.text,fontSize:16,fontWeight:500,cursor:"pointer"}},"home")
             )
           )
@@ -897,8 +968,8 @@ fd.append("entry.1380311466",dt);;fetch("https://docs.google.com/forms/d/e/1FAIp
       ),
       e("div",{style:{padding:"10px 18px 24px",display:"flex",gap:8,background:T.bg,borderTop:"1px solid "+T.border}},
         cs>0&&e("button",{onClick:()=>{setCs(c=>Math.max(0,c-1));setSe(0);beep(330,100);},style:{...S.ibSm,width:48,height:48,borderRadius:14}},ICO.back(18)),
-        isDesc?e("button",{onClick:skip,style:{...S.bt(T.accent,"#FFF"),flex:1,display:"flex",alignItems:"center",justifyContent:"center",gap:8}},ICO.skip(18)," Avanti"):e("button",{onClick:()=>setRun(!run),style:{...S.bt(run?T.surface:T.accent,run?T.text:"#FFF"),flex:1,display:"flex",alignItems:"center",justifyContent:"center",gap:8,border:run?"1px solid "+T.border:"none"}},
-          run?[ICO.pause(18,run?T.text:"#FFF")," Pausa"]:[ICO.play(18)," Riprendi"]),
+        isDesc?e("button",{onClick:skip,style:{...S.bt(T.accent,"#FFF"),flex:1,display:"flex",alignItems:"center",justifyContent:"center",gap:8}},ICO.skip(18),(lang==="en"?" Next":" Avanti")):e("button",{onClick:()=>setRun(!run),style:{...S.bt(run?T.surface:T.accent,run?T.text:"#FFF"),flex:1,display:"flex",alignItems:"center",justifyContent:"center",gap:8,border:run?"1px solid "+T.border:"none"}},
+          run?[ICO.pause(18,run?T.text:"#FFF"),(lang==="en"?" Pause":" Pausa")]:[ICO.play(18),(lang==="en"?" Resume":" Riprendi")]),
         !isDesc&&e("button",{onClick:skip,style:{...S.ibSm,width:48,height:48,borderRadius:14}},ICO.skip(18,T.accentLight)),
       ),
     );
@@ -906,9 +977,9 @@ fd.append("entry.1380311466",dt);;fetch("https://docs.google.com/forms/d/e/1FAIp
 
   // HISTORY
   if(view==="history")return e("div",{style:{...S.pg,background:T.bg,color:T.text}},
-    e("div",{style:S.hd},e("button",{onClick:home,style:S.ibBack},ICO.back(22,T.accent),e("span",{style:{fontSize:16,fontWeight:700}},"Indietro")),e("span",{style:S.ht},"I tuoi Brew")),
+    e("div",{style:S.hd},e("button",{onClick:home,style:S.ibBack},ICO.back(22,T.accent),e("span",{style:{fontSize:16,fontWeight:700}},(lang==="en"?"Back":"Indietro"))),e("span",{style:S.ht},(lang==="en"?"Your Brews":"I tuoi Brew"))),
     e("div",{style:{padding:20}},
-      hist.length===0?e("div",{style:{textAlign:"center",padding:40,color:T.textSec}},"Nessun brew salvato."):
+      hist.length===0?e("div",{style:{textAlign:"center",padding:40,color:T.textSec}},(lang==="en"?"No brews saved.":"Nessun brew salvato.")):
       [
         ...hist.map(h=>{const mo=mObj(h.method);return e("div",{key:h.id,style:{...S.cd,background:T.surface,border:"1px solid "+T.border,cursor:"default"}},
           e("div",{style:{display:"flex",justifyContent:"space-between",alignItems:"start"}},
@@ -923,7 +994,7 @@ fd.append("entry.1380311466",dt);;fetch("https://docs.google.com/forms/d/e/1FAIp
           h.sorsoFrase&&e("div",{style:{marginTop:4,fontSize:16,color:T.accent,fontStyle:"italic",fontFamily:"'Cormorant Garamond',Georgia,serif"}},h.sorsoFrase),
           h.sorsoTags&&h.sorsoTags.length>0&&e("div",{style:{display:"flex",flexWrap:"wrap",gap:4,marginTop:4}},h.sorsoTags.map(function(t){return e("span",{key:t,style:{fontSize:14,padding:"2px 8px",borderRadius:10,background:T.accent+"15",color:T.accent}},t);})),
         );}),
-        e("button",{key:"del",onClick:()=>sH([]),style:{...S.bt(T.surface,T.red),marginTop:8,border:"1px solid "+T.border,display:"flex",alignItems:"center",justifyContent:"center",gap:8}},ICO.trash(16)," Cancella storico"),
+        e("button",{key:"del",onClick:()=>sH([]),style:{...S.bt(T.surface,T.red),marginTop:8,border:"1px solid "+T.border,display:"flex",alignItems:"center",justifyContent:"center",gap:8}},ICO.trash(16),(lang==="en"?" Clear history":" Cancella storico")),
       ],
     ),
   );
@@ -941,7 +1012,7 @@ fd.append("entry.1380311466",dt);;fetch("https://docs.google.com/forms/d/e/1FAIp
     const upStep=(i,k,v)=>setFst(fst.map((s,j)=>j===i?{...s,[k]:v}:s));
     const saveR=()=>{
       if(!fn.trim())return;
-      const nr={id:isEdit&&selR?selR.id:"custom-"+Date.now(),method:fm,name:fn.trim(),author:fa.trim()||"Personale",description:fd.trim(),
+      const nr={id:isEdit&&selR?selR.id:"custom-"+Date.now(),method:fm,name:fn.trim(),author:fa.trim()||(lang==="en"?"Personal":"Personale"),description:fd.trim(),
         baseCoffee:parseInt(fc2)||15,baseWater:parseInt(fw2)||250,temperature:parseInt(ft2)||93,clicks:parseInt(fk2)||24,microns:parseInt(fmu2)||720,
         grindDesc:fgd2||"Medium",beans:[],steps:fst.filter(s=>s.text.trim()).map(s=>({text:s.text.trim(),waterAdd:parseInt(s.waterAdd)||0,duration:parseInt(s.duration)||30})),custom:true};
       if(isEdit){sC(customR.map(r=>r.id===nr.id?nr:r));}else{sC([...customR,nr]);}
@@ -949,58 +1020,58 @@ fd.append("entry.1380311466",dt);;fetch("https://docs.google.com/forms/d/e/1FAIp
     };
     const delR=()=>{sC(customR.filter(r=>r.id!==selR?.id));home();};
     return e("div",{style:{...S.pg,background:T.bg,color:T.text}},
-      e("div",{style:S.hd},e("button",{onClick:home,style:S.ibBack},ICO.back(22,T.accent),e("span",{style:{fontSize:16,fontWeight:700}},"Indietro")),e("span",{style:S.ht},isEdit?"Modifica Ricetta":"Nuova Ricetta")),
+      e("div",{style:S.hd},e("button",{onClick:home,style:S.ibBack},ICO.back(22,T.accent),e("span",{style:{fontSize:16,fontWeight:700}},(lang==="en"?"Back":"Indietro"))),e("span",{style:S.ht},isEdit?(lang==="en"?"Edit Recipe":"Modifica Ricetta"):(lang==="en"?"New Recipe":"Nuova Ricetta"))),
       e("div",{style:{padding:20}},
-        inp("Nome ricetta *",fn,setFn,"Es: My V60 Morning"),
-        inp("Autore",fa,setFa,"Es: Il tuo nome"),
-        inp("Descrizione",fd,setFd,"Note sulla ricetta"),
+        inp((lang==="en"?"Recipe name *":"Nome ricetta *"),fn,setFn,"Es: My V60 Morning"),
+        inp((lang==="en"?"Author":"Autore"),fa,setFa,"Es: Il tuo nome"),
+        inp((lang==="en"?"Description":"Descrizione"),fd,setFd,"Note sulla ricetta"),
         
           e("select",{value:fm,onChange:ev=>setFm(ev.target.value),
             style:{width:"100%",padding:"12px 14px",borderRadius:12,border:"1px solid "+T.border,background:T.surface,color:T.text,fontSize:17}},
             METHODS.map(m=>e("option",{key:m.id,value:m.id},m.name))),
         e("div",{style:{display:"grid",gridTemplateColumns:"1fr 1fr",gap:10}},
           inp("Caffè (g)",fc2,setFc2,"15","number"),
-          inp("Acqua (ml)",fw2,setFw2,"250","number"),
+          inp((lang==="en"?"Water (ml)":"Acqua (ml)"),fw2,setFw2,"250","number"),
           inp("Temp (°C)",ft2,setFt2,"93","number"),
           inp("Click C40",fk2,setFk2,"24","number"),
         ),
         e("div",{style:{display:"grid",gridTemplateColumns:"1fr 1fr",gap:10}},
           inp("Micron",fmu2,setFmu2,"720","number"),
-          inp("Descrizione grind",fgd2,setFgd2,"Medium-fine"),
+          inp((lang==="en"?"Grind desc":"Descrizione grind"),fgd2,setFgd2,"Medium-fine"),
         ),
         e("div",{style:{fontSize:16,color:T.accent,fontWeight:700,letterSpacing:1,marginTop:16,marginBottom:10}},"Step"),
         fst.map((s,i)=>e("div",{key:i,style:{background:T.surface,borderRadius:14,padding:14,marginBottom:10,border:"1px solid "+T.border}},
           e("div",{style:{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:8}},
             e("span",{style:{fontSize:16,fontWeight:700,color:T.accent}},"Step "+(i+1)),
             fst.length>1&&e("button",{onClick:()=>rmStep(i),style:{...S.ibSm,width:28,height:28,borderRadius:14}},ICO.x(12))),
-          e("input",{value:s.text,onChange:ev=>upStep(i,"text",ev.target.value),placeholder:"Descrizione step",
+          e("input",{value:s.text,onChange:ev=>upStep(i,"text",ev.target.value),placeholder:(lang==="en"?"Step description":"Descrizione step"),
             style:{width:"100%",padding:"10px 12px",borderRadius:10,border:"1px solid "+T.border,background:T.bg,color:T.text,fontSize:16,marginBottom:8,boxSizing:"border-box"}}),
           e("div",{style:{display:"flex",gap:8}},
-            e("div",{style:{flex:1}},e("label",{style:{fontSize:16,color:T.textDim}},"Acqua (ml)"),
+            e("div",{style:{flex:1}},e("label",{style:{fontSize:16,color:T.textDim}},(lang==="en"?"Water (ml)":"Acqua (ml)")),
               e("input",{value:s.waterAdd,onChange:ev=>upStep(i,"waterAdd",ev.target.value),type:"number",
                 style:{width:"100%",padding:"8px 10px",borderRadius:8,border:"1px solid "+T.border,background:T.bg,color:T.text,fontSize:16,boxSizing:"border-box"}})),
-            e("div",{style:{flex:1}},e("label",{style:{fontSize:16,color:T.textDim}},"Durata (sec)"),
+            e("div",{style:{flex:1}},e("label",{style:{fontSize:16,color:T.textDim}},(lang==="en"?"Duration (s)":"Durata (sec)")),
               e("input",{value:s.duration,onChange:ev=>upStep(i,"duration",ev.target.value),type:"number",
                 style:{width:"100%",padding:"8px 10px",borderRadius:8,border:"1px solid "+T.border,background:T.bg,color:T.text,fontSize:16,boxSizing:"border-box"}})),
           ),
         )),
-        e("button",{onClick:addStep,style:{...S.bt(T.surface,T.accent),width:"100%",marginBottom:16,border:"1px dashed "+T.accent}},"+  Aggiungi Step"),
-        e("button",{onClick:saveR,style:{...S.bt("#2D7D46","#FFF"),width:"100%",marginBottom:10,fontSize:18,fontWeight:600}},isEdit?"\u2713 Salva Modifiche":"\u2713 Salva Ricetta"),
-        isEdit&&e("button",{onClick:delR,style:{...S.bt(T.surface,T.red),width:"100%",border:"1px solid "+T.border,display:"flex",alignItems:"center",justifyContent:"center",gap:8}},ICO.trash(16)," Elimina Ricetta"),
+        e("button",{onClick:addStep,style:{...S.bt(T.surface,T.accent),width:"100%",marginBottom:16,border:"1px dashed "+T.accent}},(lang==="en"?"+ Add Step":"+ Aggiungi Step")),
+        e("button",{onClick:saveR,style:{...S.bt("#2D7D46","#FFF"),width:"100%",marginBottom:10,fontSize:18,fontWeight:600}},isEdit?(lang==="en"?"\u2713 Save Changes":"\u2713 Salva Modifiche"):(lang==="en"?"\u2713 Save Recipe":"\u2713 Salva Ricetta")),
+        isEdit&&e("button",{onClick:delR,style:{...S.bt(T.surface,T.red),width:"100%",border:"1px solid "+T.border,display:"flex",alignItems:"center",justifyContent:"center",gap:8}},ICO.trash(16),(lang==="en"?" Delete Recipe":" Elimina Ricetta")),
     ));
   }
 
   // GRIND GUIDE
   if(view==="grind")return e("div",{style:{...S.pg,background:T.bg,color:T.text}},
-    e("div",{style:S.hd},e("button",{onClick:home,style:S.ibBack},ICO.back(22,T.accent),e("span",{style:{fontSize:16,fontWeight:700}},"Indietro")),e("span",{style:S.ht},"Guida Granulometria")),
+    e("div",{style:S.hd},e("button",{onClick:home,style:S.ibBack},ICO.back(22,T.accent),e("span",{style:{fontSize:16,fontWeight:700}},(lang==="en"?"Back":"Indietro"))),e("span",{style:S.ht},(lang==="en"?"Grind Guide":"Guida Granulometria"))),
     e("div",{style:{padding:20}},
       e("div",{style:{...S.cd,background:T.surface,border:"1px solid "+T.border,cursor:"default"}},
-        e("div",{style:{fontSize:16,color:T.accent,fontWeight:700,letterSpacing:1,marginBottom:12}},"Riferimenti macinini"),
+        e("div",{style:{fontSize:16,color:T.accent,fontWeight:700,letterSpacing:1,marginBottom:12}},(lang==="en"?"Grinder references":"Riferimenti macinini")),
         e("table",{style:{width:"100%",tableLayout:"fixed",borderCollapse:"collapse",fontSize:16}},
           e("thead",null,e("tr",null,
-            e("th",{style:{textAlign:"left",padding:"8px 4px",borderBottom:"1px solid "+T.border,color:T.textSec,fontSize:16,width:"38%"}},"Macinino"),
-            e("th",{style:{textAlign:"center",padding:"8px 4px",borderBottom:"1px solid "+T.border,color:T.textSec,fontSize:16,width:"31%"}},"Medio-Fine"),
-            e("th",{style:{textAlign:"center",padding:"8px 4px",borderBottom:"1px solid "+T.border,color:T.textSec,fontSize:16,width:"31%"}},"Grosso"),
+            e("th",{style:{textAlign:"left",padding:"8px 4px",borderBottom:"1px solid "+T.border,color:T.textSec,fontSize:16,width:"38%"}},(lang==="en"?"Grinder":"Macinino")),
+            e("th",{style:{textAlign:"center",padding:"8px 4px",borderBottom:"1px solid "+T.border,color:T.textSec,fontSize:16,width:"31%"}},(lang==="en"?"Medium-Fine":"Medio-Fine")),
+            e("th",{style:{textAlign:"center",padding:"8px 4px",borderBottom:"1px solid "+T.border,color:T.textSec,fontSize:16,width:"31%"}},(lang==="en"?"Coarse":"Grosso")),
           )),
           e("tbody",null,
             [["Comandante C40","22-25 click","28-32 click"],["Baratza Encore","12-15","20-22"],["Timemore C2/C3","16-18 click","22-24 click"],["Wilfa Svart","AP→Filtro","Filtro→FP"],["1Zpresso JX","2.4-2.8","3.2-3.6"]].map((r,i)=>
@@ -1010,7 +1081,7 @@ fd.append("entry.1380311466",dt);;fetch("https://docs.google.com/forms/d/e/1FAIp
         ),
       ),
       e("div",{style:{...S.cd,background:T.surface,border:"1px solid "+T.border,cursor:"default"}},
-        e("div",{style:{fontSize:16,color:T.accent,fontWeight:700,letterSpacing:1,marginBottom:14}},"Diagnostica"),
+        e("div",{style:{fontSize:16,color:T.accent,fontWeight:700,letterSpacing:1,marginBottom:14}},(lang==="en"?"Diagnostics":"Diagnostica")),
         [
           ["\u26A0\uFE0F Troppo fine","V60: >3:30 · AP: >2:30 · Amaro, astringente","Aumenta 2-3 click"],
           ["\u26A0\uFE0F Troppo grossa","V60: <2:30 · AP: <1:15 · Acido, vuoto","Riduci 2-3 click"],
@@ -1022,7 +1093,7 @@ fd.append("entry.1380311466",dt);;fetch("https://docs.google.com/forms/d/e/1FAIp
         )),
       ),
       e("div",{style:{...S.cd,background:T.surface,border:"1px solid "+T.border,cursor:"default"}},
-        e("div",{style:{fontSize:16,color:T.accent,fontWeight:700,letterSpacing:1,marginBottom:10}},"Formula rapida"),
+        e("div",{style:{fontSize:16,color:T.accent,fontWeight:700,letterSpacing:1,marginBottom:10}},(lang==="en"?"Quick formula":"Formula rapida")),
         e("div",{style:{fontSize:17,color:T.textSec,lineHeight:1.7}},
           "Comandante C40: ~30µm per click.",
           e("br"),
