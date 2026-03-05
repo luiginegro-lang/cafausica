@@ -821,10 +821,21 @@ const enDesc=(r)=>{var t=RECIPES_EN[r.id];return t?t.d:r.description;};
 const enStep=(r,i)=>{var t=RECIPES_EN[r.id];return t&&t.s[i]?t.s[i]:r.steps[i].text;};
 
 const fmt=s=>{if(s>=3600)return Math.floor(s/3600)+"h "+String(Math.floor((s%3600)/60)).padStart(2,"0")+"m";return Math.floor(s/60)+":"+String(s%60).padStart(2,"0");};
-// Wake Lock: keep screen on during brew
-let _wakeLock=null;
-const wakeLockOn=async()=>{try{if("wakeLock" in navigator){_wakeLock=await navigator.wakeLock.request("screen");_wakeLock.addEventListener("release",()=>{_wakeLock=null;});}}catch(e){}};
-const wakeLockOff=()=>{try{if(_wakeLock){_wakeLock.release();_wakeLock=null;}}catch(e){}};
+// Wake Lock: keep screen on during brew (iOS-compatible)
+let _wakeLock=null;let _wakeInterval=null;let _noSleepVideo=null;
+const wakeLockOn=async()=>{
+  // Method 1: Wake Lock API (Android/Chrome)
+  try{if("wakeLock" in navigator){_wakeLock=await navigator.wakeLock.request("screen");_wakeLock.addEventListener("release",()=>{_wakeLock=null;});}}catch(e){}
+  // Re-acquire on tab focus (iOS releases it)
+  if(!_wakeInterval){_wakeInterval=setInterval(async()=>{try{if(!_wakeLock&&document.visibilityState==="visible"&&"wakeLock" in navigator){_wakeLock=await navigator.wakeLock.request("screen");}}catch(e){}},10000);}
+  document.addEventListener("visibilitychange",_wakeVisChange);
+  // Method 2: Silent video trick for iOS Safari (NoSleep technique)
+  if(!_noSleepVideo){try{_noSleepVideo=document.createElement("video");_noSleepVideo.setAttribute("playsinline","");_noSleepVideo.setAttribute("muted","");_noSleepVideo.muted=true;_noSleepVideo.setAttribute("loop","");_noSleepVideo.style.cssText="position:fixed;top:-1px;left:-1px;width:1px;height:1px;opacity:0.01;pointer-events:none;";
+  _noSleepVideo.src="data:video/mp4;base64,AAAAIGZ0eXBpc29tAAACAGlzb21pc28yYXZjMW1wNDEAAAAIZnJlZQAAA9BtZGF0AAACrwYF//+r3EXpvebZSLeWLNgg2SPu73gyNjQgLSBjb3JlIDE2NCByMzEwOCAzMWUxOWY5IC0gSC4yNjQvTVBFRy00IEFWQyBjb2RlYyAtIENvcHlsZWZ0IDIwMDMtMjAyMyAtIGh0dHA6Ly93d3cudmlkZW9sYW4ub3JnL3gyNjQuaHRtbCAtIG9wdGlvbnM6IGNhYmFjPTEgcmVmPTMgZGVibG9jaz0xOjA6MCBhbmFseXNlPTB4MzoweDExMyBtZT1oZXggc3VibWU9NyBwc3k9MSBwc3lfcmQ9MS4wMDowLjAwIG1peGVkX3JlZj0xIG1lX3JhbmdlPTE2IGNocm9tYV9tZT0xIHRyZWxsaXM9MSA4eDhkY3Q9MSBjcW09MCBkZWFkem9uZT0yMSwxMSBmYXN0X3Bza2lwPTEgY2hyb21hX3FwX29mZnNldD0tMiB0aHJlYWRzPTEgbG9va2FoZWFkX3RocmVhZHM9MSBzbGljZWRfdGhyZWFkcz0wIG5yPTAgZGVjaW1hdGU9MSBpbnRlcmxhY2VkPTAgYmx1cmF5X2NvbXBhdD0wIGNvbnN0cmFpbmVkX2ludHJhPTAgYmZyYW1lcz0zIGJfcHlyYW1pZD0yIGJfYWRhcHQ9MSBiX2JpYXM9MCBkaXJlY3Q9MSB3ZWlnaHRiPTEgb3Blbl9nb3A9MCB3ZWlnaHRwPTIga2V5aW50PTI1MCBrZXlpbnRfbWluPTI1IHNjZW5lY3V0PTQwIGludHJhX3JlZnJlc2g9MCByY19sb29rYWhlYWQ9NDAgcmM9Y3JmIG1idHJlZT0xIGNyZj0yMy4wIHFjb21wPTAuNjAgcXBtaW49MCBxcG1heD02OSBxcHN0ZXA9NCBpcF9yYXRpbz0xLjQwIGFxPTE6MS4wMAAAAAAPZYiEAD//8m+P5GIAAAAMA0AAAAMAAAMAABkT//+jf8C+cRMoHAAAAwAAXAAAAwAAlcgRNQAAAAxBmiRsQx8J2AAAAAMBA0AAAAMAAAMAABlkAAAADAGaJGxDPwAAABcJtb292AAAAbG12aGQAAAAAAAAAAAAAAAAAAAPoAAAACgABAAABAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAGGlvZHMAAAAAEICAgAcAT////v7/AAACQ3RyYWsAAABcdGtoZAAAAA8AAAAAAAAAAAAAAAEAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAEAAAAAABAAAAEAAAAAAAAG3RzAAAAFHN0c2QAAAAAAAAAAQAAABRhdjAxAAAAAA==";
+  document.body.appendChild(_noSleepVideo);_noSleepVideo.play().catch(function(){});}catch(e){}}
+};
+const _wakeVisChange=async()=>{try{if(document.visibilityState==="visible"&&!_wakeLock&&"wakeLock" in navigator){_wakeLock=await navigator.wakeLock.request("screen");}}catch(e){}};
+const wakeLockOff=()=>{try{if(_wakeLock){_wakeLock.release();_wakeLock=null;}}catch(e){}if(_wakeInterval){clearInterval(_wakeInterval);_wakeInterval=null;}document.removeEventListener("visibilitychange",_wakeVisChange);if(_noSleepVideo){try{_noSleepVideo.pause();_noSleepVideo.remove();}catch(e){}_noSleepVideo=null;}};
 
 const beep=(f=880,d=120)=>{try{const c=new(window.AudioContext||window.webkitAudioContext)();const o=c.createOscillator();const g=c.createGain();o.frequency.value=f;o.connect(g);g.connect(c.destination);g.gain.value=0.3;o.start();setTimeout(()=>{o.stop();c.close();},d);}catch(x){}};
 const dBeep=()=>{try{navigator.vibrate&&navigator.vibrate(150)}catch(x){}beep(880,100);setTimeout(()=>beep(1100,150),180);};
