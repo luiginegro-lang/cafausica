@@ -447,6 +447,7 @@ const VENTURA_EN=[
 // ===== VENTURA VIEW =====
 function VenturaView(props) {
   var dark = props.dark, onBack = props.onBack, onHome = props.onHome;
+  var lang = props.lang || "it";
   var _vi=useState(false),vInfo=_vi[0],setVInfo=_vi[1];
   var _p = useState("intro"), phase = _p[0], setPhase = _p[1];
   var _m = useState(""), msg = _m[0], setMsg = _m[1];
