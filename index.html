@@ -300,6 +300,526 @@ const RECIPES=[
 ];
 
 
+const RECIPES_EN={
+"hoffmann-v60":{
+  d:"Bloom with swirl, two-phase pour, final swirl. Ratio 1:16.7. Water as hot as possible.",
+  s:[
+    "Bloom: pour 60g (2× dose).",
+    "Swirl 3 times to wet everything.",
+    "Wait for bloom.",
+    "Steady spiral to 300g (60%).",
+    "Slow spiral to 500g.",
+    "Stir 1× clockwise + 1× counter. Swirl.",
+    "Drawdown. Flat bed.",
+  ]
+},
+"hoffmann-1cup":{
+  d:"5 pours of 50g every ~10s. More consistent for a single cup.",
+  s:[
+    "Pour 50g slowly.",
+    "Swirl to wet everything.",
+    "Wait for bloom.",
+    "Second: 50g.",
+    "Third: 50g.",
+    "Fourth: 50g.",
+    "Fifth: 50g. Gentle swirl.",
+    "Drawdown.",
+  ]
+},
+"kasuya-46":{
+  d:"Coarse grind (salt). 40% taste (acidity/sweetness), 60% strength. 1:15.",
+  s:[
+    "60g spiral, center→edge→center.",
+    "Wait.",
+    "Pour 60g (total 120g).",
+    "Wait.",
+    "Pour 60g (total 180g).",
+    "Wait.",
+    "Pour 60g (total 240g).",
+    "Wait.",
+    "Pour 60g (total 300g).",
+    "Drawdown.",
+  ]
+},
+"winton-5pour":{
+  d:"5 pours of 60g, medium-coarse, no agitation. Clarity and brilliance.",
+  s:[
+    "60g from center outward.",
+    "Wait for bloom.",
+    "Pour 60g (total 120g).",
+    "Wait for drawdown.",
+    "Pour 60g (total 180g).",
+    "Wait for drawdown.",
+    "Pour 60g (total 240g).",
+    "Wait for drawdown.",
+    "Pour 60g (total 300g).",
+    "Final drawdown.",
+  ]
+},
+"hedrick-121":{
+  d:"1 Pour, 2 min bloom, 1 Pour. Dead simple. 1:17.",
+  s:[
+    "Pour 90g quickly.",
+    "Firm spin: 1 turn.",
+    "Long bloom. Don\'t touch.",
+    "Pour 216g in slow spiral.",
+    "Gentle spin: 1 turn.",
+    "Drawdown.",
+  ]
+},
+"rao-v60":{
+  d:"Bloom with excavation, continuous pour, Rao Spin finale.",
+  s:[
+    "Pour 66g (3× dose).",
+    "Excavate with spoon.",
+    "Wait for bloom.",
+    "Continuous spiral to 360g.",
+    "Rao Spin: 1 firm turn.",
+    "Drawdown.",
+  ]
+},
+"lucafausu-v60":{
+  d:"Precision and definition. Two controlled pours. 2:30-3:00.",
+  s:[
+    "Bloom: 40g slowly.",
+    "Wait for bloom.",
+    "First pour in circles to ~150g.",
+    "Second pour to 250g. Max 3 min.",
+    "Drawdown ~2:30-3:00.",
+  ]
+},
+"peng-wbrc2025":{
+  d:"Solo Dripper + Melodrip. Decreasing temps (96→80°C). Extreme clarity, <2 min. 40ppm TDS.",
+  s:[
+    "Pre-heat: 80ml at 96°C in dripper (Solo/V60).",
+    "Pour 30ml at 96°C.",
+    "3 counter-clockwise circles.",
+    "Wait for bloom.",
+    "At 0:30 — 90ml at 96°C in 10s.",
+    "At 1:10 — 90ml at 80°C with Melodrip.",
+    "Drawdown ~1:45. Serve at 50°C.",
+  ]
+},
+"hoffmann-ap":{
+  d:"Standard (not inverted). Dead simple.",
+  s:[
+    "Pour 200g. Wet all the coffee.",
+    "Plunger ~1cm in. Don\'t touch.",
+    "Slow swirl: 3 turns.",
+    "Grounds settle.",
+    "Press slowly. Stop before the hiss.",
+  ]
+},
+"wac2024":{
+  d:"Inverted, Melodrip, cold bypass.",
+  s:[
+    "Inverted. 50g with Melodrip.",
+    "Wait 20s without touching.",
+    "Stir 3 times back-and-forth (5s).",
+    "Add 75g in 10s.",
+    "Wait until 1:50 total.",
+    "Flip (5s). Swirl (3s). Slow press 17s.",
+    "Bypass: 36ml room temperature.",
+  ]
+},
+"wac2025":{
+  d:"2025 Champion. Upright, sifted 200µm. Bypass 50°C. 31cl Trailmaster (≈C40).",
+  s:[
+    "70g bypass (50°C) in server.",
+    "Grind, blow, sift fines.",
+    "60g at 84°C in the AeroPress.",
+    "Stir 15 seconds.",
+    "Add 70g in 10s.",
+    "Wait 15s. Slow press for 30s.",
+    "Mix with bypass. Serve.",
+  ]
+},
+"wendelboe-ap":{
+  d:"Inverted and fast. Light roast.",
+  s:[
+    "Inverted. Pour all the water.",
+    "Stir 3 times back-and-forth (5s).",
+    "Cap. Wait.",
+    "Flip and press 20s.",
+  ]
+},
+"lucafausu-ap-std":{
+  d:"NOT inverted. Clean and bright. 85-88°C.",
+  s:[
+    "Pour 220ml at 87°C.",
+    "Stir 5-6 times back-and-forth (10s).",
+    "Plunger to seal. Wait.",
+    "Press 30 seconds.",
+  ]
+},
+"lucafausu-ap-inv":{
+  d:"Inverted, more body. 85°C, fine.",
+  s:[
+    "Inverted. 230ml at 85°C.",
+    "Stir 5 times (10s).",
+    "Wait 1:40 without touching.",
+    "Flip. Press 30s.",
+  ]
+},
+"chemex-classic":{
+  d:"Thick filter, crystal-clear cup. 1:16.7.",
+  s:[
+    "Pour 2× dose.",
+    "Gentle stir.",
+    "Wait for bloom.",
+    "Slow circles to 350g.",
+    "Let level drop.",
+    "Slow circles to 700g.",
+    "Drawdown.",
+  ]
+},
+"hoffmann-chemex":{
+  d:"V60 adaptation for Chemex. Bloom with stir, 3-4 phase pours. 1:16.7. Boiling water.",
+  s:[
+    "0:00 — pour 75g in 10s. Gentle stir to wet all (5s).",
+    "Wait for bloom until 0:45.",
+    "0:45 — pour in circles to 300g (~30s, ~7.5g/s).",
+    "Wait for 1cm drop.",
+    "Pour to 500g.",
+    "Swirl 1 turn (3s). Drawdown. Chemex filter: ~4:30-5:30.",
+  ]
+},
+"rao-chemex":{
+  d:"Small brew, fast pour, edge stir, Rao Spin. Rao recommends max 475ml. 1:17.",
+  s:[
+    "Pre-wet: 38g. Excavate with spoon.",
+    "Bloom 30s.",
+    "Pour all (425g) in circles.",
+    "Stir edges 5s. Rao Spin (1 firm turn).",
+    "Drawdown. Total: ~3:00.",
+  ]
+},
+"chemex-bypass":{
+  d:"Concentrated brew 1:12 + hot water bypass. High extraction without overextraction.",
+  s:[
+    "Pour 60g bloom.",
+    "Wait for bloom.",
+    "Pour quickly to 360g.",
+    "Swirl (1 turn). Drawdown ~2:30.",
+    "Bypass: add 140ml hot water to server.",
+    "Stir. Total in cup: 500ml, ratio 1:16.7.",
+  ]
+},
+"chemex-1cup":{
+  d:"Single cup Chemex. Finer grind to compensate. 1:16.",
+  s:[
+    "Pour 30g bloom.",
+    "Swirl.",
+    "Wait for bloom.",
+    "Pour slowly to 150g.",
+    "To 250g.",
+    "Drawdown 3:00-3:30.",
+  ]
+},
+"lucafausu-chemex-3inf":{
+  d:"3 distinct infusions. Filter 3 sides on spout. Central hole.",
+  s:[
+    "Filter: 3 sides on spout. Central hole.",
+    "FIRST: 60-90g in circles.",
+    "Wait 30s. Bloom.",
+    "SECOND: slow, circular to 350g.",
+    "Stop 1:15. Pause 30s.",
+    "THIRD at 1:45: to 500g.",
+    "Drawdown. Total: 4-5 min.",
+  ]
+},
+"lucafausu-chemex-std":{
+  d:"Cleanliness and transparency. >5:30 too fine, <4:00 too coarse.",
+  s:[
+    "Pour 60ml bloom.",
+    "Wait for bloom.",
+    "Slow pours to 300g.",
+    "To 500g.",
+    "Drawdown 4:30-5:00.",
+  ]
+},
+"hoffmann-fp":{
+  d:"DO NOT press! Break crust, remove foam, wait.",
+  s:[
+    "500g boiling water. DO NOT stir.",
+    "Don\'t touch. Crust forms.",
+    "Break crust (3 passes). Remove foam with 2 spoons.",
+    "Grounds settle. Patience.",
+    "Plunger ONLY to surface. Pour gently.",
+  ]
+},
+"lucafausu-fp-lungo":{
+  d:"4 min steep + 4 min wait. Body with clarity.",
+  s:[
+    "Pour 250ml at 93°C.",
+    "Stir once with spoon (5s).",
+    "Cover. Steep 4 min.",
+    "Break the crust.",
+    "Wait another 4 min.",
+    "Slow press. Serve.",
+  ]
+},
+"lucafausu-fp-std":{
+  d:"Standard specialty. Informal cupping and roast testing.",
+  s:[
+    "Pour 500ml at 93°C.",
+    "Stir 3 times with spoon (10s).",
+    "Cover. Plunger up. 4 min.",
+    "Slow press. Serve immediately.",
+  ]
+},
+"classic-fp":{
+  d:"Full press. Full body.",
+  s:[
+    "Pour all the water.",
+    "Stir 3 times (10s).",
+    "Cover with plunger up. Wait 3:40.",
+    "Press all the way down.",
+  ]
+},
+"cucc-trad":{
+  d:"The real Neapolitan: water in bottom, heat, flip when boiling. The cuppetiello.",
+  s:[
+    "Coffee in filter. Level. DO NOT tamp.",
+    "Water in boiler (side WITHOUT spout).",
+    "Assemble. Medium heat.",
+    "Wait for boil (~5 min).",
+    "Steam comes out: FLIP immediately.",
+    "Gravity percolation 5-8 min. Cuppetiello.",
+    "Dripping ends. Serve.",
+  ]
+},
+"cucc-spec":{
+  d:"Finer, higher temp.",
+  s:[
+    "Coffee in filter, leveled.",
+    "Water at 94°C.",
+    "Pour. Assemble quickly.",
+    "Flip. Percolation 5 min.",
+    "Serve immediately.",
+  ]
+},
+"lucafausu-cucc":{
+  d:"COLD water in tank → rises to 100°C. No tamping. Gravity.",
+  s:[
+    "Coffee in filter. DO NOT tamp.",
+    "COLD water in tank.",
+    "Assemble. LOW flame.",
+    "Wait for water to rise (~4-5 min).",
+    "Flip IMMEDIATELY.",
+    "Percolation 5-7 min.",
+  ]
+},
+"cucc-gesha":{
+  d:"Pre-infusion, thermal layering, dual grind. Floral and lingering.",
+  s:[
+    "Grind 10g at 550µm, 10g at 750µm.",
+    "In filter: coarse first, then fine. Paper on top.",
+    "Bloom: 50ml at 95°C on filter.",
+    "Wait for bloom.",
+    "Boiler: 150ml at 95°C.",
+    "Layer: 100ml at 88°C on spoon.",
+    "Assemble. Flip immediately.",
+    "Slow percolation. Cuppetiello optional.",
+    "Cold cloth on spout. 1 min.",
+    "Pour. Taste: nose, 1st sip, 2nd after 1 min.",
+  ]
+},
+"cucc-gesha-iced":{
+  d:"Iced bloom, thermal layering, coffee on ice. Bright and lingering.",
+  s:[
+    "Grind 10g at 550µm, 10g at 750µm.",
+    "In filter: coarse, then fine. Paper optional.",
+    "ICED bloom: 45ml at 2-4°C.",
+    "Wait 2 min.",
+    "Boiler: 130ml at 93°C.",
+    "Layer: 100ml at 85°C on spoon.",
+    "100-120g ice in glass below.",
+    "Assemble. Flip. Drip onto ice.",
+    "Stir. Wait 30s. Taste.",
+  ]
+},
+"moka-trad":{
+  d:"Low heat, open lid, off at gurgle.",
+  s:[
+    "Fill boiler to valve.",
+    "Coffee in filter. DO NOT tamp.",
+    "LOW heat. Lid open.",
+    "Comes out slow, honey-colored.",
+    "Gurgling: OFF heat IMMEDIATELY.",
+  ]
+},
+"moka-hoff":{
+  d:"Pre-boiled water. Less bitter.",
+  s:[
+    "Boil water.",
+    "Boiling water to valve.",
+    "Coffee without tamping.",
+    "Assemble. Medium-low heat.",
+    "At gurgling off heat.",
+    "Cool bottom under water.",
+  ]
+},
+"ibrik-trad":{
+  d:"Three froths. Cini cups.",
+  s:[
+    "Coffee. Sugar if desired (before water).",
+    "Cold or warm water.",
+    "Stir well.",
+    "Low heat. Don\'t stir.",
+    "Foam rises: remove. Settles.",
+    "Second froth.",
+    "Third. Pour with foam.",
+  ]
+},
+"ibrik-spec":{
+  d:"One froth, pre-chilled cup, 60°C.",
+  s:[
+    "Grind coarser than Turkish.",
+    "Coffee in ibrik.",
+    "70ml water 60°C.",
+    "Stir with wooden paddle.",
+    "Low heat. DO NOT stir.",
+    "ONE froth. Remove.",
+    "Pour into pre-chilled cup.",
+  ]
+},
+"jebena-trad":{
+  d:"Sacred ritual 1-3 hours. Led by the woman of the house in habesha kemis (white dress). Three sacred cups: Abol, Tona, Baraka. Never refuse the third.",
+  s:[
+    "🪴 SPACE PREPARATION — Spread fresh scented grass (ketema) and yellow flowers on the floor. Light frankincense (etan) or myrrh in the burner: ward off evil spirits and purify the air. Arrange cini cups (handleless) on the rekebot (low tray) over the grass. Serve snacks: popcorn, kolo (roasted barley/chickpeas), himbasha (bread with nigella seeds).",
+    "🫘 WASHING — Wash the raw green beans in water, remove husks and impurities. Drain well.",
+    "🔥 ROASTING — Beans in the menkeshkesh (long-handled flat pan). Low heat over coals. Shake and turn continuously for 10-15 minutes. Beans go from green → golden → brown → shiny black and oily. First crack at ~5 min, second crack at ~8-10 min. When oil emerges and smoke is dense and fragrant, it\'s ready.",
+    "👃 AROMA SHARING — Remove from heat. Pass the smoking menkeshkesh under each guest\'s nose: everyone inhales deeply. It\'s a sign of respect and hospitality. Not doing it is rude.",
+    "⚱️ GRINDING — Pour hot beans into mukecha (wooden mortar). Grind with zenezena (pestle) rhythmically for 5-10 min to very fine powder. The rhythmic sound of the pestle draws the neighbors. Consistency should be like flour.",
+    "☕ INFUSION — Water in jebena (terracotta pot with narrow neck and spout). Place on coals. When boiling, add all ground coffee. Optional regional SPICES: korarima (Ethiopian cardamom), cinnamon, cloves, ginger, or a leaf of tena adam (Ethiopian rue) dipped in coffee.",
+    "🔄 TRIPLE BOIL — Bring to boil. Pour into decanter to cool. Pour back into jebena. Bring to boil again. Repeat a third time. This process concentrates and equalizes extraction. Insert filter (traditionally horsehair) in spout.",
+    "🥇 ABOL (አቦል) — First cup, strongest and most concentrated. Pour from ~30cm height in continuous stream without stopping, filling each cini cup in a row. The youngest child brings the first cup to the eldest guest. Drink with lots of sugar (or salt in rural areas). Abol represents health and enjoyment.",
+    "🥈 TONA (ቶና) — Second cup. Add fresh water to the same grounds in jebena. Reheat. More delicate and soft. This is the moment for real conversation: discuss ongoing matters, seek solutions. More popcorn and kolo.",
+    "🥉 BARAKA (በረካ) — Third and last. More fresh water on same grounds. The lightest. Baraka means \'blessing\'. Refusing the third cup is rude: whoever drinks it receives the blessing of the house and family. Brings good luck.",
+  ]
+},
+"jebena-spec":{
+  d:"Modern specialty adaptation with pre-roasted light roast. Single boil, no spices for cup clarity. The soul of the ceremony remains.",
+  s:[
+    "🪴 ATMOSPHERE — Incense, fresh grass, flowers if available. The essence of the ceremony is sharing, even without live roasting.",
+    "☕ Pre-roasted light roast coffee. Grind fine (C40 ~10cl, or traditional mukecha). Fine sand consistency.",
+    "🫖 Water at 96°C in jebena. Add coffee.",
+    "🔥 Low heat. Bring slowly to boil (~5 min).",
+    "Foam rises to neck: remove from heat. Rest 2 min to let grounds settle.",
+    "🥇 ABOL — Pour from 30cm into cini cups. Floral, citrus notes. Tena adam (rue) leaf in cup, optional.",
+    "🥈 TONA — Same grounds + fresh water. Reheat. More delicate and round.",
+    "🥉 BARAKA — Last. +80ml on same grounds. The lightest. Blessing.",
+  ]
+},
+"coldbrew-conc":{
+  d:"12-24h. Dilute 1:1.",
+  s:[
+    "Coarse coffee in jar.",
+    "Room temperature water.",
+    "Stir well.",
+    "Cover. Fridge 12-24h.",
+    "Filter.",
+    "Dilute 1:1.",
+  ]
+},
+"japanese-iced":{
+  d:"V60 on ice. Instant cooling.",
+  s:[
+    "120g ice in server.",
+    "Pour 40ml bloom.",
+    "Wait for bloom.",
+    "Pour to 200ml.",
+    "Swirl. Drawdown.",
+    "Stir with ice.",
+  ]
+},
+"afa-base":{
+  d:"Neo-cuccumella in ceramic, gravity. Paper + ceramic filter. 5-6:30 min.",
+  s:[
+    "XL paper ∅73mm. Rinse.",
+    "18g ground, leveled.",
+    "Pour 45ml bloom.",
+    "Wait for bloom.",
+    "Second pour spiral to 170ml.",
+    "Third pour centered to 300ml.",
+    "Cover. Gravity percolation.",
+    "Total: 5:00-6:30. Serve.",
+  ]
+},
+"afa-brillante":{
+  d:"More water, slightly finer grind. Elegant acidity and clarity.",
+  s:[
+    "XL paper. Rinse.",
+    "18g ground.",
+    "Pour 45ml bloom.",
+    "Wait for bloom.",
+    "Spiral pour to 170ml.",
+    "Centered to 295ml.",
+    "Cover. Percolate. 5:15-5:45.",
+    "Serve.",
+  ]
+},
+"afa-rotonda":{
+  d:"Less water, round body. Slow aFA percolation.",
+  s:[
+    "XL paper. Rinse.",
+    "18g ground.",
+    "Pour 40ml bloom.",
+    "Wait for bloom.",
+    "Spiral pour to 160ml.",
+    "Centered to 270ml.",
+    "Cover. Percolate. 5:45-6:15.",
+    "Serve.",
+  ]
+},
+"gina-fukahori":{
+  d:"WBrC 2018. Alternating open-closed valve.",
+  s:[
+    "Valve CLOSED. Pour 50g at 80°C.",
+    "Immersion with valve closed.",
+    "Valve OPEN. Pour 100g at 95°C.",
+    "Drawdown with valve open.",
+    "Valve CLOSED. Pour 70g at 80°C.",
+    "Immersion 45s.",
+    "Valve OPEN. Final drawdown.",
+  ]
+},
+"gina-pourover":{
+  d:"Valve open. Like a V60 with flow control.",
+  s:[
+    "Valve OPEN. Pour 36g bloom.",
+    "Swirl. Wait for bloom.",
+    "Pour slowly in circles to 170g.",
+    "Pause. Wait for drop.",
+    "Pour to 288g.",
+    "Drawdown. Flat bed.",
+  ]
+},
+"gina-immersion":{
+  d:"Valve closed. 3 min steep then release.",
+  s:[
+    "Valve CLOSED. Pour all water 270g.",
+    "Stir 3 times.",
+    "Steep. Don\'t touch.",
+    "Valve OPEN. Drawdown.",
+  ]
+},
+"gina-colddip":{
+  d:"Valve half-open. Ice, drip by drip. 3-5 hours.",
+  s:[
+    "Coffee in basket. Paper filter on top.",
+    "Ice + cold water 400g.",
+    "Valve HALF-OPEN: 1 drop per second.",
+    "Cold drip: 3-5 hours.",
+    "Ready. Serve with ice.",
+  ]
+},
+};
+
+const enDesc=(r)=>{var t=RECIPES_EN[r.id];return t?t.d:r.description;};
+const enStep=(r,i)=>{var t=RECIPES_EN[r.id];return t&&t.s[i]?t.s[i]:r.steps[i].text;};
+
 const fmt=s=>{if(s>=3600)return Math.floor(s/3600)+"h "+String(Math.floor((s%3600)/60)).padStart(2,"0")+"m";return Math.floor(s/60)+":"+String(s%60).padStart(2,"0");};
 const beep=(f=880,d=120)=>{try{const c=new(window.AudioContext||window.webkitAudioContext)();const o=c.createOscillator();const g=c.createGain();o.frequency.value=f;o.connect(g);g.connect(c.destination);g.gain.value=0.3;o.start();setTimeout(()=>{o.stop();c.close();},d);}catch(x){}};
 const dBeep=()=>{try{navigator.vibrate&&navigator.vibrate(150)}catch(x){}beep(880,100);setTimeout(()=>beep(1100,150),180);};
@@ -834,7 +1354,7 @@ function App(){
     e("div",{style:S.hd},e("button",{onClick:home,style:S.ibBack},ICO.back(22,T.accent),e("span",{style:{fontSize:16,fontWeight:700}},(lang==="en"?"Back":"Indietro"))),Ic(mo?.icon,28),e("span",{style:{...S.ht,fontSize:TF.md()}},mo?.name),e("span",{style:{marginLeft:"auto",fontSize:16,color:T.textSec}},recs.length+(lang==="en"?" recipes":" ricette"))),
     e("div",{style:{padding:20}},recs.map(r=>e("div",{key:r.id,onClick:()=>{setSelR(r);setCc(r.baseCoffee);setFromAdv(false);setView("recipe");},style:S.cd},
       e("div",{style:{display:"flex",justifyContent:"space-between",alignItems:"start",marginBottom:6}},e("h3",{style:{fontWeight:700,fontSize:TF.md(),fontFamily:"'Inter',sans-serif",flex:1,paddingRight:8,lineHeight:1.25}},r.name),r.custom&&e("span",{style:{fontSize:16,background:T.accent+"33",color:T.accent,padding:"2px 8px",borderRadius:8,fontWeight:700,marginRight:6}},"TUA"),e("span",{style:S.pl},r.clicks+" click")),
-      e("div",{style:{fontSize:TF.bMd(),color:T.textSec,marginBottom:8,lineHeight:1.5}},r.description),
+      e("div",{style:{fontSize:TF.bMd(),color:T.textSec,marginBottom:8,lineHeight:1.5}},(lang==="en"?enDesc(r):r.description)),
       e("div",{style:{display:"flex",gap:14,flexWrap:"wrap",fontSize:16,color:T.textDim,alignItems:"center"}},e("span",null,r.baseCoffee+"g"),e("span",null,r.baseWater+"ml"),e("span",null,"1:"+(r.baseWater/r.baseCoffee).toFixed(1)),e("span",null,r.temperature>0?r.temperature+"°C":(lang==="en"?"Cold":"Fredda")),e("span",null,"~"+fmt(tTime(r))),
         r.custom&&e("button",{onClick:ev=>{ev.stopPropagation();setSelR(r);initForm(r);setView("editrecipe");},style:{marginLeft:"auto",fontSize:16,color:T.accent,fontWeight:700,background:"none",border:"1px solid "+T.accent+"66",padding:"4px 12px",borderRadius:8,cursor:"pointer"}},(lang==="en"?"\u270E Edit":"\u270E Modifica"))),
     ))),
@@ -869,7 +1389,7 @@ function App(){
         sc.steps.map((st,i)=>{cW+=st.waterAdd;return e("div",{key:i,style:{display:"flex",gap:10,marginBottom:8}},
           e("div",{style:{width:30,height:30,borderRadius:15,background:T.surfaceHi,border:"2px solid "+T.accentDim,display:"flex",alignItems:"center",justifyContent:"center",fontSize:16,fontWeight:700,color:T.accent,flexShrink:0,marginTop:2}},i+1),
           e("div",{style:{flex:1}},
-            e("div",{style:{fontSize:TF.bLg(),lineHeight:1.5,marginBottom:3}},st.text),
+            e("div",{style:{fontSize:TF.bLg(),lineHeight:1.5,marginBottom:3}},(lang==="en"&&selR?enStep(selR,i):st.text)),
             e("div",{style:{display:"flex",gap:10,flexWrap:"wrap"}},
               st.waterAdd>0&&e("span",{style:{fontSize:17,fontWeight:700,color:T.accent}},"+"+(st.waterAdd%1===0?st.waterAdd:st.waterAdd.toFixed(1))+"ml → "+(cW%1===0?cW:cW.toFixed(1))+"ml"),
               st.duration>0&&e("span",{style:{fontSize:17,color:T.textDim,fontWeight:600}},fmt(st.duration)),
@@ -955,7 +1475,7 @@ fd.append("entry.1380311466",dt);;fetch("https://docs.google.com/forms/d/e/1FAIp
           !isDesc&&e("div",{style:{height:6,borderRadius:3,background:T.border,marginBottom:12,overflow:"hidden"}},
             e("div",{style:{height:"100%",borderRadius:3,background:pr>0.85?T.accentLight:T.accent,width:(pr*100)+"%",transition:"width 0.3s linear"}}),
           ),
-          e("p",{style:{fontSize:TF.bLg(),lineHeight:1.5,fontWeight:500,marginBottom:st?.waterAdd>0?10:0,maxWidth:340,margin:"0 auto"}},st?.text),
+          e("p",{style:{fontSize:TF.bLg(),lineHeight:1.5,fontWeight:500,marginBottom:st?.waterAdd>0?10:0,maxWidth:340,margin:"0 auto"}},(lang==="en"&&selR?enStep(selR,cs):st?.text)),
           st?.waterAdd>0&&e("div",{style:{display:"inline-flex",alignItems:"baseline",gap:6,marginTop:10,padding:"6px 18px",borderRadius:12,background:T.accent+"15"}},
             e("span",{style:{fontSize:36,fontWeight:600,color:T.accent}},"+"+Math.round(st.waterAdd*10)/10),
             e("span",{style:{fontSize:20,fontWeight:600,color:T.accent}},"ml"),
@@ -964,7 +1484,7 @@ fd.append("entry.1380311466",dt);;fetch("https://docs.google.com/forms/d/e/1FAIp
         e("div",{style:{flex:1}},sc.steps.map((s,i)=>{const d=i<cs,a=i===cs;return e("div",{key:i,style:{display:"flex",gap:8,marginBottom:5,opacity:d?0.35:a?1:0.45}},
           e("div",{style:{width:24,height:24,borderRadius:12,background:d?T.green:a?T.accent:T.surfaceHi,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}},
             d?ICO.check(11):e("span",{style:{fontSize:16,fontWeight:700,color:a?"#FFF":T.textDim}},i+1)),
-          e("div",{style:{fontSize:18,color:a?T.text:T.textSec,lineHeight:1.4,paddingTop:1}},s.text.length>65?s.text.substring(0,62)+"...":s.text),
+          e("div",{style:{fontSize:18,color:a?T.text:T.textSec,lineHeight:1.4,paddingTop:1}},(()=>{var _t=lang==="en"&&selR?enStep(selR,i):s.text;return _t.length>65?_t.substring(0,62)+"...":_t;})()),
         );})),
       ),
       e("div",{style:{padding:"10px 18px 24px",display:"flex",gap:8,background:T.bg,borderTop:"1px solid "+T.border}},
