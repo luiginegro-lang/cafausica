@@ -1216,30 +1216,32 @@ function App(){
 
   const grindFeel=(microns)=>{
     if(lang==="en"){
-      if(microns<=150) return "Flour, impalpable powder";
-      if(microns<=300) return "Powdered sugar";
-      if(microns<=450) return "Fine caster sugar";
-      if(microns<=600) return "Fine table salt";
-      if(microns<=750) return "Fine beach sand";
-      if(microns<=900) return "Medium salt, sand";
-      if(microns<=1100) return "Coarse salt, coarse sand";
-      return "Very coarse salt, peppercorns";
+      if(microns<=150) return "Talc, impalpable powder between fingers";
+      if(microns<=300) return "Powdered sugar dissolving at touch";
+      if(microns<=450) return "Fine cornmeal, grainy silk";
+      if(microns<=600) return "Fine table salt, sand after the tide";
+      if(microns<=750) return "Wet shore sand, sugar granules";
+      if(microns<=900) return "Dune sand, kosher salt";
+      if(microns<=1100) return "Coarse Cervia salt, stream gravel";
+      return "Cracked peppercorns, Trapani sea salt";
     }
-    if(microns<=150) return "Farina, polvere impalpabile";
-    if(microns<=300) return "Zucchero a velo";
-    if(microns<=450) return "Zucchero semolato fine";
-    if(microns<=600) return "Sale fino da tavola";
-    if(microns<=750) return "Sabbia fine di spiaggia";
-    if(microns<=900) return "Sale medio, sabbia";
-    if(microns<=1100) return "Sale grosso, sabbia grossa";
-    return "Sale grossissimo, pepe in grani";
+    if(microns<=150) return "Talco, polvere impalpabile tra le dita";
+    if(microns<=300) return "Zucchero a velo che si dissolve al tatto";
+    if(microns<=450) return "Farina di mais fine, seta granulosa";
+    if(microns<=600) return "Sale fino da tavola, sabbia dopo la marea";
+    if(microns<=750) return "Sabbia bagnata di riva, granella di zucchero";
+    if(microns<=900) return "Sabbione di duna, sale kosher";
+    if(microns<=1100) return "Sale grosso di Cervia, ghiaia di torrente";
+    return "Pepe in grani spezzato, sale di Trapani";
   };
   const grinderClicks=(microns)=>{
+    var c40Lo=Math.max(1,Math.round((microns-60)/30));
+    var c40Hi=Math.round((microns+60)/30);
+    var zpLo=Math.max(1,Math.round((microns-60)/25));
+    var zpHi=Math.round((microns+60)/25);
     return [
-      ["C40",Math.round(microns/30)+" cl"],
-      ["JX-Pro",Math.round(microns/12.5)+" cl"],
-      ["K-Plus",Math.round(microns/22)+" cl"],
-      ["Timemore",Math.round(microns/25)+" cl"],
+      ["Comandante C40",c40Lo+"–"+c40Hi+" cl"],
+      ["1Zpresso",zpLo+"–"+zpHi+" cl"],
     ];
   };
 
@@ -1611,7 +1613,7 @@ fd.append("entry.1380311466",dt);;fetch("https://docs.google.com/forms/d/e/1FAIp
             e("th",{style:{textAlign:"center",padding:"8px 4px",borderBottom:"1px solid "+T.border,color:T.textSec,fontSize:16,width:"31%"}},(lang==="en"?"Coarse":"Grosso")),
           )),
           e("tbody",null,
-            [["Comandante C40","22-25 click","28-32 click"],["Baratza Encore","12-15","20-22"],["Timemore C2/C3","16-18 click","22-24 click"],["Wilfa Svart","AP→Filtro","Filtro→FP"],["1Zpresso JX","2.4-2.8","3.2-3.6"]].map((r,i)=>
+            [["Comandante C40","20-26 click","28-34 click"],["1Zpresso JX-Pro","36-52 click","56-72 click"]].map((r,i)=>
               e("tr",{key:i},r.map((c,j)=>e("td",{key:j,style:{padding:"10px 4px",borderBottom:"1px solid "+T.border,textAlign:j===0?"left":"center",color:j===0?T.text:T.accentLight,fontWeight:j===0?600:700,wordBreak:"break-word"}},c)))
             )
           ),
@@ -1634,11 +1636,14 @@ fd.append("entry.1380311466",dt);;fetch("https://docs.google.com/forms/d/e/1FAIp
         e("div",{style:{fontSize:17,color:T.textSec,lineHeight:1.7}},
           "Comandante C40: ~30µm per click.",
           e("br"),
-          "22 click ≈ 660µm (V60 Hoffmann)",
+          "1Zpresso JX-Pro: ~12.5µm per click.",
           e("br"),
-          "30 click ≈ 900µm (4:6 Kasuya)",
           e("br"),
-          "15 click ≈ 450µm (AeroPress fine)",
+          "V60 Hoffmann: 660-720µm",
+          e("br"),
+          "4:6 Kasuya: 870-930µm",
+          e("br"),
+          "AeroPress fine: 420-480µm",
         ),
       ),
     ),
