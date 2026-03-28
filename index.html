@@ -945,7 +945,7 @@ function App(){
       e("div",{style:{...S.cd,background:T.surface,border:"1px solid "+T.border,display:"flex",alignItems:"center",justifyContent:"center",gap:6,padding:"14px 8px",cursor:"default"}},
         e("button",{onClick:()=>setCc(Math.max(doseLo(selR.method),Math.round(((cc??selR.baseCoffee)-1)*10)/10)),style:{...S.ibSm,width:44,height:44,fontSize:22,fontWeight:400,letterSpacing:-3}},"‹‹"),
         e("button",{onClick:()=>setCc(Math.max(doseLo(selR.method),Math.round(((cc??selR.baseCoffee)-0.1)*10)/10)),style:{...S.ibSm,width:44,height:44,fontSize:26,fontWeight:400}},"‹"),
-        e("div",{style:{minWidth:85,textAlign:"center"}},e("div",{style:{fontSize:38,fontWeight:600,lineHeight:1}},sc.coffee%1===0?sc.coffee+"g":sc.coffee.toFixed(1)+"g"),e("div",{style:{fontSize:16,color:T.textSec,fontWeight:600,marginTop:4}},"DOSE"),doseHi(selR.method)<999&&e("div",{style:{fontSize:12,color:T.textDim,marginTop:2}},doseLo(selR.method)+"\u2013"+doseHi(selR.method)+"g"))),
+        e("div",{style:{minWidth:85,textAlign:"center"}},e("div",{style:{fontSize:38,fontWeight:600,lineHeight:1}},sc.coffee%1===0?sc.coffee+"g":sc.coffee.toFixed(1)+"g"),e("div",{style:{fontSize:16,color:T.textSec,fontWeight:600,marginTop:4}},"DOSE"),doseHi(selR.method)<999&&e("div",{style:{fontSize:12,color:T.textDim,marginTop:2}},doseLo(selR.method)+"\u2013"+doseHi(selR.method)+"g")),
         e("button",{onClick:()=>setCc(Math.min(doseHi(selR.method),Math.round(((cc??selR.baseCoffee)+0.1)*10)/10)),style:{...S.ibSm,width:44,height:44,fontSize:26,fontWeight:400}},"›"),
         e("button",{onClick:()=>setCc(Math.min(doseHi(selR.method),Math.round(((cc??selR.baseCoffee)+1)*10)/10)),style:{...S.ibSm,width:44,height:44,fontSize:22,fontWeight:400,letterSpacing:-3}},"››"),
       ),
