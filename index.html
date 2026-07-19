@@ -267,30 +267,40 @@ e("line",{key:9,x1:30,y1:90,x2:70,y2:90,stroke:"#7A9E7E",strokeWidth:2,strokeLin
 
 // ===== DATA =====
 // ===== MUSICA: repertorio per metodo =====
+// Regola: il brano CONTIENE l'estrazione. Durata brano >= durata massima del metodo.
 const MUSIC_METHOD={
-v60:{title:"Gnossienne n. 1",artist:"Erik Satie",year:1890,dur:200,why:"Senza battute e senza indicazione di tempo: durata pura, la stessa della versata."},
-switch:{title:"F\u00fcr Alina",artist:"Arvo P\u00e4rt",year:1976,dur:170,why:"Due voci, una melodica una triadica: chiuso e aperto, immersione e percolazione."},
-chemex:{title:"Clapping Music",artist:"Steve Reich",year:1972,dur:270,why:"Un solo pattern che slitta di un ottavo per volta. Il drawdown lungo del Chemex."},
-origami:{title:"Sonata V, da Sonatas and Interludes",artist:"John Cage",year:1948,dur:160,why:"Pianoforte preparato: il corpo estraneo fra le corde, come il filtro fra acqua e caff\u00e8."},
-aeropress:{title:"Sei bagatelle op. 9",artist:"Anton Webern",year:1913,dur:210,why:"Concisione estrema, ogni gesto detto una volta sola. Il metodo della pressata unica."},
-frenchpress:{title:"Opening, da Glassworks",artist:"Philip Glass",year:1982,dur:380,why:"Arpeggio immobile che non va da nessuna parte: la forma esatta dell'immersione."},
-gina:{title:"Study for Player Piano n. 3a",artist:"Conlon Nancarrow",year:1948,dur:180,why:"Precisione meccanica oltre la mano umana. Lo strumento che misura il flusso."},
-coldbrew:{title:"Vexations",artist:"Erik Satie",year:1893,dur:0,why:"Il tema si ripete 840 volte, nel silenzio pi\u00f9 profondo e nella pi\u00f9 seria immobilit\u00e0. Dodici-diciotto ore, come l'infusione."},
-moka:{title:"Concret PH",artist:"Iannis Xenakis",year:1958,dur:165,why:"Composto interamente col suono della brace che brucia. La moka sul fuoco."},
-cuccumella:{title:"Musique d'ameublement",artist:"Erik Satie",year:1917,dur:0,why:"Musica scritta per non essere ascoltata, presente mentre si fa altro. Desistenza in forma sonora."},
-ibrik:{title:"Density 21.5",artist:"Edgard Var\u00e8se",year:1936,dur:240,why:"Linea sola che sale e ricade. Le tre montate da cogliere prima del traboccamento."},
-jebena:{title:"In C",artist:"Terry Riley",year:1964,dur:2700,why:"53 moduli, nessun direttore, ognuno avanza col proprio passo e si finisce quando tutti sono arrivati. Abol, tona, baraka."},
-afa:{title:"Possente spirto, da L'Orfeo",artist:"Claudio Monteverdi",year:1607,dur:420,why:"Il canto con cui Orfeo ottiene il passaggio. Qui la musica smette di accompagnare e diventa il mezzo."},
+aeropress:{title:"Hope There's Someone",artist:"Antony and the Johnsons",year:2005,dur:260,why:"Voce sola su un pianoforte che non si decide. Il metodo della pressata unica."},
+origami:{title:"Introvert",artist:"Little Simz",year:2021,dur:279,why:"Ottoni da corteo su una confessione privata. Le nervature del cono reggono lo stesso contrasto."},
+v60:{title:"Coyote",artist:"Joni Mitchell",year:1976,dur:301,why:"Da Hejira: metrica che scivola sotto il parlato. La spirale che non torna mai sullo stesso punto."},
+moka:{title:"Luglio, agosto, settembre (nero)",artist:"Area",year:1973,dur:255,why:"Stratos che apre in arabo e poi incendia tutto. La caldaia mediterranea sotto pressione."},
+ibrik:{title:"Y\u00e8k\u00e8rmo S\u00e8w",artist:"Mulatu Astatke",year:1969,dur:310,why:"Ethio-jazz in scala pentatonica, tre montate e tre ricadute. La schiuma che sale da cogliere ogni volta."},
+chemex:{title:"Plainsong",artist:"The Cure",year:1989,dur:312,why:"Apertura di Disintegration: la nota tenuta prima che entri la voce. Il drawdown lungo del vetro."},
+switch:{title:"Miss You",artist:"Trentem\u00f8ller",year:2006,dur:419,why:"Due strati che si aprono e si chiudono l'uno sull'altro. La valvola fatta suono."},
+gina:{title:"Take Me into Your Skin",artist:"Trentem\u00f8ller",year:2006,dur:450,why:"Sette minuti costruiti per accumulo lentissimo. Lo strumento che misura il flusso goccia a goccia."},
+afa:{title:"Heroin",artist:"The Velvet Underground",year:1967,dur:432,why:"Il tempo accelera e rallenta col corpo, senza metronomo. Soglia in forma di battito."},
+coldbrew:{title:"Disintegration",artist:"The Cure",year:1989,dur:499,why:"Otto minuti di erosione. La notte fredda in cui il caff\u00e8 si scioglie da solo."},
+frenchpress:{title:"Sing About Me, I'm Dying of Thirst",artist:"Kendrick Lamar",year:2012,dur:723,why:"Muoio di sete: dodici minuti in tre voci, una delle quali si spegne mentre parla. Immersione."},
+cuccumella:{title:"Water No Get Enemy",artist:"Fela Kuti",year:1975,dur:650,why:"L'acqua non ha nemici. Afrobeat che gira su s\u00e9 stesso quanto dura il capovolgimento."},
+jebena:{title:"Promises",artist:"Floating Points, Pharoah Sanders & LSO",year:2021,dur:2760,why:"Quarantasei minuti in nove movimenti senza stacco, su sette note che tornano. Cerimonia."},
 };
 
-// ===== MUSICA: accostamenti per singola ricetta (sovrascrivono il metodo) =====
+// ===== MUSICA: accostamenti per singola ricetta =====
 const MUSIC_RECIPE={
+"lucafausu-v60":{title:"La Mar\u00e9e Haute",artist:"Lhasa de Sela",year:2003,dur:260,why:"L'alta marea cantata in una lingua di passaggio. Lu Cafausu."},
+"lucafausu-cucc":{title:"Mortal Man",artist:"Kendrick Lamar",year:2015,dur:727,why:"Finisce con una conversazione con un morto. Un caff\u00e8 per questo e per l'altro mondo."},
+"cucc-trad":{title:"Sister Ray",artist:"The Velvet Underground",year:1968,dur:1047,why:"Diciassette minuti in presa diretta, nessuno sa quando finir\u00e0. La cuccumella tradizionale."},
+"jebena-trad":{title:"Bitches Brew",artist:"Miles Davis",year:1970,dur:5640,why:"Il disco che ha rotto il jazz aprendolo a un rito elettrico. Un'ora di cerimonia: abol, tona, baraka."},
+"afa-base":{title:"Possente spirto, da L'Orfeo",artist:"Claudio Monteverdi",year:1607,dur:420,why:"Il canto con cui Orfeo ottiene il passaggio. Qui la musica smette di accompagnare e diventa il mezzo."},
+"lucafausu-chemex-std":{title:"The Great Escape",artist:"Patrick Watson",year:2007,dur:281,why:"Sale di un semitono per volta finch\u00e9 non ti accorgi che sei altrove."},
+"lucafausu-ap-inv":{title:"Enjoy the Silence",artist:"Depeche Mode",year:1990,dur:260,why:"Le parole sono violenza: la camera invertita lavora chiusa, al buio."},
+"hoffmann-1cup":{title:"Redbone",artist:"Childish Gambino",year:2016,dur:326,why:"Stay woke. La tazza singola del mattino, con il basso che arriva prima della coscienza."},
+"kasuya-46":{title:"Europe Is Lost",artist:"Kae Tempest",year:2016,dur:300,why:"Parola scandita che accelera senza cambiare passo. Il 40/60 \u00e8 la stessa divisione applicata al gusto."},
+"nas-wbrc2026":{title:"Venom",artist:"Little Simz",year:2019,dur:187,why:"Archi in tremolo e una rivendicazione di primato. La ricetta del campione del mondo."},
+"japanese-iced":{title:"Merry-Go-Round of Life",artist:"Joe Hisaishi",year:2004,dur:243,why:"Valzer che gira mentre tutto crolla. Il caff\u00e8 che cade sul ghiaccio."},
+"coffee-tonic":{title:"One Summer's Day",artist:"Joe Hisaishi",year:2001,dur:195,why:"Due minuti d'estate sospesi. Il drink pi\u00f9 breve del mazzo."},
+"flash-brew-v60":{title:"Space 1",artist:"Nala Sinephro",year:2021,dur:215,why:"Arpa e modulare, jazz che si raffredda in tempo reale. Flash brew."},
+"flash-aeropress":{title:"Archangel",artist:"Burial",year:2007,dur:239,why:"Voce tagliata e riverbero di citt\u00e0 bagnata. Estrazione rapida sul ghiaccio."},
 "caffe-assente":{title:"4'33\"",artist:"John Cage",year:1952,dur:273,silent:true,why:"Nessun brano parte. Restano l'acqua, la stanza e chi manca."},
-"lucafausu-v60":{title:"Quattro pezzi su una nota sola, n. 1",artist:"Giacinto Scelsi",year:1959,dur:200,why:"Un'unica altezza scavata dall'interno finch\u00e9 diventa un mondo. Lu Cafausu."},
-"hoffmann-v60":{title:"Gnossienne n. 1",artist:"Erik Satie",year:1890,dur:200,why:"Tre minuti e venti contro tre e mezzo di estrazione: il caff\u00e8 arriva dopo l'ultima nota."},
-"kasuya-46":{title:"Piano Phase",artist:"Steve Reich",year:1967,dur:1200,why:"Due esecuzioni identiche che si sfasano. Il 40/60 \u00e8 la stessa operazione sul gusto."},
-"nas-wbrc2026":{title:"Music for 18 Musicians (Pulses)",artist:"Steve Reich",year:1976,dur:340,why:"Il respiro come unit\u00e0 di misura. Percolazione e immersione dentro un solo impulso."},
-"hoffmann-1cup":{title:"Digital Love",artist:"Daft Punk",year:2001,dur:301,why:"Cinque versate uguali, un ritornello. La tazza singola del mattino."},
 };
 
 const METHODS=[
@@ -537,7 +547,7 @@ let rel=null;
 if(m.silent){rel=(lang==="en"?"Silence. The timer is the only score.":"Silenzio. Il timer \u00e8 l'unica partitura.");}
 else if(!m.dur){rel=(lang==="en"?"Indefinite duration \u2014 it repeats as long as the brew lasts.":"Durata indefinita \u2014 si ripete finch\u00e9 dura l'estrazione.");}
 else if(brew){const d=Math.abs(m.dur-brew);
-rel=m.dur>=brew?((lang==="en"?"Coffee ready ":"Il caff\u00e8 \u00e8 pronto ")+fmtDur(d)+(lang==="en"?" before the last note.":" prima dell'ultima nota."))
+rel=d===0?(lang==="en"?"Coffee and last note land together.":"Il caff\u00e8 e l'ultima nota arrivano insieme."):m.dur>=brew?((lang==="en"?"Coffee ready ":"Il caff\u00e8 \u00e8 pronto ")+fmtDur(d)+(lang==="en"?" before the last note.":" prima dell'ultima nota."))
 :((lang==="en"?"The piece ends ":"Il brano finisce ")+fmtDur(d)+(lang==="en"?" before the coffee.":" prima del caff\u00e8."));}
 const lnk={fontSize:15,padding:"8px 14px",borderRadius:12,border:"1px solid "+T.border,background:T.surfaceHi,color:T.textSec,textDecoration:"none",display:"inline-block"};
 const btn={fontSize:15,padding:"8px 14px",borderRadius:12,border:"1px solid "+T.border,background:"transparent",cursor:"pointer",fontFamily:"inherit"};
