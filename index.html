@@ -266,6 +266,33 @@ e("line",{key:9,x1:30,y1:90,x2:70,y2:90,stroke:"#7A9E7E",strokeWidth:2,strokeLin
 };
 
 // ===== DATA =====
+// ===== MUSICA: repertorio per metodo =====
+const MUSIC_METHOD={
+v60:{title:"Gnossienne n. 1",artist:"Erik Satie",year:1890,dur:200,why:"Senza battute e senza indicazione di tempo: durata pura, la stessa della versata."},
+switch:{title:"F\u00fcr Alina",artist:"Arvo P\u00e4rt",year:1976,dur:170,why:"Due voci, una melodica una triadica: chiuso e aperto, immersione e percolazione."},
+chemex:{title:"Clapping Music",artist:"Steve Reich",year:1972,dur:270,why:"Un solo pattern che slitta di un ottavo per volta. Il drawdown lungo del Chemex."},
+origami:{title:"Sonata V, da Sonatas and Interludes",artist:"John Cage",year:1948,dur:160,why:"Pianoforte preparato: il corpo estraneo fra le corde, come il filtro fra acqua e caff\u00e8."},
+aeropress:{title:"Sei bagatelle op. 9",artist:"Anton Webern",year:1913,dur:210,why:"Concisione estrema, ogni gesto detto una volta sola. Il metodo della pressata unica."},
+frenchpress:{title:"Opening, da Glassworks",artist:"Philip Glass",year:1982,dur:380,why:"Arpeggio immobile che non va da nessuna parte: la forma esatta dell'immersione."},
+gina:{title:"Study for Player Piano n. 3a",artist:"Conlon Nancarrow",year:1948,dur:180,why:"Precisione meccanica oltre la mano umana. Lo strumento che misura il flusso."},
+coldbrew:{title:"Vexations",artist:"Erik Satie",year:1893,dur:0,why:"Il tema si ripete 840 volte, nel silenzio pi\u00f9 profondo e nella pi\u00f9 seria immobilit\u00e0. Dodici-diciotto ore, come l'infusione."},
+moka:{title:"Concret PH",artist:"Iannis Xenakis",year:1958,dur:165,why:"Composto interamente col suono della brace che brucia. La moka sul fuoco."},
+cuccumella:{title:"Musique d'ameublement",artist:"Erik Satie",year:1917,dur:0,why:"Musica scritta per non essere ascoltata, presente mentre si fa altro. Desistenza in forma sonora."},
+ibrik:{title:"Density 21.5",artist:"Edgard Var\u00e8se",year:1936,dur:240,why:"Linea sola che sale e ricade. Le tre montate da cogliere prima del traboccamento."},
+jebena:{title:"In C",artist:"Terry Riley",year:1964,dur:2700,why:"53 moduli, nessun direttore, ognuno avanza col proprio passo e si finisce quando tutti sono arrivati. Abol, tona, baraka."},
+afa:{title:"Possente spirto, da L'Orfeo",artist:"Claudio Monteverdi",year:1607,dur:420,why:"Il canto con cui Orfeo ottiene il passaggio. Qui la musica smette di accompagnare e diventa il mezzo."},
+};
+
+// ===== MUSICA: accostamenti per singola ricetta (sovrascrivono il metodo) =====
+const MUSIC_RECIPE={
+"caffe-assente":{title:"4'33\"",artist:"John Cage",year:1952,dur:273,silent:true,why:"Nessun brano parte. Restano l'acqua, la stanza e chi manca."},
+"lucafausu-v60":{title:"Quattro pezzi su una nota sola, n. 1",artist:"Giacinto Scelsi",year:1959,dur:200,why:"Un'unica altezza scavata dall'interno finch\u00e9 diventa un mondo. Lu Cafausu."},
+"hoffmann-v60":{title:"Gnossienne n. 1",artist:"Erik Satie",year:1890,dur:200,why:"Tre minuti e venti contro tre e mezzo di estrazione: il caff\u00e8 arriva dopo l'ultima nota."},
+"kasuya-46":{title:"Piano Phase",artist:"Steve Reich",year:1967,dur:1200,why:"Due esecuzioni identiche che si sfasano. Il 40/60 \u00e8 la stessa operazione sul gusto."},
+"nas-wbrc2026":{title:"Music for 18 Musicians (Pulses)",artist:"Steve Reich",year:1976,dur:340,why:"Il respiro come unit\u00e0 di misura. Percolazione e immersione dentro un solo impulso."},
+"hoffmann-1cup":{title:"Digital Love",artist:"Daft Punk",year:2001,dur:301,why:"Cinque versate uguali, un ritornello. La tazza singola del mattino."},
+};
+
 const METHODS=[
 {id:"v60",name:"Hario V60",icon:"v60",color:"#C28B5A"},
 {id:"switch",name:"Hario Switch",icon:"switch",color:"#D4A574"},
@@ -483,6 +510,61 @@ const mObj=id=>METHODS.find(m=>m.id===id);
 
 // LocalStorage helper
 const LS={get:k=>{try{return JSON.parse(localStorage.getItem(k));}catch(e){return null;}},set:(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}}};
+
+// ===== MUSICA: risolutore + personalizzazione =====
+const MUSIC_KEY="cafausica_music";
+const getUserMusic=()=>LS.get(MUSIC_KEY)||{};
+const setUserMusic=(id,m)=>{const u=getUserMusic();if(m){u[id]=m;}else{delete u[id];}LS.set(MUSIC_KEY,u);};
+const musicBase=r=>r?(r.music||MUSIC_RECIPE[r.id]||MUSIC_METHOD[r.method]||null):null;
+const musicFor=r=>{if(!r)return null;const u=getUserMusic();return u[r.id]||musicBase(r);};
+const isUserMusic=r=>!!(r&&getUserMusic()[r.id]);
+const fmtDur=s=>{if(!s)return"\u2014";const m=Math.floor(s/60);return m+"'"+String(s%60).padStart(2,"0")+'"';};
+
+const MusicCard=function(props){
+const r=props.r,lang=props.lang;
+const[m,setM]=useState(()=>musicFor(r));
+const[ed,setEd]=useState(false);
+const[mt,setMt]=useState("");
+const[ma,setMa]=useState("");
+useEffect(()=>{setM(musicFor(r));setEd(false);},[r&&r.id]);
+if(!m)return null;
+const brew=(r.steps||[]).reduce((a,x)=>a+(x.duration||0),0);
+const mine=isUserMusic(r);
+const save=()=>{if(!mt.trim())return;const nm={title:mt.trim(),artist:ma.trim(),dur:0,why:""};setUserMusic(r.id,nm);setM(nm);setEd(false);setMt("");setMa("");};
+const reset=()=>{setUserMusic(r.id,null);setM(musicBase(r));setEd(false);};
+const q=encodeURIComponent(m.title+" "+(m.artist||""));
+let rel=null;
+if(m.silent){rel=(lang==="en"?"Silence. The timer is the only score.":"Silenzio. Il timer \u00e8 l'unica partitura.");}
+else if(!m.dur){rel=(lang==="en"?"Indefinite duration \u2014 it repeats as long as the brew lasts.":"Durata indefinita \u2014 si ripete finch\u00e9 dura l'estrazione.");}
+else if(brew){const d=Math.abs(m.dur-brew);
+rel=m.dur>=brew?((lang==="en"?"Coffee ready ":"Il caff\u00e8 \u00e8 pronto ")+fmtDur(d)+(lang==="en"?" before the last note.":" prima dell'ultima nota."))
+:((lang==="en"?"The piece ends ":"Il brano finisce ")+fmtDur(d)+(lang==="en"?" before the coffee.":" prima del caff\u00e8."));}
+const lnk={fontSize:15,padding:"8px 14px",borderRadius:12,border:"1px solid "+T.border,background:T.surfaceHi,color:T.textSec,textDecoration:"none",display:"inline-block"};
+const btn={fontSize:15,padding:"8px 14px",borderRadius:12,border:"1px solid "+T.border,background:"transparent",cursor:"pointer",fontFamily:"inherit"};
+const fld={padding:"10px 12px",borderRadius:10,border:"1px solid "+T.border,background:T.bg,color:T.text,fontSize:16,fontFamily:"inherit",width:"100%",boxSizing:"border-box"};
+const card={background:T.surface,borderRadius:12,padding:16,marginBottom:12,border:"1px solid "+T.border,boxShadow:"0 1px 3px rgba(0,0,0,0.08)",cursor:"default",overflow:"hidden"};
+return e("div",{style:card},
+e("div",{style:{fontSize:16,color:T.accent,fontWeight:700,letterSpacing:1,marginBottom:10}},(lang==="en"?"Music":"Musica")+(mine?(lang==="en"?" \u00b7 yours":" \u00b7 tua"):"")),
+e("div",{style:{paddingLeft:10,borderLeft:"2px solid "+T.accentDim}},
+e("div",{style:{fontSize:19,fontFamily:"'Cormorant Garamond',Georgia,serif",fontStyle:"italic",color:T.text,lineHeight:1.35}},m.title),
+e("div",{style:{fontSize:16,color:T.textSec,marginTop:2}},[m.artist,m.year].filter(Boolean).join(" \u00b7 ")),
+m.why?e("div",{style:{fontSize:15,color:T.textDim,marginTop:8,lineHeight:1.55}},m.why):null),
+e("div",{style:{marginTop:12,paddingTop:10,borderTop:"1px solid "+T.border,display:"flex",gap:14,alignItems:"baseline",flexWrap:"wrap"}},
+(!m.silent&&m.dur)?e("div",{style:{fontSize:17,fontWeight:600,color:T.accentLight,fontVariantNumeric:"tabular-nums"}},fmtDur(m.dur)):null,
+brew?e("div",{style:{fontSize:15,color:T.textDim,fontVariantNumeric:"tabular-nums"}},(lang==="en"?"brew ":"estrazione ")+fmtDur(brew)):null,
+rel?e("div",{style:{fontSize:15,color:T.textSec,flexBasis:"100%",lineHeight:1.5}},rel):null),
+e("div",{style:{marginTop:12,display:"flex",gap:8,flexWrap:"wrap"}},
+m.silent?null:e("a",{href:"https://open.spotify.com/search/"+q,target:"_blank",rel:"noopener",style:lnk},"Spotify"),
+m.silent?null:e("a",{href:"https://www.youtube.com/results?search_query="+q,target:"_blank",rel:"noopener",style:lnk},"YouTube"),
+e("button",{onClick:()=>setEd(!ed),style:{...btn,color:T.accent}},lang==="en"?"Choose yours":"Scegli la tua"),
+mine?e("button",{onClick:reset,style:{...btn,color:T.textDim}},lang==="en"?"Restore":"Ripristina"):null),
+ed?e("div",{style:{marginTop:12,display:"flex",flexDirection:"column",gap:8}},
+e("input",{value:mt,onChange:ev=>setMt(ev.target.value),placeholder:(lang==="en"?"Title":"Titolo"),style:fld}),
+e("input",{value:ma,onChange:ev=>setMa(ev.target.value),placeholder:(lang==="en"?"Artist":"Autore"),style:fld}),
+e("button",{onClick:save,style:{padding:"10px 16px",borderRadius:8,border:"none",background:T.accent,color:"#FFF",fontWeight:700,fontSize:16,cursor:"pointer",fontFamily:"inherit",width:"100%",letterSpacing:0.2}},lang==="en"?"Save":"Salva")):null
+);
+};
+
 
 // ===== APP =====
 function cl(min,vw,max){const w=Math.min(window.innerWidth,720);const v=w*vw/100;return Math.max(min,Math.min(max,v))+"px";}
@@ -1032,6 +1114,7 @@ sc.beans&&sc.beans.length>0&&e("div",{style:{...S.cd,background:T.surface,border
 e("div",{style:{fontSize:16,color:T.accent,fontWeight:700,letterSpacing:1,marginBottom:10}},(lang==="en"?"Suggested beans":"Caffè suggeriti")),
 sc.beans.map((b,i)=>e("div",{key:i,style:{fontSize:17,color:T.textSec,lineHeight:1.6,paddingLeft:10,borderLeft:"2px solid "+T.accentDim,marginBottom:6}},b)),
 ),
+e(MusicCard,{r:sc,lang:lang}),
 e("div",{style:{...S.cd,background:T.surface,border:"1px solid "+T.border,display:"flex",alignItems:"center",justifyContent:"center",gap:6,padding:"14px 8px",cursor:"default"}},
 e("button",{onClick:()=>setCc(Math.max(doseLo(selR.method),Math.round(((cc??selR.baseCoffee)-1)*10)/10)),style:{...S.ibSm,width:44,height:44,fontSize:22,fontWeight:400,letterSpacing:-3}},"‹‹"),
 e("button",{onClick:()=>setCc(Math.max(doseLo(selR.method),Math.round(((cc??selR.baseCoffee)-0.1)*10)/10)),style:{...S.ibSm,width:44,height:44,fontSize:26,fontWeight:400}},"‹"),
