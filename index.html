@@ -2,12 +2,12 @@
 <html lang="it" data-theme="light">
 <head>
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-<meta name="version" content="v20261025">
+<meta name="version" content="v20261026b">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-<meta name="version" content="v20261025">
+<meta name="version" content="v20261026b">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
@@ -539,6 +539,163 @@ const mObj=id=>METHODS.find(m=>m.id===id);
 
 // LocalStorage helper
 const LS={get:k=>{try{return JSON.parse(localStorage.getItem(k));}catch(e){return null;}},set:(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}}};
+// Mazzo: ogni elenco di frasi viene mescolato e pescato senza ripetizioni; finito il giro si rimescola.
+// Lo stato resta sul telefono, così il giro continua anche dopo aver chiuso l'app.
+const DECK={next:function(key,n){
+if(!n||n<1)return 0;
+var st=LS.get("deck_"+key);
+if(!st||st.n!==n||!Array.isArray(st.o)||st.o.length!==n||typeof st.i!=="number"||st.i>=n){
+var o=[];for(var a=0;a<n;a++)o.push(a);
+for(var b=n-1;b>0;b--){var j=Math.floor(Math.random()*(b+1));var t=o[b];o[b]=o[j];o[j]=t;}
+var last=st&&typeof st.last==="number"?st.last:-1;
+if(n>1&&o[0]===last){var t2=o[0];o[0]=o[n-1];o[n-1]=t2;}
+st={n:n,o:o,i:0,last:last};
+}
+var v=st.o[st.i];st.i++;st.last=v;LS.set("deck_"+key,st);
+return (typeof v==="number"&&v>=0&&v<n)?v:Math.floor(Math.random()*n);
+}};
+// ===== IL TUO CAFFÈ: riconoscimento dell'etichetta e ricette su misura =====
+// [id, nome IT, nome EN, famiglia aromatica, densità (-1 morbida, 0, 1 dura), parole chiave]
+const CAF_ORIGINI=[
+["etiopia","Etiopia","Ethiopia","floreale",1,["etiopia","ethiopia","yirgacheffe","yirgachefe","guji","sidama","sidamo","harrar","harar","limu","jimma","kaffa","gedeb","bensa","chelbesa","worka","kochere"]],
+["kenya","Kenya","Kenya","fruttato",1,["kenya","nyeri","kirinyaga","embu","murang","kiambu"]],
+["ruanda","Ruanda","Rwanda","fruttato",1,["ruanda","rwanda"]],
+["burundi","Burundi","Burundi","fruttato",1,["burundi","kayanza","ngozi"]],
+["tanzania","Tanzania","Tanzania","fruttato",1,["tanzania","kilimanjaro","mbeya"]],
+["uganda","Uganda","Uganda","equilibrato",0,["uganda","mount elgon","bugisu"]],
+["yemen","Yemen","Yemen","fruttato",1,["yemen","haraz"]],
+["colombia","Colombia","Colombia","equilibrato",1,["colombia","huila","nariño","narino","cauca","tolima","antioquia","quindio","quindío","santander"]],
+["peru","Perù","Peru","equilibrato",0,["perù","peru","cajamarca","cusco"]],
+["bolivia","Bolivia","Bolivia","equilibrato",1,["bolivia","caranavi"]],
+["ecuador","Ecuador","Ecuador","equilibrato",1,["ecuador","loja","pichincha"]],
+["brasile","Brasile","Brazil","cioccolato",-1,["brasile","brazil","brasil","cerrado","sul de minas","mogiana","minas gerais"]],
+["guatemala","Guatemala","Guatemala","equilibrato",1,["guatemala","huehuetenango","acatenango","atitlan","atitlán"]],
+["honduras","Honduras","Honduras","equilibrato",0,["honduras","marcala"]],
+["elsalvador","El Salvador","El Salvador","equilibrato",0,["el salvador","apaneca"]],
+["costarica","Costa Rica","Costa Rica","equilibrato",1,["costa rica","tarrazu","tarrazú","west valley"]],
+["panama","Panama","Panama","floreale",1,["panama","panamá","boquete"]],
+["messico","Messico","Mexico","equilibrato",0,["messico","mexico","méxico","chiapas","oaxaca","veracruz"]],
+["nicaragua","Nicaragua","Nicaragua","equilibrato",0,["nicaragua","jinotega","matagalpa","nueva segovia"]],
+["indonesia","Indonesia","Indonesia","cioccolato",-1,["indonesia","sumatra","java","giava","sulawesi","aceh","gayo"]],
+["india","India","India","cioccolato",-1,["india","karnataka","chikmagalur","monsoon"]],
+["png","Papua Nuova Guinea","Papua New Guinea","equilibrato",0,["papua"]],
+["cina","Cina (Yunnan)","China (Yunnan)","equilibrato",0,["yunnan"]]
+];
+const CAF_PROCESSI=[
+["lavato","Lavato","Washed",["washed","lavato","lavata","wet process"]],
+["honey","Honey","Honey",["honey","miele","pulped natural","semi-washed","semilavato","semi lavato"]],
+["naturale","Naturale","Natural",["natural","naturale","dry process","sun dried","sun-dried"]],
+["anaerobico","Anaerobico o fermentato","Anaerobic or fermented",["anaerob","carbonic","carbonica","macerazione","maceration","fermentat","fermented","thermal shock","shock termico","yeast","lievit","lactic","lattic","koji"]],
+["cofermentato","Cofermentato o infuso","Co-fermented or infused",["coferment","co-ferment","co ferment","infus"]]
+];
+const CAF_TOSTATURE=[["chiara","Chiara","Light"],["media","Media","Medium"],["scura","Scura","Dark"]];
+const CAF_OBIETTIVI=[["chiarezza","Chiarezza e acidità","Clarity and acidity"],["equilibrio","Equilibrio","Balance"],["corpo","Corpo","Body"],["freddo","Freddo","Cold"]];
+const CAF_VARIETA=["gesha","geisha","sidra","pink bourbon","wush wush","sl28","sl34","pacamara","laurina","eugenioides","maragogype","typica","bourbon","caturra","catuai","castillo","74110","74158","heirloom"];
+const CAF_MESI={gen:1,jan:1,feb:2,mar:3,apr:4,mag:5,may:5,giu:6,jun:6,lug:7,jul:7,ago:8,aug:8,set:9,sep:9,ott:10,oct:10,nov:11,dic:12,dec:12};
+
+const cafGiorni=(iso)=>{if(!iso)return null;const d=new Date(iso+"T12:00:00");if(isNaN(d))return null;return Math.floor((Date.now()-d.getTime())/86400000);};
+const cafIso=(y,m,d)=>{if(y<100)y+=2000;if(m<1||m>12||d<1||d>31)return null;const iso=y+"-"+String(m).padStart(2,"0")+"-"+String(d).padStart(2,"0");const g=cafGiorni(iso);return (g!==null&&g>=-1&&g<=400)?iso:null;};
+
+const cafRiconosci=(testo)=>{
+const t=" "+(testo||"").toLowerCase().replace(/\s+/g," ")+" ";const out={};
+let best=null,bestPos=1e9;
+CAF_ORIGINI.forEach(o=>{o[5].forEach(k=>{const p=t.indexOf(k);if(p>=0&&p<bestPos){bestPos=p;best=o[0];}});});
+if(best)out.origine=best;
+for(let i=CAF_PROCESSI.length-1;i>=0;i--){const pr=CAF_PROCESSI[i];if(pr[3].some(k=>t.indexOf(k)>=0)){out.processo=pr[0];break;}}
+if(/\b(dark|scur[ao]|french roast|italian roast)\b/.test(t))out.tostatura="scura";
+else if(/\b(light|chiar[ao]|nordic|filter roast)\b/.test(t))out.tostatura="chiara";
+else if(/\b(medium|medi[ao]|omni)\b/.test(t))out.tostatura="media";
+let data=null,m;
+const re1=/\b(\d{1,2})[\/.\-](\d{1,2})[\/.\-](\d{2,4})\b/g;
+while(!data&&(m=re1.exec(t)))data=cafIso(+m[3],+m[2],+m[1]);
+const re2=/\b(\d{4})-(\d{1,2})-(\d{1,2})\b/g;
+while(!data&&(m=re2.exec(t)))data=cafIso(+m[1],+m[2],+m[3]);
+const re3=/\b(\d{1,2})\s*(gen|feb|mar|apr|mag|may|giu|jun|lug|jul|ago|aug|set|sep|ott|oct|nov|dic|dec)[a-z]*\.?\s*(\d{2,4})?\b/g;
+while(!data&&(m=re3.exec(t))){const now=new Date();data=cafIso(m[3]?+m[3]:now.getFullYear(),CAF_MESI[m[2]],+m[1]);}
+if(data)out.data=data;
+const v=CAF_VARIETA.find(k=>t.indexOf(k)>=0);if(v)out.varieta=v.charAt(0).toUpperCase()+v.slice(1);
+return out;
+};
+
+const CAF_FILTRO=["v60","chemex","origami","afa","gina"];
+const cafOrig=(id)=>CAF_ORIGINI.find(o=>o[0]===id);
+
+const cafPunteggio=(caf,r)=>{
+const m=r.method;let s=0;const has=(arr)=>arr.indexOf(m)>=0;
+if(caf.strumenti&&caf.strumenti.length&&caf.strumenti.indexOf(m)<0)return null;
+if(caf.obiettivo==="freddo"){if(m!=="coldbrew")return null;}else if(m==="coldbrew")return null;
+if(r.id==="jebena-trad"&&!(caf.strumenti||[]).includes("jebena"))s-=3;
+if(caf.tostatura==="chiara"){if(has(["v60","chemex","origami","switch","aeropress","afa","gina"]))s+=3;if(r.temperature>=94)s+=1;}
+else if(caf.tostatura==="media"){s+=2;if(has(["v60","switch","aeropress","frenchpress","cuccumella","afa"]))s+=1;}
+else if(caf.tostatura==="scura"){if(has(["frenchpress","moka","cuccumella","ibrik","aeropress"]))s+=3;if(has(["v60","chemex","origami"]))s-=1;if(r.temperature>0&&r.temperature<=92)s+=1;}
+const p=caf.processo;
+if(p==="lavato"&&has(["v60","chemex","origami","afa","gina"]))s+=2;
+if(p==="honey"&&has(["v60","switch","aeropress","origami","afa"]))s+=2;
+if(p==="naturale"&&has(["switch","aeropress","frenchpress","cuccumella","chemex"]))s+=2;
+if(p==="anaerobico"&&has(["switch","aeropress","chemex","frenchpress"]))s+=2;
+if(p==="cofermentato"){if(has(["chemex","switch","aeropress"]))s+=2;if(m==="coldbrew")s+=1;}
+const o=cafOrig(caf.origine);
+if(o){if((o[3]==="floreale"||o[3]==="fruttato")&&has(["v60","chemex","origami","afa"]))s+=1;
+if(o[3]==="cioccolato"&&has(["frenchpress","moka","cuccumella","aeropress"]))s+=2;
+if(o[3]==="equilibrato"&&has(["aeropress","switch","v60","cuccumella"]))s+=1;}
+if(caf.varieta&&/gesha|geisha|sidra|pink bourbon|wush/i.test(caf.varieta)&&has(["v60","chemex","origami"]))s+=1;
+const g=caf.obiettivo;
+if(g==="chiarezza"){if(has(["v60","chemex","origami"]))s+=3;if(r.temperature>=94)s+=1;}
+if(g==="equilibrio"&&has(["switch","aeropress","afa","cuccumella","gina"]))s+=2;
+if(g==="corpo"&&has(["frenchpress","moka","cuccumella","ibrik"]))s+=3;
+if(g==="freddo"){s+=3;if(caf.tostatura==="chiara"&&/japanese|flash/.test(r.id))s+=2;}
+return s;
+};
+
+const cafRicette=(caf,ALL)=>{
+if(!caf.origine&&!caf.processo&&!caf.tostatura&&!caf.obiettivo)return [];
+const scored=[];ALL.forEach(r=>{const sc=cafPunteggio(caf,r);if(sc!==null)scored.push([sc,r]);});
+scored.sort((a,b)=>b[0]-a[0]);
+const out=[],per={};
+for(const [sc,r] of scored){if(out.length>=4)break;if((per[r.method]||0)>=2)continue;per[r.method]=(per[r.method]||0)+1;out.push(r);}
+return out;
+};
+
+const cafPerche=(m,lang)=>{const en=lang==="en";
+if(CAF_FILTRO.indexOf(m)>=0)return en?"A paper filter gives clarity and lets aromas and acidity come forward.":"Il filtro di carta dà pulizia e fa emergere aromi e acidità.";
+if(m==="switch")return en?"The Switch steeps, then drains through paper: it rounds out loaded coffees and keeps the cup clean.":"Lo Switch lascia il caffè in infusione e poi lo filtra: arrotonda i caffè più carichi e tiene pulita la tazza.";
+if(m==="aeropress")return en?"AeroPress holds body and clarity together and forgives difficult coffees.":"L'AeroPress tiene insieme corpo e pulizia ed è indulgente con i caffè difficili.";
+if(m==="frenchpress"||m==="cuccumella")return en?"A long immersion brings body and sweetness.":"L'immersione lunga dà corpo e dolcezza.";
+if(m==="moka"||m==="ibrik"||m==="jebena")return en?"A concentrated, full-bodied brew, suited to deeper roasts.":"Un'estrazione concentrata e corposa, adatta alle tostature più scure.";
+if(m==="coldbrew")return en?"Cold extraction brings out sweetness and fruit, without bitterness.":"L'estrazione a freddo fa uscire dolcezza e frutta, senza amaro.";
+return "";};
+
+const cafAggiusta=(caf,r,lang)=>{const en=lang==="en";
+let dT=0,dC=0;const note=[];
+if(caf.tostatura==="chiara"){dT+=1;dC-=1;}
+if(caf.tostatura==="scura"){dT-=4;dC+=2;note.push(en?"Dark roasts turn bitter easily: cooler water and a coarser grind.":"Le tostature scure diventano amare facilmente: acqua più fresca e macinatura più grossa.");}
+const p=caf.processo;
+if(p==="honey")dT-=1;
+if(p==="naturale"){dT-=2;dC+=1;note.push(en?"Naturals extract fast: cooler water and a slightly coarser grind avoid heavy notes.":"I naturali estraggono in fretta: acqua più fresca e macinatura un po' più grossa evitano note pesanti.");}
+if(p==="anaerobico"){dT-=3;dC+=1;note.push(en?"Heavy fermentations turn boozy and bitter quickly: cooler water, gentle agitation.":"Le fermentazioni spinte diventano presto alcoliche e amare: acqua più fresca e mano leggera quando agiti.");}
+if(p==="cofermentato"){dT-=4;dC+=1;note.push(en?"Co-fermented and infused coffees: cool water and little agitation keep the added aroma in check and let the coffee speak.":"Cofermentati e infusi: acqua fresca e poca agitazione tengono a bada l'aroma aggiunto e lasciano parlare il caffè.");}
+if(p==="lavato"&&caf.tostatura==="chiara")note.push(en?"A light washed coffee takes very hot water: that is where florals and citrus come out.":"Un lavato chiaro regge acqua molto calda: è lì che escono floreale e agrumi.");
+const o=cafOrig(caf.origine);
+if(o&&o[4]===1&&caf.tostatura!=="scura")dT+=1;
+if(o&&o[4]===-1)dT-=1;
+const g=cafGiorni(caf.data);
+if(g!==null&&g>=0){
+if(g<4)note.push(en?("Roasted "+g+" days ago: still full of gas. Lengthen the bloom by 15–20 seconds and pour more slowly."):("Tostato da "+g+" giorni: ancora pieno di gas. Allunga il bloom di 15–20 secondi e versa più piano."));
+else if(g<8)note.push(en?(g+" days from roast: nearly ready, the bloom will still foam a lot."):(g+" giorni dalla tostatura: quasi pronto, il bloom farà ancora molta schiuma."));
+else if(g<=35)note.push(en?(g+" days from roast: right in its best window."):(g+" giorni dalla tostatura: è nella sua finestra migliore."));
+else if(g<=60){dC-=1;note.push(en?(g+" days from roast: aroma is starting to fade; I made the grind a little finer."):(g+" giorni dalla tostatura: l'aroma comincia a calare; ho reso la macinatura un po' più fine."));}
+else{dC-=2;note.push(en?("More than two months from roast: expect a less fragrant cup; I made the grind finer to compensate."):("Più di due mesi dalla tostatura: aspettati una tazza meno profumata; ho reso la macinatura più fine per compensare."));}
+}
+dT=Math.max(-6,Math.min(2,dT));dC=Math.max(-2,Math.min(3,dC));
+const noTemp=["moka","ibrik","coldbrew","jebena","cuccumella"].indexOf(r.method)>=0||!(r.temperature>0);
+const newT=noTemp?r.temperature:Math.max(Math.min(85,r.temperature),Math.min(Math.max(100,r.temperature),r.temperature+dT));
+const realT=noTemp?0:newT-r.temperature;
+const head=[];
+if(realT!==0)head.push(en?("Water at "+newT+"° instead of "+r.temperature+"°."):("Acqua a "+newT+"° invece di "+r.temperature+"°."));
+if(dC!==0)head.push(en?("Grind "+Math.abs(dC)+" click"+(Math.abs(dC)>1?"s ":" ")+(dC>0?"coarser":"finer")+" on the Comandante."):("Macinatura "+Math.abs(dC)+" click più "+(dC>0?"grossa":"fine")+" sul Comandante."));
+return {dT:realT,dC:dC,newT:newT,clicks:Math.max(1,(r.clicks||0)+dC),microns:Math.max(100,(r.microns||0)+dC*30),note:head.concat(note)};
+};
+
 
 // ===== MUSICA: risolutore + personalizzazione =====
 const MUSIC_KEY="cafausica_music";
@@ -613,8 +770,8 @@ const phrases=[
 "Gemma individuata nel pattume.",
 "Il mondo nell\u2019istante in cui si lascia guardare dal suo stesso orlo.",
 ];
-const[i,setI]=useState(()=>Math.floor(Math.random()*phrases.length));
-useEffect(()=>{const iv=setInterval(()=>setI(p=>(p+1)%phrases.length),6000);return()=>clearInterval(iv);},[]);
+const[i,setI]=useState(()=>DECK.next("sottotitolo",phrases.length));
+useEffect(()=>{const iv=setInterval(()=>setI(DECK.next("sottotitolo",phrases.length)),6000);return()=>clearInterval(iv);},[]);
 return e("div",{key:i,style:{fontSize:18,fontWeight:400,fontFamily:"'Literata',Georgia,serif",fontStyle:"italic",color:T.textSec,textAlign:"center",animation:"fadeInstruction 1s ease-out",lineHeight:1.6,padding:"0 8px"}},phrases[i]);
 };
 
@@ -737,7 +894,7 @@ var _vi=useState(false),vInfo=_vi[0],setVInfo=_vi[1];
 var _p = useState("intro"), phase = _p[0], setPhase = _p[1];
 var _m = useState(""), msg = _m[0], setMsg = _m[1];
 var draw = function() {
-setMsg((props.ven||VENTURA)[Math.floor(Math.random() * (props.ven||VENTURA).length)]);
+setMsg((props.ven||VENTURA)[DECK.next("ventura",(props.ven||VENTURA).length)]);
 setPhase("reveal");
 };
 if (phase === "reveal") return e("div", {style: {minHeight: "100dvh", display: "flex", flexDirection: "column", background: T.bg, padding: "0 32px"}},
@@ -799,8 +956,8 @@ const phrases=[
 ["Niente.","Emilio Corti"],
 ["Giglio.","Daniela Spagna Musso"],
 ];
-const[pi,setPi]=useState(()=>Math.floor(Math.random()*phrases.length));
-useEffect(()=>{const iv=setInterval(()=>setPi(p=>(p+1)%phrases.length),10000);return()=>clearInterval(iv);},[]);
+const[pi,setPi]=useState(()=>DECK.next("festa",phrases.length));
+useEffect(()=>{const iv=setInterval(()=>setPi(DECK.next("festa",phrases.length)),10000);return()=>clearInterval(iv);},[]);
 const[txt,author]=phrases[pi];
 const fg=dark?"rgba(237,237,236,":"rgba(27,27,24,";
 const puff=function(delay,dur,x,size){
@@ -866,6 +1023,9 @@ const[advProc,setAdvProc]=useState(null);
 const[advGoal,setAdvGoal]=useState(null);
 const[fromAdv,setFromAdv]=useState(false);
 const[bkMsg,setBkMsg]=useState(null);
+const[caf,setCafRaw]=useState(()=>Object.assign({testo:"",origine:"",processo:"",tostatura:"",data:"",obiettivo:"",varieta:"",strumenti:[]},LS.get("il_mio_caffe")||{}));
+const setCaf=(patch)=>{setCafRaw(prev=>{const n=Object.assign({},prev,patch);LS.set("il_mio_caffe",n);return n;});};
+const[cafMsg,setCafMsg]=useState(null);
 const sH=h=>{setHist(h);LS.set("brew_history",h);};
 const sC=c=>{setCustomR(c);LS.set("custom_recipes",c);};
 // ===== BACKUP: esporta / importa diario, ricette personali, musiche scelte =====
@@ -945,61 +1105,6 @@ return()=>clearInterval(ir.current);
 const start=()=>{setCs(0);setSe(0);setTe(0);setRun(true);setDone(false);setRat(0);setNotes("");setView("brew");beep(660,200);wakeLockOn();};
 const skip=()=>{const r=gS();if(!r)return;if(cs<r.steps.length-1){dBeep();setCs(c=>c+1);setSe(0);const nextDur=r.steps[cs+1]?.duration;if(nextDur>0)setRun(true);}else{tBeep();setRun(false);setDone(true);wakeLockOff();}};
 
-const getAdvice=()=>{
-if(!advRoast&&!advProc&&!advGoal)return null;
-const scores={};
-ALL_R.forEach(r=>{
-let s=0;
-const m=r.method;
-// ROAST matching
-if(advRoast==="light"){
-if(["v60","chemex","aeropress","afa"].includes(m))s+=3;
-if(["coldbrew"].includes(m))s+=2;
-if(r.temperature<=94)s+=1;
-if(r.id==="kasuya-46"||r.id==="hoffmann-v60"||r.id==="chemex-bypass"||r.id==="peng-wbrc2025")s+=2;
-}else if(advRoast==="medium"){
-s+=2; // medium works everywhere
-if(["v60","aeropress","frenchpress","cuccumella","afa"].includes(m))s+=1;
-}else if(advRoast==="dark"){
-if(["frenchpress","moka","cuccumella","ibrik"].includes(m))s+=3;
-if(["aeropress"].includes(m))s+=2;
-if(r.temperature>=96)s+=1;
-if(r.id==="cucc-trad"||r.id==="moka-trad"||r.id==="classic-fp")s+=2;
-}
-// PROCESS matching
-if(advProc==="washed"){
-if(["v60","chemex","afa"].includes(m))s+=2;
-if(r.id==="hoffmann-v60"||r.id==="chemex-classic"||r.id==="hoffmann-chemex")s+=1;
-}else if(advProc==="natural"){
-if(["aeropress","frenchpress","cuccumella"].includes(m))s+=2;
-if(r.id==="hoffmann-ap"||r.id==="hoffmann-fp"||r.id==="hedrick-121")s+=1;
-}else if(advProc==="honey"){
-if(["v60","aeropress","afa"].includes(m))s+=2;
-if(r.id==="kasuya-46"||r.id==="lucafausu-v60"||r.id==="wendelboe-ap")s+=1;
-}
-// GOAL matching
-if(advGoal==="bright"){
-if(["v60","chemex"].includes(m))s+=3;
-if(r.temperature<=96)s+=1;
-if(r.id==="hoffmann-v60"||r.id==="peng-wbrc2025"||r.id==="chemex-bypass"||r.id==="japanese-iced")s+=2;
-}else if(advGoal==="balanced"){
-if(["v60","aeropress","afa","cuccumella"].includes(m))s+=2;
-if(r.id==="kasuya-46"||r.id==="hoffmann-ap"||r.id==="afa-base"||r.id==="winton-5pour")s+=1;
-}else if(advGoal==="body"){
-if(["frenchpress","moka","cuccumella","ibrik"].includes(m))s+=3;
-if(r.id==="hoffmann-fp"||r.id==="cucc-trad"||r.id==="moka-trad"||r.id==="lucafausu-ap-inv")s+=2;
-}else if(advGoal==="cold"){
-if(["coldbrew"].includes(m))s+=5;
-if(r.id==="japanese-iced"||r.id==="cucc-gesha-iced")s+=4;
-}
-// Exclude ritual/ceremony from casual recommendations
-if(r.id==="jebena-trad")s-=3;
-scores[r.id]=s;
-});
-return ALL_R.filter(r=>scores[r.id]>=4).sort((a,b)=>scores[b.id]-scores[a.id]).slice(0,5);
-};
-
-
 const grindFeel=(microns)=>{
 if(lang==="en"){
 if(microns<=150) return "Talc, impalpable powder between fingers";
@@ -1064,7 +1169,7 @@ METHODS.map(m=>{const cnt=ALL_R.filter(r=>r.method===m.id).length;return e("div"
 ),
 e("div",{style:{padding:"8px 16px 4px"}},e("div",{onClick:()=>{setAdvRoast(null);setAdvProc(null);setAdvGoal(null);setView("advisor");},style:{...S.cd,background:T.surface,border:"1px dashed "+T.accent,display:"flex",alignItems:"center",gap:12,cursor:"pointer"}},
 e("div",{style:{fontSize:24,width:28,textAlign:"center"}},"☕"),
-e("div",null,e("div",{style:{fontWeight:700,fontSize:TF.bLg(),color:T.accent}},(lang==="en"?"Find Your Recipe":"Trova la tua Ricetta")),e("div",{style:{fontSize:16,color:T.textSec}},(lang==="en"?"Choose roast, process, taste":"Scegli tostatura, processo, gusto"))),
+e("div",null,e("div",{style:{fontWeight:700,fontSize:TF.bLg(),color:T.accent}},(lang==="en"?"Your coffee":"Il tuo caffè")),e("div",{style:{fontSize:16,color:T.textSec}},(lang==="en"?"Type or paste the label, get the right recipe":"Scrivi o incolla l'etichetta, ti propongo la ricetta"))),
 e("div",{style:{marginLeft:"auto"}},ICO.right(16)),
 )),
 hist.length>0&&e("div",{style:{padding:"14px 16px 4px"}},e("div",{onClick:()=>setView("history"),style:{...S.cd,background:T.surface,border:"1px solid "+T.border,display:"flex",alignItems:"center",gap:12}},ICO.history(20),e("div",null,e("div",{style:{fontWeight:700,fontSize:TF.bLg()}},(lang==="en"?"Your Brews":"I tuoi Brew")),e("div",{style:{fontSize:16,color:T.textSec}},hist.length+(lang==="en"?" saved":" salvati"))),e("div",{style:{marginLeft:"auto"}},ICO.right(16)))),
@@ -1106,61 +1211,63 @@ e("a",{href:"https://lucafausu.wordpress.com/",target:"_blank",rel:"noopener",st
 )),
 );
 
-// ADVISOR
+// IL TUO CAFFÈ (sostituisce "Trova la tua ricetta")
 if(view==="advisor"){
-const results=getAdvice();
-const btnSt=(active)=>({padding:"10px 16px",borderRadius:12,border:"2px solid "+(active?T.accent:T.border),
-background:active?T.accent+"20":T.surface,color:active?T.accent:T.textSec,
-fontWeight:active?700:500,fontSize:TF.bMd(),cursor:"pointer",textAlign:"center",flex:1});
+const en=lang==="en";
+const lista=cafRicette(caf,ALL_R);
+const chip=(active)=>({padding:"10px 14px",borderRadius:12,border:"2px solid "+(active?T.accent:T.border),background:active?T.accent+"20":T.surface,color:active?T.accent:T.textSec,fontWeight:active?700:500,fontSize:16,cursor:"pointer",minHeight:44});
+const etichetta=(it,eng)=>e("div",{style:{fontSize:16,color:T.textSec,fontWeight:700,marginBottom:8}},en?eng:it);
+const giorni=cafGiorni(caf.data);
+const riconosci=()=>{const f=cafRiconosci(caf.testo);const k=Object.keys(f);
+if(!k.length){setCafMsg(en?"I couldn't recognise anything: choose below.":"Non ho riconosciuto nulla: scegli tu qui sotto.");return;}
+setCaf(f);const parti=[];
+if(f.origine){const o=cafOrig(f.origine);parti.push(en?o[2]:o[1]);}
+if(f.processo){const p=CAF_PROCESSI.find(x=>x[0]===f.processo);parti.push((en?p[2]:p[1]).toLowerCase());}
+if(f.tostatura){const q=CAF_TOSTATURE.find(x=>x[0]===f.tostatura);parti.push(en?(q[2].toLowerCase()+" roast"):("tostatura "+q[1].toLowerCase()));}
+if(f.varieta)parti.push(f.varieta);
+if(f.data)parti.push((en?"roasted ":"tostato il ")+f.data.split("-").reverse().join("/"));
+setCafMsg((en?"Recognised: ":"Riconosciuto: ")+parti.join(", ")+".");};
+const apri=(r)=>{const ad=cafAggiusta(caf,r,lang);setSelR(Object.assign({},r,{temperature:ad.newT,clicks:ad.clicks,microns:ad.microns,adatta:ad}));setCc(r.baseCoffee);setFromAdv(true);setView("recipe");};
+const descr=[];
+if(caf.origine){const o=cafOrig(caf.origine);if(o)descr.push(en?o[2]:o[1]);}
+if(caf.varieta)descr.push(caf.varieta);
+if(caf.processo){const p=CAF_PROCESSI.find(x=>x[0]===caf.processo);if(p)descr.push((en?p[2]:p[1]).toLowerCase());}
+if(caf.tostatura){const q=CAF_TOSTATURE.find(x=>x[0]===caf.tostatura);if(q)descr.push(en?(q[2].toLowerCase()+" roast"):("tostatura "+q[1].toLowerCase()));}
+if(giorni!==null&&giorni>=0)descr.push(giorni+(en?" days from roast":" giorni dalla tostatura"));
+const primo=lista[0];const ad1=primo?cafAggiusta(caf,primo,lang):null;
 return e("div",{style:{...S.pg,background:T.bg,color:T.text}},
-e("div",{style:S.hd},e("button",{onClick:home,style:S.ibBack},ICO.back(22,T.accent),e("span",{style:{fontSize:16,fontWeight:700}},(lang==="en"?"Back":"Indietro"))),e("span",{style:{...S.ht,fontSize:TF.md()}},(lang==="en"?"Find Your Recipe":"Trova la tua Ricetta"))),
+e("div",{style:S.hd},e("button",{onClick:home,style:S.ibBack},ICO.back(22,T.accent),e("span",{style:{fontSize:16,fontWeight:700}},(en?"Back":"Indietro"))),e("span",{style:{...S.ht,fontSize:TF.md()}},(en?"Your coffee":"Il tuo caffè"))),
 e("div",{style:{padding:20}},
-
-e("div",{style:{marginBottom:20}},
-e("div",{style:{fontSize:TF.bSm(),color:T.textDim,fontWeight:600,letterSpacing:"0.08em",marginBottom:10}},(lang==="en"?"Roast":"Tostatura")),
-e("div",{style:{display:"flex",gap:8}},
-e("button",{onClick:()=>setAdvRoast(advRoast==="light"?null:"light"),style:btnSt(advRoast==="light")},"Chiara"),
-e("button",{onClick:()=>setAdvRoast(advRoast==="medium"?null:"medium"),style:btnSt(advRoast==="medium")},"Media"),
-e("button",{onClick:()=>setAdvRoast(advRoast==="dark"?null:"dark"),style:btnSt(advRoast==="dark")},"Scura"),
-),
-),
-
-e("div",{style:{marginBottom:20}},
-e("div",{style:{fontSize:TF.bSm(),color:T.textDim,fontWeight:600,letterSpacing:"0.08em",marginBottom:10}},(lang==="en"?"Process":"Processo")),
-e("div",{style:{display:"flex",gap:8}},
-e("button",{onClick:()=>setAdvProc(advProc==="washed"?null:"washed"),style:btnSt(advProc==="washed")},"Lavato"),
-e("button",{onClick:()=>setAdvProc(advProc==="natural"?null:"natural"),style:btnSt(advProc==="natural")},"Naturale"),
-e("button",{onClick:()=>setAdvProc(advProc==="honey"?null:"honey"),style:btnSt(advProc==="honey")},"Honey"),
-),
-),
-
-e("div",{style:{marginBottom:20}},
-e("div",{style:{fontSize:TF.bSm(),color:T.textDim,fontWeight:600,letterSpacing:"0.08em",marginBottom:10}},(lang==="en"?"What you seek in the cup":"Cosa cerchi in tazza")),
-e("div",{style:{display:"flex",gap:8,flexWrap:"wrap"}},
-e("button",{onClick:()=>setAdvGoal(advGoal==="bright"?null:"bright"),style:btnSt(advGoal==="bright")},"Acidità"),
-e("button",{onClick:()=>setAdvGoal(advGoal==="balanced"?null:"balanced"),style:btnSt(advGoal==="balanced")},"Bilanciato"),
-e("button",{onClick:()=>setAdvGoal(advGoal==="body"?null:"body"),style:btnSt(advGoal==="body")},"Corpo"),
-e("button",{onClick:()=>setAdvGoal(advGoal==="cold"?null:"cold"),style:btnSt(advGoal==="cold")},"Freddo"),
-),
-),
-
-(advRoast||advProc||advGoal)?e("div",null,
-e("div",{style:{fontSize:TF.bSm(),color:T.textDim,fontWeight:600,letterSpacing:"0.08em",marginBottom:12}},(lang==="en"?"Recommended recipes":"Ricette consigliate")),
-results&&results.length>0?results.map(r=>{
-const mo=mObj(r.method);
-return e("div",{key:r.id,onClick:()=>{setSelR(r);setCc(r.baseCoffee);setFromAdv(true);setView("recipe");},style:{...S.cd,background:T.surface,border:"1px solid "+T.border,display:"flex",alignItems:"center",gap:12,cursor:"pointer",marginBottom:4}},
-mo&&Ic(mo.icon,36),
-e("div",{style:{flex:1}},
-e("div",{style:{fontWeight:700,fontSize:TF.bLg()}},r.name),
-e("div",{style:{fontSize:16,color:T.textSec}},r.baseCoffee+"g · "+r.baseWater+"ml · "+r.temperature+"°C · "+r.clicks+" click"),
-),
-e("div",{style:{marginLeft:"auto"}},ICO.right(16)),
-);
-}):e("div",{style:{color:T.textSec,fontSize:TF.bMd(),textAlign:"center",padding:20}},(lang==="en"?"Select at least one":"Seleziona almeno un criterio")),
-e("button",{onClick:()=>{setAdvRoast(null);setAdvProc(null);setAdvGoal(null);},style:{...S.bt(T.surface,T.textSec),marginTop:12,border:"1px solid "+T.border,fontSize:16}},"Reset"),
-):e("div",{style:{color:T.textSec,fontSize:TF.bMd(),textAlign:"center",padding:30,lineHeight:1.6}},(lang==="en"?"Select roast, process or what you seek. I\u2019ll suggest the best recipes.":"Seleziona tostatura, processo o quello che cerchi in tazza. Ti suggerirò le ricette più adatte.")),
-),
-);
+e("div",{style:{fontSize:17,color:T.textSec,lineHeight:1.5,marginBottom:12}},en?"Type the coffee you have at home, or paste the text from its label: I'll recognise origin, process, roast and date.":"Scrivi il caffè che hai in casa, oppure incolla il testo dell'etichetta: riconosco origine, lavorazione, tostatura e data."),
+e("textarea",{value:caf.testo,onChange:ev=>setCaf({testo:ev.target.value}),rows:3,placeholder:en?"e.g. Ethiopia Yirgacheffe washed, light roast, roasted 15/10/2026":"Es: Etiopia Yirgacheffe lavato, tostatura chiara, tostato il 15/10/2026",style:{width:"100%",boxSizing:"border-box",padding:"12px 14px",borderRadius:12,border:"1px solid "+T.border,background:T.surface,color:T.text,fontSize:17,lineHeight:1.4,fontFamily:"inherit",resize:"vertical"}}),
+e("button",{onClick:riconosci,style:{...S.bt(T.fill,T.onFill),marginTop:10}},en?"Recognise":"Riconosci"),
+cafMsg&&e("div",{style:{fontSize:16,color:T.text,marginTop:10,lineHeight:1.5,fontWeight:600}},cafMsg),
+e("div",{style:{fontSize:15,color:T.textDim,marginTop:10,lineHeight:1.5}},en?"On iPhone: point the camera at the label, press and hold on the text, tap Copy, then paste it here.":"Su iPhone: inquadra l'etichetta con la fotocamera, tieni premuto sul testo, tocca Copia e incolla qui."),
+e("div",{style:{marginTop:24}},etichetta("Origine","Origin"),
+e("select",{value:caf.origine,onChange:ev=>setCaf({origine:ev.target.value}),style:{width:"100%",padding:"12px 14px",borderRadius:12,border:"1px solid "+T.border,background:T.surface,color:T.text,fontSize:17,fontFamily:"inherit",minHeight:48}},
+e("option",{value:""},en?"Don't know / other":"Non so / altro"),CAF_ORIGINI.map(o=>e("option",{key:o[0],value:o[0]},en?o[2]:o[1])))),
+e("div",{style:{marginTop:20}},etichetta("Lavorazione","Process"),e("div",{style:{display:"flex",flexWrap:"wrap",gap:8}},CAF_PROCESSI.map(p=>e("button",{key:p[0],onClick:()=>setCaf({processo:caf.processo===p[0]?"":p[0]}),style:chip(caf.processo===p[0])},en?p[2]:p[1])))),
+e("div",{style:{marginTop:20}},etichetta("Tostatura","Roast"),e("div",{style:{display:"flex",flexWrap:"wrap",gap:8}},CAF_TOSTATURE.map(q=>e("button",{key:q[0],onClick:()=>setCaf({tostatura:caf.tostatura===q[0]?"":q[0]}),style:chip(caf.tostatura===q[0])},en?q[2]:q[1])))),
+e("div",{style:{marginTop:20}},etichetta("Data di tostatura","Roast date"),
+e("input",{type:"date",value:caf.data||"",onChange:ev=>setCaf({data:ev.target.value}),style:{width:"100%",boxSizing:"border-box",padding:"12px 14px",borderRadius:12,border:"1px solid "+T.border,background:T.surface,color:T.text,fontSize:17,fontFamily:"inherit",minHeight:48}}),
+giorni!==null&&giorni>=0&&e("div",{style:{fontSize:16,color:T.textSec,marginTop:6}},giorni===0?(en?"Roasted today":"Tostato oggi"):(giorni+(en?" days ago":" giorni fa")))),
+e("div",{style:{marginTop:20}},etichetta("Cosa cerchi in tazza","What you want in the cup"),e("div",{style:{display:"flex",flexWrap:"wrap",gap:8}},CAF_OBIETTIVI.map(q=>e("button",{key:q[0],onClick:()=>setCaf({obiettivo:caf.obiettivo===q[0]?"":q[0]}),style:chip(caf.obiettivo===q[0])},en?q[2]:q[1])))),
+e("div",{style:{marginTop:20}},etichetta("I tuoi strumenti (se non scegli nulla, li considero tutti)","Your brewers (choose none to consider all)"),e("div",{style:{display:"flex",flexWrap:"wrap",gap:8}},METHODS.map(mt=>{const on=(caf.strumenti||[]).indexOf(mt.id)>=0;return e("button",{key:mt.id,onClick:()=>setCaf({strumenti:on?caf.strumenti.filter(x=>x!==mt.id):(caf.strumenti||[]).concat([mt.id])}),style:chip(on)},mt.name);}))),
+e("div",{style:{marginTop:32}},
+!lista.length?e("div",{style:{color:T.textSec,fontSize:17,lineHeight:1.6,padding:"8px 0"}},(caf.origine||caf.processo||caf.tostatura||caf.obiettivo)?(en?"No recipe matches these choices: add a brewer or change what you want in the cup.":"Nessuna ricetta corrisponde a queste scelte: aggiungi uno strumento o cambia quello che cerchi in tazza."):(en?"Choose at least origin, process, roast or what you want in the cup.":"Scegli almeno origine, lavorazione, tostatura o quello che cerchi in tazza.")):
+e("div",null,
+descr.length>0&&e("div",{style:{fontSize:16,color:T.textSec,marginBottom:10}},(en?"For your coffee: ":"Per il tuo caffè: ")+descr.join(", ")),
+e("div",{style:{...S.cd,background:T.surface,border:"2px solid "+T.accent,cursor:"default"}},
+e("div",{style:{fontSize:16,color:T.accent,fontWeight:700,marginBottom:6}},en?"The recipe I suggest":"La ricetta che ti propongo"),
+e("div",{style:{display:"flex",alignItems:"center",gap:12}},Ic(mObj(primo.method)?.icon,44),e("div",{style:{flex:1}},e("div",{style:{fontWeight:700,fontSize:TF.md(),lineHeight:1.25}},primo.name),e("div",{style:{fontSize:16,color:T.textSec}},mObj(primo.method)?.name))),
+e("div",{style:{fontSize:16,color:T.text,lineHeight:1.5,marginTop:10}},cafPerche(primo.method,lang)),
+ad1.note.length>0&&e("div",{style:{marginTop:10,display:"flex",flexDirection:"column",gap:6}},ad1.note.map((n,i)=>e("div",{key:i,style:{fontSize:16,color:T.textSec,lineHeight:1.5}},n))),
+e("button",{onClick:()=>apri(primo),style:{...S.bt(T.fill,T.onFill),marginTop:14}},en?"Open the adapted recipe":"Apri la ricetta adattata")),
+lista.length>1&&e("div",{style:{fontSize:16,color:T.textSec,fontWeight:700,margin:"20px 0 10px"}},en?"Also suited":"Adatte anche queste"),
+lista.slice(1).map(r=>{const ad=cafAggiusta(caf,r,lang);return e("div",{key:r.id,onClick:()=>apri(r),style:{...S.cd,background:T.surface,border:"1px solid "+T.border,display:"flex",alignItems:"center",gap:12,marginBottom:8}},
+Ic(mObj(r.method)?.icon,36),e("div",{style:{flex:1}},e("div",{style:{fontWeight:700,fontSize:TF.bLg()}},r.name),e("div",{style:{fontSize:16,color:T.textSec}},r.baseCoffee+"g, "+r.baseWater+"ml"+(ad.newT>0?", "+ad.newT+"°C":"")+", "+ad.clicks+" click")),e("div",{style:{marginLeft:"auto"}},ICO.right(16)));}),
+e("button",{onClick:()=>{setCaf({testo:"",origine:"",processo:"",tostatura:"",data:"",obiettivo:"",varieta:""});setCafMsg(null);},style:{...S.bt(T.surface,T.textSec),marginTop:12,border:"1px solid "+T.border,fontSize:16}},en?"Start over":"Ricomincia")
+))));
 }
 
 // METHOD
@@ -1187,6 +1294,7 @@ e("div",{style:{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:12}},
 ),
 e("div",{style:{marginTop:12,padding:"10px 0 4px",borderTop:"1px solid "+T.border}},e("div",{style:{fontSize:17,color:T.text,textAlign:"center",marginBottom:4,fontWeight:600}},grindFeel(sc.microns)),e("div",{style:{fontSize:16,color:T.textSec,textAlign:"center",marginBottom:10}},sc.microns+"µm"),e("div",{style:{display:"flex",flexWrap:"wrap",justifyContent:"center",gap:6}},grinderClicks(sc.microns).map(([g,v])=>e("div",{key:g,style:{fontSize:16,padding:"6px 10px",borderRadius:10,background:T.surface,border:"1px solid "+T.border,textAlign:"center"}},v?e("div",{style:{fontSize:18,fontWeight:600,color:T.accentLight}},v):null,e("div",{style:{fontSize:16,color:T.textDim,marginTop:v?2:0}},g))))),
 ),
+sc.adatta&&sc.adatta.note.length>0&&e("div",{style:{...S.cd,background:T.surface,border:"2px solid "+T.accent,cursor:"default",padding:16}},e("div",{style:{fontSize:17,fontWeight:700,color:T.accent,marginBottom:8}},(lang==="en"?"Adapted to your coffee":"Adattata al tuo caffè")),sc.adatta.note.map((n,i)=>e("div",{key:i,style:{fontSize:16,color:T.textSec,lineHeight:1.5,marginBottom:6}},n))),
 sc.beans&&sc.beans.length>0&&e("div",{style:{...S.cd,background:T.surface,border:"1px solid "+T.border,cursor:"default",padding:16}},
 e("div",{style:{fontSize:16,color:T.accent,fontWeight:700,letterSpacing:1,marginBottom:10}},(lang==="en"?"Suggested beans":"Caffè suggeriti")),
 sc.beans.map((b,i)=>e("div",{key:i,style:{fontSize:17,color:T.textSec,lineHeight:1.6,paddingLeft:10,borderLeft:"2px solid "+T.accentDim,marginBottom:6}},b)),

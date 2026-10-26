@@ -2,7 +2,7 @@
    La pagina arriva sempre dalla rete quando c'è; la copia salvata serve solo offline.
    React, caratteri e icone restano salvati sul telefono.
    A ogni aggiornamento dell'app cambia VERSION: le copie vecchie vengono cancellate. */
-var VERSION = "cafausica-v20261025";
+var VERSION = "cafausica-v20261026b";
 var CORE = [
   "./",
   "./index.html",
