@@ -1,41 +1,47 @@
 <!DOCTYPE html>
-<html lang="it" data-theme="dark">
+<html lang="it" data-theme="light">
 <head>
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-<meta name="version" content="v20260302">
+<meta name="version" content="v20261025">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
 <meta charset="UTF-8">
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-<meta name="version" content="v20260302">
+<meta name="version" content="v20261025">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="theme-color" content="#F5F4EF">
+<meta name="theme-color" content="#E4E3E0">
 <title>The Cafausica Brew Guide</title>
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta name="apple-mobile-web-app-title" content="Cafausica">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
+@font-face{font-family:'Atkinson Next';src:url(atkinson-next.woff2) format('woff2-variations'),url(atkinson-next.woff2) format('woff2');font-weight:200 800;font-style:normal;font-display:swap}
+@font-face{font-family:'Literata';src:url(literata.woff2) format('woff2-variations'),url(literata.woff2) format('woff2');font-weight:200 900;font-style:normal;font-display:swap}
+@font-face{font-family:'Literata';src:url(literata-italic.woff2) format('woff2-variations'),url(literata-italic.woff2) format('woff2');font-weight:200 900;font-style:italic;font-display:swap}
 html,body{margin:0;padding:0}
-[data-theme="dark"],html,body{background:#1B1B18;color:#EDEDEC}
-[data-theme="light"]{background:#F5F4EF!important;color:#1B1B18!important}
-[data-theme="light"] body{background:#F5F4EF!important}
+html,body{background:#E4E3E0;color:#2A1C16}
+[data-theme="dark"],[data-theme="dark"] body{background:#000000!important;color:#E4E3E0!important}
+[data-theme="light"],[data-theme="light"] body{background:#E4E3E0!important;color:#2A1C16!important}
+body{font-family:'Atkinson Next',system-ui,-apple-system,sans-serif;-webkit-text-size-adjust:100%}
+button,input,select,textarea{font-family:inherit}
 @keyframes smokeUp{0%{opacity:0.8;transform:translateY(0) scale(1)}100%{opacity:0;transform:translateY(-120px) scale(1.8)}}
 @keyframes cupAppear{0%{opacity:0;transform:translateY(20px)}100%{opacity:1;transform:translateY(0)}}
 @keyframes fadeInstruction{0%{opacity:0}100%{opacity:1}}
 @keyframes venturaAppear{0%{opacity:0;transform:scale(0.95)}50%{opacity:0}100%{opacity:1;transform:scale(1)}}
 </style>
+<script>try{document.documentElement.setAttribute("data-theme",localStorage.getItem("cafausica-theme")||"light")}catch(e){}</script>
 </head>
 <body>
 
 <div id="root"></div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+<script src="react.production.min.js"></script>
+<script>window.React||document.write('<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"><\/script>')</script>
+<script src="react-dom.production.min.js"></script>
+<script>window.ReactDOM||document.write('<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"><\/script>')</script>
 <script>
 const e=React.createElement,{useState,useEffect,useRef,useCallback}=React;
 
@@ -45,7 +51,7 @@ const ICO={
 back:(s,c)=>e("span",{style:{fontSize:(s||28)+"px",color:c||T.accent,fontWeight:900,lineHeight:1,display:"inline-block"}},"\u2190"),
 play:(s,c)=>svgIcon("M5 3l14 9-14 9V3z",s,c),
 pause:(s,c)=>e("svg",{width:s,height:s,viewBox:"0 0 24 24",fill:"none",stroke:c||T.text,strokeWidth:2,strokeLinecap:"round"},e("path",{d:"M6 4h4v16H6zM14 4h4v16h-4z"})),
-skip:s=>svgIcon("M5 4l10 8-10 8V4zM19 5v14",s),
+skip:(s,c)=>svgIcon("M5 4l10 8-10 8V4zM19 5v14",s,c),
 star:(s,fill,color)=>e("svg",{width:s,height:s,viewBox:"0 0 24 24",fill:fill,stroke:color,strokeWidth:2,strokeLinecap:"round",strokeLinejoin:"round"},e("polygon",{points:"12,2 14.5,8.5 21.5,9.3 16.5,14 17.8,21 12,17.8 6.2,21 7.5,14 2.5,9.3 9.5,8.5"}))
 ,
 check:(s,c)=>svgIcon("M20 6L9 17l-5-5",s,c||T.green),
@@ -60,11 +66,12 @@ history:(s,c)=>svgIcon("M12 8v4l3 3M3 12a9 9 0 1018 0 9 9 0 00-18 0z",s,c),
 // ===== SVG ILLUSTRATIONS =====
 const mkSvg=(sz,children)=>e("svg",{width:sz,height:sz,viewBox:"0 0 100 100",fill:"none"},children);
 const THEMES={
-dark:{bg:"#1B1B18",surface:"#27261F",surfaceHi:"#302F28",accent:"#DA7756",accentLight:"#E8956F",accentDim:"#B06040",text:"#EDEDEC",textSec:"#A8A29E",textDim:"#78716C",green:"#5A9A6E",red:"#C4553D",border:"#3D3C35"},
-light:{bg:"#F5F4EF",surface:"#FFFFFF",surfaceHi:"#F0EFEA",accent:"#DA7756",accentLight:"#C07050",accentDim:"#B06040",text:"#1B1B18",textSec:"#57534E",textDim:"#78716C",green:"#5A9A6E",red:"#C4553D",border:"#D5D0C8"}
+dark:{bg:"#000000",surface:"#151413",surfaceHi:"#1D1C1A",accent:"#F2848F",accentLight:"#F6A4AC",accentDim:"#C9606C",text:"#E4E3E0",textSec:"#A7A39E",textDim:"#9A958F",green:"#E4E3E0",red:"#F28C96",border:"#3A3837",fill:"#A3283A",onFill:"#FFFFFF",onAccent:"#000000",onGreen:"#000000",warn:"#E8B65A"},
+light:{bg:"#E4E3E0",surface:"#F1F0EE",surfaceHi:"#EAE9E6",accent:"#8E1B2C",accentLight:"#A3283A",accentDim:"#6E1421",text:"#2A1C16",textSec:"#5C514B",textDim:"#685D57",green:"#2A1C16",red:"#9A2232",border:"#C4C0BC",fill:"#8E1B2C",onFill:"#FFFFFF",onAccent:"#FFFFFF",onGreen:"#E4E3E0",warn:"#7A5200"}
 };
-let T;try{T=THEMES[localStorage.getItem("cafausica-theme")||"dark"]}catch(e){T=THEMES["dark"]}
-try{document.documentElement.setAttribute("data-theme",localStorage.getItem("cafausica-theme")||"dark")}catch(e){document.documentElement.setAttribute("data-theme","dark")}
+let T;try{T=THEMES[localStorage.getItem("cafausica-theme")||"light"]||THEMES["light"]}catch(e){T=THEMES["light"]}
+try{document.documentElement.setAttribute("data-theme",localStorage.getItem("cafausica-theme")||"light")}catch(e){document.documentElement.setAttribute("data-theme","light")}
+try{var _tc=document.querySelector('meta[name="theme-color"]');if(_tc)_tc.setAttribute("content",T.bg);}catch(e){}
 
 const Illust={
 v60:(sz=64)=>mkSvg(sz,[
@@ -568,7 +575,7 @@ const card={background:T.surface,borderRadius:12,padding:16,marginBottom:12,bord
 return e("div",{style:card},
 e("div",{style:{fontSize:16,color:T.accent,fontWeight:700,letterSpacing:1,marginBottom:10}},(lang==="en"?"Music":"Musica")+(mine?(lang==="en"?" \u00b7 yours":" \u00b7 tua"):"")),
 e("div",{style:{paddingLeft:10,borderLeft:"2px solid "+T.accentDim}},
-e("div",{style:{fontSize:19,fontFamily:"'Cormorant Garamond',Georgia,serif",fontStyle:"italic",color:T.text,lineHeight:1.35}},m.title),
+e("div",{style:{fontSize:19,fontFamily:"'Literata',Georgia,serif",fontStyle:"italic",color:T.text,lineHeight:1.35}},m.title),
 e("div",{style:{fontSize:16,color:T.textSec,marginTop:2}},[m.artist,m.year].filter(Boolean).join(" \u00b7 ")),
 m.why?e("div",{style:{fontSize:15,color:T.textDim,marginTop:8,lineHeight:1.55}},m.why):null),
 e("div",{style:{marginTop:12,paddingTop:10,borderTop:"1px solid "+T.border,display:"flex",gap:14,alignItems:"baseline",flexWrap:"wrap"}},
@@ -583,7 +590,7 @@ mine?e("button",{onClick:reset,style:{...btn,color:T.textDim}},lang==="en"?"Rest
 ed?e("div",{style:{marginTop:12,display:"flex",flexDirection:"column",gap:8}},
 e("input",{value:mt,onChange:ev=>setMt(ev.target.value),placeholder:(lang==="en"?"Title":"Titolo"),style:fld}),
 e("input",{value:ma,onChange:ev=>setMa(ev.target.value),placeholder:(lang==="en"?"Artist":"Autore"),style:fld}),
-e("button",{onClick:save,style:{padding:"10px 16px",borderRadius:8,border:"none",background:T.accent,color:"#FFF",fontWeight:700,fontSize:16,cursor:"pointer",fontFamily:"inherit",width:"100%",letterSpacing:0.2}},lang==="en"?"Save":"Salva")):null
+e("button",{onClick:save,style:{padding:"10px 16px",borderRadius:8,border:"none",background:T.fill,color:T.onFill,fontWeight:700,fontSize:16,cursor:"pointer",fontFamily:"inherit",width:"100%",letterSpacing:0.2}},lang==="en"?"Save":"Salva")):null
 );
 };
 
@@ -608,7 +615,7 @@ const phrases=[
 ];
 const[i,setI]=useState(()=>Math.floor(Math.random()*phrases.length));
 useEffect(()=>{const iv=setInterval(()=>setI(p=>(p+1)%phrases.length),6000);return()=>clearInterval(iv);},[]);
-return e("div",{key:i,style:{fontSize:18,fontWeight:400,fontFamily:"'Cormorant Garamond',Georgia,serif",fontStyle:"italic",color:T.textSec,textAlign:"center",animation:"fadeInstruction 1s ease-out",lineHeight:1.6,padding:"0 8px"}},phrases[i]);
+return e("div",{key:i,style:{fontSize:18,fontWeight:400,fontFamily:"'Literata',Georgia,serif",fontStyle:"italic",color:T.textSec,textAlign:"center",animation:"fadeInstruction 1s ease-out",lineHeight:1.6,padding:"0 8px"}},phrases[i]);
 };
 
 
@@ -736,11 +743,11 @@ setPhase("reveal");
 if (phase === "reveal") return e("div", {style: {minHeight: "100dvh", display: "flex", flexDirection: "column", background: T.bg, padding: "0 32px"}},
 e("div", {style: {flex: 1, display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center"}},
 e("div", {key: msg, style: {animation: "venturaAppear 3s ease-out", textAlign: "center", maxWidth: 380}},
-e("div", {style: {fontSize: 24, fontWeight: 400, color: T.text, lineHeight: 2, fontStyle: "italic", fontFamily: "'Cormorant Garamond',Georgia,serif"}}, msg)
+e("div", {style: {fontSize: 24, fontWeight: 400, color: T.text, lineHeight: 2, fontStyle: "italic", fontFamily: "'Literata',Georgia,serif"}}, msg)
 )
 ),
 e("div", {style: {paddingBottom: 48, textAlign: "center"}},
-e("div", {style: {fontSize: 14, color: T.textDim, marginBottom: 20}}, (lang==="en"?"fortune messages \u00b7 Lu Cafausu":"messaggi di ventura \u00b7 Lu Cafausu")),e("button",{onClick:function(){setVInfo(!vInfo);},style:{background:"none",border:"none",color:T.textDim,fontSize:12,cursor:"pointer",marginTop:4,padding:"1px 6px",borderRadius:"50%",border:"1px solid "+T.textDim,opacity:vInfo?0:0.5,transition:"opacity 0.3s"}},"i"),vInfo&&e("div",{onClick:function(){setVInfo(false);},style:{fontSize:15,color:T.textDim,marginTop:10,lineHeight:1.6,maxWidth:320,margin:"10px auto",fontFamily:"'Cormorant Garamond',Georgia,serif",fontStyle:"italic",cursor:"pointer",animation:"fadeInstruction 0.6s ease-in"}},(props.lang==="en"?"From Messaggi di ventura. Phrases born from the decomposition of selected tarot cards (curated by Tresia) and cafausic practices. 12th edition of La Festa dei Vivi (reflecting on death).":"Da Messaggi di ventura. Frasi nate dalla scomposizione di alcune carte scelte dei tarocchi (a cura di Tresia) e delle pratiche cafausiche. XII edizione della Festa dei Vivi (che riflettono sulla morte).")),
+e("div", {style: {fontSize: 14, color: T.textDim, marginBottom: 20}}, (lang==="en"?"fortune messages \u00b7 Lu Cafausu":"messaggi di ventura \u00b7 Lu Cafausu")),e("button",{onClick:function(){setVInfo(!vInfo);},style:{background:"none",border:"none",color:T.textDim,fontSize:12,cursor:"pointer",marginTop:4,padding:"1px 6px",borderRadius:"50%",border:"1px solid "+T.textDim,opacity:vInfo?0:0.5,transition:"opacity 0.3s"}},"i"),vInfo&&e("div",{onClick:function(){setVInfo(false);},style:{fontSize:15,color:T.textDim,marginTop:10,lineHeight:1.6,maxWidth:320,margin:"10px auto",fontFamily:"'Literata',Georgia,serif",fontStyle:"italic",cursor:"pointer",animation:"fadeInstruction 0.6s ease-in"}},(props.lang==="en"?"From Messaggi di ventura. Phrases born from the decomposition of selected tarot cards (curated by Tresia) and cafausic practices. 12th edition of La Festa dei Vivi (reflecting on death).":"Da Messaggi di ventura. Frasi nate dalla scomposizione di alcune carte scelte dei tarocchi (a cura di Tresia) e delle pratiche cafausiche. XII edizione della Festa dei Vivi (che riflettono sulla morte).")),
 e("div",{style:{height:16}}),e("div",{style:{height:16}}),e("a", {href: "https://amzn.eu/d/070XfOUq", target: "_blank", rel: "noopener", style: {display: "inline-block", fontSize: 15, color: T.red, marginBottom: 24, textDecoration: "none"}}, "il libro"),
 e("div", {style: {display: "flex", gap: 24, justifyContent: "center"}},
 e("button", {onClick: onBack, style: {background: "none", border: "none", color: T.textSec, fontSize: 16, cursor: "pointer"}}, "\u2190 brew"),
@@ -750,10 +757,10 @@ e("button", {onClick: onHome, style: {background: "none", border: "none", color:
 );
 return e("div", {style: {minHeight: "100dvh", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", padding: "48px 32px", background: T.bg}},
 e("div", {style: {textAlign: "center", maxWidth: 340}},
-e("div", {style: {fontSize: 21, fontWeight: 400, color: T.text, lineHeight: 1.9, fontStyle: "italic", fontFamily: "'Cormorant Garamond',Georgia,serif", marginBottom: 48}},
+e("div", {style: {fontSize: 21, fontWeight: 400, color: T.text, lineHeight: 1.9, fontStyle: "italic", fontFamily: "'Literata',Georgia,serif", marginBottom: 48}},
 (props.lang==="en"?"Ask an existential question. Do not seek an answer. Let it emerge.":"Poni una domanda esistenziale. Non cercare una risposta. Lascia che emerga.")
 ),
-e("button", {onClick: draw, style: {width: "100%", background: "#8B2500", border: "none", borderRadius: 8, padding: "18px 40px", color: "#FFF", fontSize: 17, cursor: "pointer", fontWeight: 500, letterSpacing: 1}}, (props.lang==="en"?"reveal":"rivela"))
+e("button", {onClick: draw, style: {width: "100%", background: T.fill, border: "none", borderRadius: 8, padding: "18px 40px", color: T.onFill, fontSize: 17, cursor: "pointer", fontWeight: 500, letterSpacing: 1}}, (props.lang==="en"?"reveal":"rivela"))
 ),
 e("div", {style: {position: "absolute", bottom: 32, display: "flex", gap: 24}},
 e("button", {onClick: onBack, style: {background: "none", border: "none", color: T.textSec, fontSize: 16, cursor: "pointer"}}, "\u2190 brew"),
@@ -811,15 +818,15 @@ puff(0,4,"-30px",60),puff(0.5,3.5,"-10px",50),puff(1,4.5,"5px",70),
 puff(1.5,3.8,"-20px",45),puff(2,4.2,"15px",55),puff(2.5,3.2,"-5px",65),puff(3,4.8,"10px",40)
 ),
 e("div",{key:pi,style:{animation:"fadeInstruction 1.2s ease-out",textAlign:"center",minHeight:100}},
-e("div",{style:{fontSize:20,fontWeight:400,color:T.text,lineHeight:1.35,whiteSpace:"pre-line",fontFamily:"'EB Garamond',Georgia,serif"}},txt),
-e("div",{style:{fontSize:15,color:T.textDim,marginTop:14,fontWeight:400}},author,e("button",{onClick:function(){setShowInfo(!showInfo);},style:{background:"none",border:"none",color:T.textDim,fontSize:13,cursor:"pointer",marginLeft:4,padding:"1px 6px",borderRadius:"50%",border:"1px solid "+T.textDim,verticalAlign:"middle",opacity:showInfo?0:0.5,transition:"opacity 0.3s"}},"i")),showInfo&&e("div",{onClick:function(){setShowInfo(false);},style:{fontSize:15,color:T.textDim,marginTop:12,lineHeight:1.6,textAlign:"center",fontFamily:"'Cormorant Garamond',Georgia,serif",fontStyle:"italic",cursor:"pointer"}},(lang==="en"?"Word for La Festa dei Vivi (reflecting on death), 3rd ed., 2012. Fresco on the walls of Lu Cafausu, San Cesario di Lecce.":"Parola per la Festa dei Vivi (che riflettono sulla morte), III ed., 2012. Affresco sulle pareti de Lu Cafausu, San Cesario di Lecce."))
+e("div",{style:{fontSize:20,fontWeight:400,color:T.text,lineHeight:1.35,whiteSpace:"pre-line",fontFamily:"'Literata',Georgia,serif"}},txt),
+e("div",{style:{fontSize:15,color:T.textDim,marginTop:14,fontWeight:400}},author,e("button",{onClick:function(){setShowInfo(!showInfo);},style:{background:"none",border:"none",color:T.textDim,fontSize:13,cursor:"pointer",marginLeft:4,padding:"1px 6px",borderRadius:"50%",border:"1px solid "+T.textDim,verticalAlign:"middle",opacity:showInfo?0:0.5,transition:"opacity 0.3s"}},"i")),showInfo&&e("div",{onClick:function(){setShowInfo(false);},style:{fontSize:15,color:T.textDim,marginTop:12,lineHeight:1.6,textAlign:"center",fontFamily:"'Literata',Georgia,serif",fontStyle:"italic",cursor:"pointer"}},(lang==="en"?"Word for La Festa dei Vivi (reflecting on death), 3rd ed., 2012. Fresco on the walls of Lu Cafausu, San Cesario di Lecce.":"Parola per la Festa dei Vivi (che riflettono sulla morte), III ed., 2012. Affresco sulle pareti de Lu Cafausu, San Cesario di Lecce."))
 )
 );
 };
 
 function App(){
-const[dm,setDm]=useState(()=>{try{return localStorage.getItem("cafausica-theme")||"dark"}catch(e){return"dark"}});
-const togTh=()=>{const n=dm==="dark"?"light":"dark";setDm(n);T=THEMES[n];try{localStorage.setItem("cafausica-theme",n)}catch(e){};document.documentElement.setAttribute("data-theme",n);document.documentElement.style.background=T.bg;document.body.style.background=T.bg;};
+const[dm,setDm]=useState(()=>{try{return localStorage.getItem("cafausica-theme")||"light"}catch(e){return"light"}});
+const togTh=()=>{const n=dm==="dark"?"light":"dark";setDm(n);T=THEMES[n];try{localStorage.setItem("cafausica-theme",n)}catch(e){};document.documentElement.setAttribute("data-theme",n);document.documentElement.style.background=T.bg;document.body.style.background=T.bg;try{var _tc=document.querySelector('meta[name="theme-color"]');if(_tc)_tc.setAttribute("content",T.bg);}catch(e){}};
 var _lang=useState(function(){try{return localStorage.getItem("cafausica-lang")||"it";}catch(e){return "it";}});
 var lang=_lang[0],setLang=_lang[1];
 var toggleLang=function(){var nl=lang==="it"?"en":"it";setLang(nl);try{localStorage.setItem("cafausica-lang",nl);}catch(e){}};
@@ -858,8 +865,46 @@ const[advRoast,setAdvRoast]=useState(null);
 const[advProc,setAdvProc]=useState(null);
 const[advGoal,setAdvGoal]=useState(null);
 const[fromAdv,setFromAdv]=useState(false);
+const[bkMsg,setBkMsg]=useState(null);
 const sH=h=>{setHist(h);LS.set("brew_history",h);};
 const sC=c=>{setCustomR(c);LS.set("custom_recipes",c);};
+// ===== BACKUP: esporta / importa diario, ricette personali, musiche scelte =====
+const exportBackup=()=>{
+var data={app:"cafausica",kind:"backup",version:1,exported:new Date().toISOString(),brew_history:LS.get("brew_history")||[],custom_recipes:LS.get("custom_recipes")||[],music:LS.get(MUSIC_KEY)||{}};
+var name="cafausica-backup-"+new Date().toISOString().slice(0,10)+".json";
+var blob=new Blob([JSON.stringify(data,null,1)],{type:"application/json"});
+var pl=function(n,one,many){return n+" "+(n===1?one:many);};
+var okMsg=lang==="en"?("Backup ready: "+pl(data.brew_history.length,"brew","brews")+", "+pl(data.custom_recipes.length,"personal recipe","personal recipes")+"."):("Backup pronto: "+pl(data.brew_history.length,"brew","brew")+", "+pl(data.custom_recipes.length,"ricetta personale","ricette personali")+".");
+try{var f=new File([blob],name,{type:"application/json"});if(navigator.canShare&&navigator.share&&navigator.canShare({files:[f]})){navigator.share({files:[f],title:name}).then(function(){setBkMsg({ok:true,t:okMsg});}).catch(function(){});return;}}catch(x){}
+try{var a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();setTimeout(function(){try{URL.revokeObjectURL(a.href);a.remove();}catch(x){}},4000);setBkMsg({ok:true,t:okMsg});}
+catch(x){setBkMsg({ok:false,t:(lang==="en"?"Export did not work on this device.":"L'esportazione non funziona su questo dispositivo.")});}
+};
+const importBackup=(ev)=>{
+var file=ev.target.files&&ev.target.files[0];ev.target.value="";if(!file)return;
+var bad=(lang==="en"?"This file is not a Cafausica backup.":"Questo file non è un backup di Cafausica.");
+var rd=new FileReader();
+rd.onerror=function(){setBkMsg({ok:false,t:bad});};
+rd.onload=function(){
+try{
+var d=JSON.parse(rd.result);
+if(!d||typeof d!=="object"||(!Array.isArray(d.brew_history)&&!Array.isArray(d.custom_recipes))){setBkMsg({ok:false,t:bad});return;}
+var hIn=(Array.isArray(d.brew_history)?d.brew_history:[]).filter(function(h){return h&&typeof h==="object"&&h.id!=null&&typeof h.recipeName==="string";});
+var rIn=(Array.isArray(d.custom_recipes)?d.custom_recipes:[]).filter(function(r){return r&&typeof r==="object"&&r.id&&typeof r.name==="string"&&Array.isArray(r.steps)&&typeof r.baseCoffee==="number"&&r.baseCoffee>0&&typeof r.baseWater==="number";});
+var hCur=LS.get("brew_history")||[];var seen={};hCur.forEach(function(h){seen[String(h.id)]=1;});
+var hAll=hCur.slice(),hNew=0;
+hIn.forEach(function(h){if(!seen[String(h.id)]){seen[String(h.id)]=1;hAll.push(h);hNew++;}});
+hAll.sort(function(a,b){return(Number(b.id)||0)-(Number(a.id)||0);});
+var rCur=LS.get("custom_recipes")||[];var inMap={};rIn.forEach(function(r){inMap[r.id]=Object.assign({},r,{custom:true});});
+var rAll=rCur.map(function(r){return inMap[r.id]||r;});var have={};rCur.forEach(function(r){have[r.id]=1;});var rNew=0;
+rIn.forEach(function(r){if(!have[r.id]){have[r.id]=1;rAll.push(inMap[r.id]);rNew++;}});
+if(d.music&&typeof d.music==="object"&&!Array.isArray(d.music)){var u=getUserMusic();Object.keys(d.music).forEach(function(k){var mm=d.music[k];if(mm&&typeof mm==="object"&&typeof mm.title==="string")u[k]=mm;});LS.set(MUSIC_KEY,u);}
+sH(hAll.slice(0,200));sC(rAll);
+var pl=function(n,one,many){return n+" "+(n===1?one:many);};
+setBkMsg({ok:true,t:(hNew+rNew===0)?(lang==="en"?"Nothing new: everything was already here.":"Niente di nuovo: era già tutto qui."):(lang==="en"?("Imported "+pl(hNew,"brew","brews")+" and "+pl(rNew,"recipe","recipes")+"."):("Importati "+pl(hNew,"brew","brew")+" e "+pl(rNew,"ricetta","ricette")+"."))});
+}catch(x){setBkMsg({ok:false,t:bad});}
+};
+rd.readAsText(file);
+};
 const ALL_R=[...RECIPES,...customR];
 
 const gS=useCallback(()=>{
@@ -988,15 +1033,15 @@ return [
 
 const home=()=>{setView("home");setSelM(null);setSelR(null);setRun(false);setDone(false);setCc(null);setSorsoTags([]);setSorsoFrase("");setShowSorso(false);wakeLockOff();};
 const initForm=(r)=>{setFn(r?r.name:"");setFa(r?r.author:"");setFd(r?r.description:"");setFm(r?r.method:"v60");setFc2(r?String(r.baseCoffee):"15");setFw2(r?String(r.baseWater):"250");setFt2(r?String(r.temperature):"93");setFk2(r?String(r.clicks):"24");setFmu2(r?String(r.microns):"720");setFgd2(r?r.grindDesc:"Medium-fine");setFst(r?[...r.steps]:[{text:"",waterAdd:0,duration:30}]);};
-const save=()=>{const r=gS();if(!r)return;sH([{id:Date.now(),recipeName:r.name,method:r.method,coffee:r.coffee,water:r.water,clicks:r.clicks,temperature:r.temperature,rating:rat,notes,sorsoTags:sorsoTags,sorsoFrase:sorsoFrase,date:new Date().toLocaleDateString("it-IT"),time:new Date().toLocaleTimeString("it-IT",{hour:"2-digit",minute:"2-digit"})},...hist].slice(0,50));home();};
+const save=()=>{const r=gS();if(!r)return;sH([{id:Date.now(),recipeName:r.name,method:r.method,coffee:r.coffee,water:r.water,clicks:r.clicks,temperature:r.temperature,rating:rat,notes,sorsoTags:sorsoTags,sorsoFrase:sorsoFrase,date:new Date().toLocaleDateString("it-IT"),time:new Date().toLocaleTimeString("it-IT",{hour:"2-digit",minute:"2-digit"})},...hist].slice(0,200));home();};
 
 const S={
-pg:{minHeight:"100dvh",background:T.bg,color:T.text,fontFamily:"'Inter',sans-serif",maxWidth:720,margin:"0 auto",padding:"0 env(safe-area-inset-right) 0 env(safe-area-inset-left)"},
+pg:{minHeight:"100dvh",background:T.bg,color:T.text,fontFamily:"'Atkinson Next',system-ui,-apple-system,sans-serif",maxWidth:720,margin:"0 auto",padding:"0 env(safe-area-inset-right) 0 env(safe-area-inset-left)"},
 hd:{padding:"16px 20px",display:"flex",alignItems:"center",gap:"12px",borderBottom:"none"},
-ht:{fontSize:TF.lg(),fontWeight:700,fontFamily:"'Inter',sans-serif",lineHeight:1.2},
+ht:{fontSize:TF.lg(),fontWeight:700,fontFamily:"'Atkinson Next',system-ui,-apple-system,sans-serif",lineHeight:1.2},
 cd:{background:T.surface,borderRadius:12,padding:20,marginBottom:12,border:"1px solid "+T.border,boxShadow:"0 1px 3px rgba(0,0,0,0.08)",cursor:"pointer",overflow:"hidden"},
 pl:{display:"inline-block",padding:"5px 12px",borderRadius:20,fontSize:16,fontWeight:600,background:T.surfaceHi,color:T.textSec},
-bt:(b,f)=>({padding:"16px 24px",borderRadius:8,border:"none",background:b||T.accent,color:f||"#FFF",fontWeight:700,fontSize:18,cursor:"pointer",fontFamily:"inherit",width:"100%",letterSpacing:0.2}),
+bt:(b,f)=>({padding:"16px 24px",borderRadius:8,border:"none",background:b||T.fill,color:f||T.onFill,fontWeight:700,fontSize:18,cursor:"pointer",fontFamily:"inherit",width:"100%",letterSpacing:0.2}),
 ib:{width:44,height:44,borderRadius:22,border:"none",background:T.accent+"1A",color:T.text,display:"flex",alignItems:"center",justifyContent:"center",cursor:"pointer",transition:"background 0.15s"},
 ibBack:{height:40,borderRadius:20,border:"2px solid "+T.red,background:T.red+"18",color:T.accent,display:"flex",alignItems:"center",justifyContent:"center",cursor:"pointer",padding:"0 14px",gap:4},
 ibSm:{width:48,height:48,borderRadius:14,border:"2px solid "+T.accentLight,background:T.surface,color:T.accentLight,display:"flex",alignItems:"center",justifyContent:"center",cursor:"pointer"}
@@ -1009,7 +1054,7 @@ if(view==="home")return e("div",{style:{...S.pg,background:T.bg,color:T.text}},
 e("button",{onClick:togTh,style:{position:"fixed",top:16,right:16,zIndex:999,width:44,height:44,borderRadius:"50%",border:"2px solid "+T.textDim,background:T.surface,display:"flex",alignItems:"center",justifyContent:"center",cursor:"pointer",fontSize:20,color:T.accentLight,boxShadow:"0 2px 8px rgba(0,0,0,0.15)"}},dm==="dark"?"\u2600":"\u263D"),
 e("button",{onClick:toggleLang,style:{position:"fixed",top:16,right:68,zIndex:999,width:36,height:36,borderRadius:"50%",border:"2px solid "+T.textDim,background:T.surface,display:"flex",alignItems:"center",justifyContent:"center",cursor:"pointer",fontSize:13,color:T.textDim,fontWeight:700,boxShadow:"0 2px 8px rgba(0,0,0,0.15)"}},lang==="it"?"EN":"IT"),
 e("div",{style:{padding:"28px 20px 12px"}},
-e("div",{style:{fontSize:TF.xl(),color:T.text,fontWeight:500,letterSpacing:"-0.02em",fontFamily:"'EB Garamond',Georgia,serif",marginBottom:4,lineHeight:1.2,paddingRight:60}},"The Cafausica Brew Guide"),
+e("div",{style:{fontSize:TF.xl(),color:T.text,fontWeight:500,letterSpacing:"-0.02em",fontFamily:"'Literata',Georgia,serif",marginBottom:4,lineHeight:1.2,paddingRight:96,textWrap:"balance"}},"The Cafausica Brew Guide"),
 e(SubTitle,null),
 ),
 e("div",{style:{padding:"8px 16px 0"}},
@@ -1030,14 +1075,24 @@ e("div",{style:{marginLeft:"auto"}},ICO.right(16)),
 )),
 e("div",{style:{padding:"4px 16px 6px"}},e("div",{onClick:()=>{initForm(null);setView("addrecipe");},style:{...S.cd,background:T.surface,border:"1px solid "+T.border,display:"flex",alignItems:"center",gap:12,cursor:"pointer",border:"1px dashed "+T.accent}},
 ICO.plus(20),
-e("div",null,e("div",{style:{fontWeight:700,fontSize:TF.bLg(),color:T.accent}},(lang==="en"?"Create Your Recipe":"Crea la tua Ricetta")),e("div",{style:{fontSize:16,color:T.textSec}},customR.length>0?customR.length+(lang==="en"?" custom recipes":" ricette personali"):(lang==="en"?"Add custom recipes":"Aggiungi ricette personalizzate"))),
+e("div",null,e("div",{style:{fontWeight:700,fontSize:TF.bLg(),color:T.accent}},(lang==="en"?"Create Your Recipe":"Crea la tua Ricetta")),e("div",{style:{fontSize:16,color:T.textSec}},customR.length>0?customR.length+(customR.length===1?(lang==="en"?" custom recipe":" ricetta personale"):(lang==="en"?" custom recipes":" ricette personali")):(lang==="en"?"Add custom recipes":"Aggiungi ricette personalizzate"))),
 e("div",{style:{marginLeft:"auto"}},ICO.right(16)),
+)),
+e("div",{style:{padding:"4px 16px 6px"}},e("div",{style:{...S.cd,background:T.surface,border:"1px solid "+T.border,cursor:"default"}},
+e("div",{style:{fontWeight:700,fontSize:TF.bLg()}},"Backup"),
+e("div",{style:{fontSize:16,color:T.textSec,lineHeight:1.5,marginTop:2,marginBottom:12}},(lang==="en"?"Diary, personal recipes and chosen music, in one file to keep.":"Diario, ricette personali e musiche scelte, in un file da conservare.")),
+e("div",{style:{display:"flex",gap:8}},
+e("button",{onClick:exportBackup,style:{flex:1,padding:"12px 10px",borderRadius:10,border:"1px solid "+T.fill,background:T.fill,color:T.onFill,fontWeight:700,fontSize:16,cursor:"pointer"}},(lang==="en"?"Export":"Esporta")),
+e("label",{style:{flex:1,padding:"12px 10px",borderRadius:10,border:"1px solid "+T.accent,background:"transparent",color:T.accent,fontWeight:700,fontSize:16,cursor:"pointer",textAlign:"center",boxSizing:"border-box"}},(lang==="en"?"Import":"Importa"),
+e("input",{type:"file",accept:".json,application/json,text/plain",onChange:importBackup,style:{display:"none"}}))
+),
+bkMsg&&e("div",{style:{fontSize:16,color:bkMsg.ok?T.green:T.red,marginTop:10,lineHeight:1.5,fontWeight:600}},bkMsg.t)
 )),
 e("div",{style:{padding:"6px 16px"}},
 e("div",{style:{...S.cd,background:T.surface,border:"1px solid "+T.border,cursor:"default",background:"linear-gradient(135deg,"+T.surface+" 0%,"+T.surfaceHi+" 100%)",border:"1px solid "+T.red+"44"}},
-e("div",{style:{fontSize:16,fontWeight:700,fontFamily:"'Inter',sans-serif",color:T.accent,marginBottom:8,letterSpacing:0.5}},"Progetto aFA"),
+e("div",{style:{fontSize:16,fontWeight:700,fontFamily:"'Atkinson Next',system-ui,-apple-system,sans-serif",color:T.accent,marginBottom:8,letterSpacing:0.5}},"Progetto aFA"),
 e("div",{style:{fontSize:16,color:T.textSec,lineHeight:1.6,marginBottom:10}},(lang==="en"?"No engine, no pressure. Just gravity. The aFA is a neo-cuccumella in ceramic: a manifesto-object that subtracts speed from coffee to return time to the word and the shared gesture.":"Nessun motore, nessuna pressione. Solo gravità. La aFA è una neo-cuccumella in ceramica: oggetto-manifesto che sottrae velocità al caffè per restituire tempo alla parola e al gesto condiviso.")),
-e("a",{href:"https://paypal.me/elleenne",target:"_blank",rel:"noopener",style:{display:"block",padding:"14px 20px",borderRadius:12,background:T.accent,color:"#FFF",fontWeight:700,fontSize:17,textAlign:"center",textDecoration:"none",marginBottom:8}},(lang==="en"?"Support the aFA project":"Sostieni il progetto aFA")),
+e("a",{href:"https://paypal.me/elleenne",target:"_blank",rel:"noopener",style:{display:"block",padding:"14px 20px",borderRadius:12,background:T.fill,color:T.onFill,fontWeight:700,fontSize:17,textAlign:"center",textDecoration:"none",marginBottom:8}},(lang==="en"?"Support the aFA project":"Sostieni il progetto aFA")),
 e("div",{style:{display:"flex",gap:8}},
 e("a",{href:"afa-manifesto.pdf",onClick:function(ev){ev.preventDefault();var base=window.location.href.replace(/\/[^\/]*$/,"/");window.open(base+"afa-manifesto.pdf","_blank");},rel:"noopener",style:{flex:1,display:"block",padding:"12px 10px",borderRadius:10,border:"1px solid "+T.red+"55",color:T.accent,fontWeight:600,fontSize:16,textAlign:"center",textDecoration:"none"}},(lang==="en"?"Read the Manifesto":"Leggi il Manifesto")),
 typeof navigator!=="undefined"&&navigator.share?e("button",{onClick:()=>{try{navigator.share({title:"The Cafausica Brew Guide",text:"Un gesto di sottrazione e cura.",url:window.location.href})}catch(x){}},style:{flex:1,padding:"12px 10px",borderRadius:10,border:"1px solid "+T.border,color:T.textSec,fontWeight:600,fontSize:16,background:"none",cursor:"pointer"}},(lang==="en"?"Share":"Condividi")):null,
@@ -1112,7 +1167,7 @@ e("button",{onClick:()=>{setAdvRoast(null);setAdvProc(null);setAdvGoal(null);},s
 if(view==="method"){const mo=mObj(selM);const recs=ALL_R.filter(r=>r.method===selM);return e("div",{style:{...S.pg,background:T.bg,color:T.text}},
 e("div",{style:S.hd},e("button",{onClick:home,style:S.ibBack},ICO.back(22,T.accent),e("span",{style:{fontSize:16,fontWeight:700}},(lang==="en"?"Back":"Indietro"))),Ic(mo?.icon,28),e("span",{style:{...S.ht,fontSize:TF.md()}},mo?.name),e("span",{style:{marginLeft:"auto",fontSize:16,color:T.textSec}},recs.length+(lang==="en"?" recipes":" ricette"))),
 e("div",{style:{padding:20}},recs.map(r=>e("div",{key:r.id,onClick:()=>{setSelR(r);setCc(r.baseCoffee);setFromAdv(false);setView("recipe");},style:S.cd},
-e("div",{style:{display:"flex",justifyContent:"space-between",alignItems:"start",marginBottom:6}},e("h3",{style:{fontWeight:700,fontSize:TF.md(),fontFamily:"'Inter',sans-serif",flex:1,paddingRight:8,lineHeight:1.25}},r.name),r.custom&&e("span",{style:{fontSize:16,background:T.accent+"33",color:T.accent,padding:"2px 8px",borderRadius:8,fontWeight:700,marginRight:6}},"TUA"),e("span",{style:S.pl},r.clicks+" click")),
+e("div",{style:{display:"flex",justifyContent:"space-between",alignItems:"start",marginBottom:6}},e("h3",{style:{fontWeight:700,fontSize:TF.md(),fontFamily:"'Atkinson Next',system-ui,-apple-system,sans-serif",flex:1,paddingRight:8,lineHeight:1.25}},r.name),r.custom&&e("span",{style:{fontSize:16,background:T.accent+"33",color:T.accent,padding:"2px 8px",borderRadius:8,fontWeight:700,marginRight:6}},"TUA"),e("span",{style:S.pl},r.clicks+" click")),
 e("div",{style:{fontSize:TF.bMd(),color:T.textSec,marginBottom:8,lineHeight:1.5}},(lang==="en"?enDesc(r):r.description)),
 e("div",{style:{display:"flex",gap:14,flexWrap:"wrap",fontSize:16,color:T.textDim,alignItems:"center"}},e("span",null,r.baseCoffee+"g"),e("span",null,r.baseWater+"ml"),e("span",null,"1:"+(r.baseWater/r.baseCoffee).toFixed(1)),e("span",null,r.temperature>0?r.temperature+"°C":(lang==="en"?"Cold":"Fredda")),e("span",null,"~"+fmt(tTime(r))),
 r.custom&&e("button",{onClick:ev=>{ev.stopPropagation();setSelR(r);initForm(r);setView("editrecipe");},style:{marginLeft:"auto",fontSize:16,color:T.accent,fontWeight:700,background:"none",border:"1px solid "+T.accent+"66",padding:"4px 12px",borderRadius:8,cursor:"pointer"}},(lang==="en"?"\u270E Edit":"\u270E Modifica"))),
@@ -1122,7 +1177,7 @@ r.custom&&e("button",{onClick:ev=>{ev.stopPropagation();setSelR(r);initForm(r);s
 // RECIPE
 if(view==="recipe"&&selR){const sc=gS();if(!sc)return null;const mo=mObj(sc.method);let cW=0;return e("div",{style:{...S.pg,background:T.bg,color:T.text}},
 e("div",{style:S.hd},e("button",{onClick:()=>setView(fromAdv?"advisor":"method"),style:S.ibBack},ICO.back(22,T.accent),e("span",{style:{fontSize:16,fontWeight:700}},(lang==="en"?"Back":"Indietro"))),e("span",{style:{...S.ht,fontSize:TF.md(),flex:1}},sc.name)),
-e("div",{style:{padding:"12px 20px 0"}},e("button",{onClick:start,style:{...S.bt("#7CAA6E","#FFF"),boxShadow:"0 4px 20px rgba(107,158,107,0.15)",letterSpacing:0.5,width:"100%"}},e("span",{style:{display:"flex",alignItems:"center",justifyContent:"center",gap:10}},ICO.play(16,"#FFF"),(lang==="en"?" Start Brew":" Inizia il Brew")))),
+e("div",{style:{padding:"12px 20px 0"}},e("button",{onClick:start,style:{...S.bt(T.green,T.onGreen),boxShadow:"0 4px 20px "+T.green+"33",letterSpacing:0.5,width:"100%"}},e("span",{style:{display:"flex",alignItems:"center",justifyContent:"center",gap:10}},ICO.play(16,T.onGreen),(lang==="en"?" Start Brew":" Inizia il Brew")))),
 e("div",{style:{padding:20}},
 e("div",{style:{textAlign:"center",marginBottom:14}},Ic(mo?.icon,80),e("div",{style:{fontSize:16,color:T.textSec,fontWeight:500,marginTop:4,letterSpacing:0.5}},"di "+sc.author)),
 e("div",{style:{...S.cd,background:T.surface,border:"1px solid "+T.border,background:T.surfaceHi,cursor:"default"}},
@@ -1172,21 +1227,21 @@ e("div",{style:{flex:1,display:"flex",flexDirection:"column",alignItems:"center"
 e(CupDone,{dark:dm==="dark",lang:lang})
 ),
 e("div",{style:{padding:"0 24px 24px",display:"flex",flexDirection:"column",gap:10,maxWidth:400,width:"100%",margin:"0 auto",boxSizing:"border-box"}},
-e("button",{onClick:function(){setShowVentura(true);},style:{width:"100%",padding:"16px",background:"#8B2500",border:"none",borderRadius:8,color:"#FFF",fontSize:16,cursor:"pointer",fontWeight:500,fontFamily:"'EB Garamond',Georgia,serif",letterSpacing:1}},(lang==="en"?"fortune messages":"messaggi di ventura")),
-e("div",{style:{display:"flex",alignItems:"center",gap:12,padding:"8px 0"}},
-e("div",{style:{fontSize:16,color:T.textDim,fontWeight:500,letterSpacing:1,whiteSpace:"nowrap"}},sc.name),
+e("button",{onClick:function(){setShowVentura(true);},style:{width:"100%",padding:"16px",background:T.fill,border:"none",borderRadius:8,color:T.onFill,fontSize:16,cursor:"pointer",fontWeight:500,fontFamily:"'Literata',Georgia,serif",letterSpacing:1}},(lang==="en"?"fortune messages":"messaggi di ventura")),
+e("div",{style:{display:"flex",alignItems:"center",flexWrap:"wrap",gap:12,padding:"8px 0"}},
+e("div",{style:{fontSize:16,color:T.textDim,fontWeight:500,letterSpacing:1}},sc.name),
 e("div",{style:{display:"flex",gap:4}},
 [1,2,3,4,5].map(function(s){return e("button",{key:s,onClick:function(){setRat(s);},style:{background:"none",border:"none",cursor:"pointer",padding:1}},ICO.star(20,s<=rat?T.accent:"transparent",s<=rat?T.accent:T.textDim));})
 )
 ),
 e("div",{style:{marginTop:4}},
-e("button",{onClick:function(){setShowSorso(!showSorso);setSorsoTags([]);setSorsoFrase("");},style:{background:"none",border:"none",color:"#8B2500",fontSize:17,fontWeight:700,cursor:"pointer",padding:"8px 0",letterSpacing:0.5,display:"flex",alignItems:"center",gap:6}},showSorso?(lang==="en"?"\u25BE the sip":"\u25BE il sorso"):(lang==="en"?"\u25B8 the sip":"\u25B8 il sorso")),
+e("button",{onClick:function(){setShowSorso(!showSorso);setSorsoTags([]);setSorsoFrase("");},style:{background:"none",border:"none",color:T.accent,fontSize:17,fontWeight:700,cursor:"pointer",padding:"8px 0",letterSpacing:0.5,display:"flex",alignItems:"center",gap:6}},showSorso?(lang==="en"?"\u25BE the sip":"\u25BE il sorso"):(lang==="en"?"\u25B8 the sip":"\u25B8 il sorso")),
 showSorso&&e("div",{style:{padding:"12px 0",animation:"fadeInstruction 0.4s ease-in"}},
-e("div",{style:{fontSize:14,color:T.textDim,fontStyle:"italic",fontFamily:"'Cormorant Garamond',Georgia,serif",marginBottom:14,lineHeight:1.5}},"I descrittori non descrivono. Costruiscono un terreno comune di attenzione."),
+e("div",{style:{fontSize:14,color:T.textDim,fontStyle:"italic",fontFamily:"'Literata',Georgia,serif",marginBottom:14,lineHeight:1.5}},"I descrittori non descrivono. Costruiscono un terreno comune di attenzione."),
 e("div",{style:{marginBottom:10}},
 e("div",{style:{fontSize:13,color:T.textDim,fontWeight:600,letterSpacing:"0.1em",marginBottom:8}},"SOGLIA"),
 e("input",{value:sorsoFrase,onChange:function(ev){setSorsoFrase(ev.target.value);},placeholder:"ora? dove sei, come sei?",
-style:{width:"100%",padding:"12px 0",border:"none",borderBottom:"1px solid "+T.border,background:"transparent",color:T.text,fontSize:17,fontFamily:"'Cormorant Garamond',Georgia,serif",fontStyle:"italic",outline:"none",boxSizing:"border-box"}})
+style:{width:"100%",padding:"12px 0",border:"none",borderBottom:"1px solid "+T.border,background:"transparent",color:T.text,fontSize:17,fontFamily:"'Literata',Georgia,serif",fontStyle:"italic",outline:"none",boxSizing:"border-box"}})
 ),
 e("div",{style:{marginBottom:14}},
 e("div",{style:{fontSize:13,color:T.textDim,fontWeight:600,letterSpacing:"0.1em",marginBottom:8}},"RUOTA"),
@@ -1198,10 +1253,10 @@ style:{padding:"6px 12px",borderRadius:16,border:"1px solid "+(active?T.accent:T
 })
 )
 ),
-sorsoFrase.trim()&&e("button",{onClick:function(){var sc2=gS();var method=sc2?sc2.name:"";var dt=new Date().toLocaleDateString("it-IT");var frase=sorsoFrase.trim();var appUrl="https://lucafausu.github.io/cafausica";var shareTxt=frase+"\n\n\u2014 the cafausica brew guide\n"+appUrl;try{var fd=new FormData();fd.append("entry.853251827",frase);
+sorsoFrase.trim()&&e("button",{onClick:function(){var sc2=gS();var method=sc2?sc2.name:"";var dt=new Date().toLocaleDateString("it-IT");var frase=sorsoFrase.trim();var appUrl=location.origin+location.pathname.replace(/[^\/]*$/,"");var shareTxt=frase+"\n\n\u2014 the cafausica brew guide\n"+appUrl;try{var fd=new FormData();fd.append("entry.853251827",frase);
 fd.append("entry.18779385",method);
-fd.append("entry.1380311466",dt);;fetch("https://docs.google.com/forms/d/e/1FAIpQLSdh4DEtt91jx58G6KHDF5J28AHxrTNOvPd-jZpeLLtjKHhJkA/formResponse",{method:"POST",body:fd,mode:"no-cors"}).catch(function(){});}catch(ex){}try{var cv=document.createElement("canvas");cv.width=1080;cv.height=1080;var cx=cv.getContext("2d");cx.fillStyle="#1B1B18";cx.fillRect(0,0,1080,1080);cx.fillStyle="#DA7756";cx.fillRect(0,0,1080,3);cx.fillRect(0,1077,1080,3);cx.textAlign="center";cx.textBaseline="middle";cx.fillStyle="#EDEDEC";cx.font="italic 42px Georgia,serif";var words=frase.split(" ");var lines=[];var ln="";for(var wi=0;wi<words.length;wi++){var test=ln+(ln?" ":"")+words[wi];if(cx.measureText(test).width>800){lines.push(ln);ln=words[wi];}else ln=test;}if(ln)lines.push(ln);var ly=540-(lines.length-1)*30;for(var li=0;li<lines.length;li++)cx.fillText(lines[li],540,ly+li*60);cx.fillStyle="#78716C";cx.font="16px sans-serif";cx.fillText("\u2014 the cafausica brew guide",540,960);cx.font="14px sans-serif";cx.fillStyle="#78716C88";cx.fillText(appUrl,540,990);cv.toBlob(function(blob){if(navigator.share&&navigator.canShare){try{var f2=new File([blob],"il-sorso.png",{type:"image/png"});if(navigator.canShare({files:[f2]})){navigator.share({text:shareTxt,files:[f2]}).catch(function(){});return;}}catch(ex2){}}if(navigator.share){navigator.share({text:shareTxt}).catch(function(){});}else{var a2=document.createElement("a");a2.href=URL.createObjectURL(blob);a2.download="il-sorso.png";a2.click();}},"image/png");}catch(ex){if(navigator.share)navigator.share({text:shareTxt}).catch(function(){});else prompt("copia:",shareTxt);}},
-style:{background:"#5A9A7D",border:"none",borderRadius:10,color:"#FFF",fontSize:15,cursor:"pointer",padding:"12px 20px",display:"flex",alignItems:"center",justifyContent:"center",gap:8,marginTop:8,fontWeight:500,fontFamily:"'Inter',sans-serif",letterSpacing:0.3,width:"100%",boxSizing:"border-box"}},
+fd.append("entry.1380311466",dt);;fetch("https://docs.google.com/forms/d/e/1FAIpQLSdh4DEtt91jx58G6KHDF5J28AHxrTNOvPd-jZpeLLtjKHhJkA/formResponse",{method:"POST",body:fd,mode:"no-cors"}).catch(function(){});}catch(ex){}try{var cv=document.createElement("canvas");cv.width=1080;cv.height=1080;var cx=cv.getContext("2d");cx.fillStyle="#E4E3E0";cx.fillRect(0,0,1080,1080);cx.fillStyle="#8E1B2C";cx.fillRect(0,0,1080,3);cx.fillRect(0,1077,1080,3);cx.textAlign="center";cx.textBaseline="middle";cx.fillStyle="#2A1C16";cx.font="italic 42px Literata,Georgia,serif";var words=frase.split(" ");var lines=[];var ln="";for(var wi=0;wi<words.length;wi++){var test=ln+(ln?" ":"")+words[wi];if(cx.measureText(test).width>800){lines.push(ln);ln=words[wi];}else ln=test;}if(ln)lines.push(ln);var ly=540-(lines.length-1)*30;for(var li=0;li<lines.length;li++)cx.fillText(lines[li],540,ly+li*60);cx.fillStyle="#5C514B";cx.font="16px 'Atkinson Next',sans-serif";cx.fillText("\u2014 the cafausica brew guide",540,960);cx.font="14px 'Atkinson Next',sans-serif";cx.fillStyle="#5C514BAA";cx.fillText(appUrl,540,990);cv.toBlob(function(blob){if(navigator.share&&navigator.canShare){try{var f2=new File([blob],"il-sorso.png",{type:"image/png"});if(navigator.canShare({files:[f2]})){navigator.share({text:shareTxt,files:[f2]}).catch(function(){});return;}}catch(ex2){}}if(navigator.share){navigator.share({text:shareTxt}).catch(function(){});}else{var a2=document.createElement("a");a2.href=URL.createObjectURL(blob);a2.download="il-sorso.png";a2.click();}},"image/png");}catch(ex){if(navigator.share)navigator.share({text:shareTxt}).catch(function(){});else prompt("copia:",shareTxt);}},
+style:{background:T.green,border:"none",borderRadius:10,color:T.onGreen,fontSize:15,cursor:"pointer",padding:"12px 20px",display:"flex",alignItems:"center",justifyContent:"center",gap:8,marginTop:8,fontWeight:500,fontFamily:"'Atkinson Next',system-ui,-apple-system,sans-serif",letterSpacing:0.3,width:"100%",boxSizing:"border-box"}},
 (lang==="en"?"share the sip":"condividi il sorso")
 ),
 
@@ -1210,7 +1265,7 @@ style:{background:"#5A9A7D",border:"none",borderRadius:10,color:"#FFF",fontSize:
 
 
 e("div",{style:{display:"flex",gap:10,marginTop:8}},
-e("button",{onClick:save,style:{flex:1,padding:"16px",borderRadius:8,border:"none",background:T.accent,color:"#FFF",fontSize:16,fontWeight:500,cursor:"pointer"}},(lang==="en"?"save":"salva")),
+e("button",{onClick:save,style:{flex:1,padding:"16px",borderRadius:8,border:"none",background:T.fill,color:T.onFill,fontSize:16,fontWeight:500,cursor:"pointer"}},(lang==="en"?"save":"salva")),
 e("button",{onClick:home,style:{flex:1,padding:"16px",borderRadius:8,border:"1px solid "+T.border,background:"transparent",color:T.text,fontSize:16,fontWeight:500,cursor:"pointer"}},"home")
 )
 )
@@ -1230,7 +1285,7 @@ e("div",{style:{display:"flex",justifyContent:"center",gap:8,marginBottom:6}},
 e("span",{style:{fontSize:16,fontWeight:700,color:T.textDim,letterSpacing:1}},isDesc?"":("STEP "+(cs+1)+" / "+sc.steps.length)),
 cW>0&&e("span",{style:{fontSize:16,fontWeight:600,color:T.accent,letterSpacing:0.5}},Math.round(cW)+"ml totali"),
 ),
-(()=>{const act=st?.waterAdd>0?"VERSA":/swirl|mescol|stir|spin|rompi|scav|schiuma|capovolg|premi|press/i.test(st?.text||"")?"AGITA":"ATTENDI";const acCol=act==="VERSA"?T.accent:act==="AGITA"?"#D4A03C":T.textDim;return e("div",{style:{display:"inline-block",padding:"3px 14px",borderRadius:8,background:acCol+"20",color:acCol,fontSize:16,fontWeight:600,letterSpacing:1.5,marginBottom:8}},act)})(),
+(()=>{const act=st?.waterAdd>0?"VERSA":/swirl|mescol|stir|spin|rompi|scav|schiuma|capovolg|premi|press/i.test(st?.text||"")?"AGITA":"ATTENDI";const acCol=act==="VERSA"?T.accent:act==="AGITA"?T.warn:T.textDim;return e("div",{style:{display:"inline-block",padding:"3px 14px",borderRadius:8,background:acCol+"20",color:acCol,fontSize:16,fontWeight:600,letterSpacing:1.5,marginBottom:8}},act)})(),
 e("div",{style:{fontSize:64,fontWeight:600,fontVariantNumeric:"tabular-nums",color:isDesc?T.text:pr>0.85?T.accentLight:T.text,lineHeight:1,marginBottom:6}},isDesc?"—":fmt(Math.max(0,dur-se))),
 !isDesc&&e("div",{style:{height:6,borderRadius:3,background:T.border,marginBottom:12,overflow:"hidden"}},
 e("div",{style:{height:"100%",borderRadius:3,background:pr>0.85?T.accentLight:T.accent,width:(pr*100)+"%",transition:"width 0.3s linear"}}),
@@ -1242,15 +1297,15 @@ e("span",{style:{fontSize:20,fontWeight:600,color:T.accent}},"ml"),
 ),
 ),
 e("div",{style:{flex:1}},sc.steps.map((s,i)=>{const d=i<cs,a=i===cs;return e("div",{key:i,style:{display:"flex",gap:8,marginBottom:5,opacity:d?0.35:a?1:0.45}},
-e("div",{style:{width:24,height:24,borderRadius:12,background:d?T.green:a?T.accent:T.surfaceHi,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}},
-d?ICO.check(11):e("span",{style:{fontSize:16,fontWeight:700,color:a?"#FFF":T.textDim}},i+1)),
+e("div",{style:{width:24,height:24,borderRadius:12,background:d?T.green:a?T.fill:T.surfaceHi,display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}},
+d?ICO.check(11):e("span",{style:{fontSize:16,fontWeight:700,color:a?T.onFill:T.textDim}},i+1)),
 e("div",{style:{fontSize:18,color:a?T.text:T.textSec,lineHeight:1.4,paddingTop:1}},(()=>{var _t=scaleText(lang==="en"&&selR?enStep(selR,i):s.text,sc.mult);return _t.length>65?_t.substring(0,62)+"...":_t;})()),
 );})),
 ),
 e("div",{style:{padding:"10px 18px 24px",display:"flex",gap:8,background:T.bg,borderTop:"1px solid "+T.border}},
 cs>0&&e("button",{onClick:()=>{setCs(c=>Math.max(0,c-1));setSe(0);beep(330,100);},style:{...S.ibSm,width:48,height:48,borderRadius:14}},ICO.back(18)),
-isDesc?e("button",{onClick:skip,style:{...S.bt(T.accent,"#FFF"),flex:1,display:"flex",alignItems:"center",justifyContent:"center",gap:8}},ICO.skip(18),(lang==="en"?" Next":" Avanti")):e("button",{onClick:()=>setRun(!run),style:{...S.bt(run?T.surface:T.accent,run?T.text:"#FFF"),flex:1,display:"flex",alignItems:"center",justifyContent:"center",gap:8,border:run?"1px solid "+T.border:"none"}},
-run?[ICO.pause(18,run?T.text:"#FFF"),(lang==="en"?" Pause":" Pausa")]:[ICO.play(18),(lang==="en"?" Resume":" Riprendi")]),
+isDesc?e("button",{onClick:skip,style:{...S.bt(T.fill,T.onFill),flex:1,display:"flex",alignItems:"center",justifyContent:"center",gap:8}},ICO.skip(18,T.onFill),(lang==="en"?" Next":" Avanti")):e("button",{onClick:()=>setRun(!run),style:{...S.bt(run?T.surface:T.fill,run?T.text:T.onFill),flex:1,display:"flex",alignItems:"center",justifyContent:"center",gap:8,border:run?"1px solid "+T.border:"none"}},
+run?[ICO.pause(18,run?T.text:T.onFill),(lang==="en"?" Pause":" Pausa")]:[ICO.play(18,T.onFill),(lang==="en"?" Resume":" Riprendi")]),
 !isDesc&&e("button",{onClick:skip,style:{...S.ibSm,width:48,height:48,borderRadius:14}},ICO.skip(18,T.accentLight)),
 ),
 );
@@ -1272,7 +1327,7 @@ e("div",{style:{display:"flex",gap:2}},[1,2,3,4,5].map(s=>ICO.star(22,s<=h.ratin
 ),
 e("div",{style:{display:"flex",gap:8,marginTop:8,fontSize:16,color:T.textDim}},h.coffee+"g · "+h.water+"ml · "+h.clicks+" click"+(h.temperature>0?" · "+h.temperature+"°C":"")),
 h.notes&&e("div",{style:{marginTop:6,fontSize:16,color:T.textSec}},'"'+h.notes+'"'),
-h.sorsoFrase&&e("div",{style:{marginTop:4,fontSize:16,color:T.accent,fontStyle:"italic",fontFamily:"'Cormorant Garamond',Georgia,serif"}},h.sorsoFrase),
+h.sorsoFrase&&e("div",{style:{marginTop:4,fontSize:16,color:T.accent,fontStyle:"italic",fontFamily:"'Literata',Georgia,serif"}},h.sorsoFrase),
 h.sorsoTags&&h.sorsoTags.length>0&&e("div",{style:{display:"flex",flexWrap:"wrap",gap:4,marginTop:4}},h.sorsoTags.map(function(t){return e("span",{key:t,style:{fontSize:14,padding:"2px 8px",borderRadius:10,background:T.accent+"15",color:T.accent}},t);})),
 );}),
 e("button",{key:"del",onClick:()=>sH([]),style:{...S.bt(T.surface,T.red),marginTop:8,border:"1px solid "+T.border,display:"flex",alignItems:"center",justifyContent:"center",gap:8}},ICO.trash(16),(lang==="en"?" Clear history":" Cancella storico")),
@@ -1337,7 +1392,7 @@ style:{width:"100%",padding:"8px 10px",borderRadius:8,border:"1px solid "+T.bord
 ),
 )),
 e("button",{onClick:addStep,style:{...S.bt(T.surface,T.accent),width:"100%",marginBottom:16,border:"1px dashed "+T.accent}},(lang==="en"?"+ Add Step":"+ Aggiungi Step")),
-e("button",{onClick:saveR,style:{...S.bt("#2D7D46","#FFF"),width:"100%",marginBottom:10,fontSize:18,fontWeight:600}},isEdit?(lang==="en"?"\u2713 Save Changes":"\u2713 Salva Modifiche"):(lang==="en"?"\u2713 Save Recipe":"\u2713 Salva Ricetta")),
+e("button",{onClick:saveR,style:{...S.bt(T.green,T.onGreen),width:"100%",marginBottom:10,fontSize:18,fontWeight:600}},isEdit?(lang==="en"?"\u2713 Save Changes":"\u2713 Salva Modifiche"):(lang==="en"?"\u2713 Save Recipe":"\u2713 Salva Ricetta")),
 isEdit&&e("button",{onClick:delR,style:{...S.bt(T.surface,T.red),width:"100%",border:"1px solid "+T.border,display:"flex",alignItems:"center",justifyContent:"center",gap:8}},ICO.trash(16),(lang==="en"?" Delete Recipe":" Elimina Ricetta")),
 ));
 }
@@ -1388,7 +1443,7 @@ e("br"),
 ),
 );
 
-return e("div",{style:{...S.pg,background:T.bg,color:T.text}},e("div",{style:{padding:40,textAlign:"center"}},e("button",{onClick:home,style:{padding:"14px 32px",borderRadius:8,border:"2px solid "+T.border,background:"transparent",color:T.text,fontSize:16,fontWeight:500,cursor:"pointer",fontFamily:"'Inter',sans-serif",letterSpacing:1}},"home")));
+return e("div",{style:{...S.pg,background:T.bg,color:T.text}},e("div",{style:{padding:40,textAlign:"center"}},e("button",{onClick:home,style:{padding:"14px 32px",borderRadius:8,border:"2px solid "+T.border,background:"transparent",color:T.text,fontSize:16,fontWeight:500,cursor:"pointer",fontFamily:"'Atkinson Next',system-ui,-apple-system,sans-serif",letterSpacing:1}},"home")));
 }
 
 ReactDOM.createRoot(document.getElementById("root")).render(e(App));
